@@ -320,7 +320,7 @@ const HeaderOne = () => {
                         {/* Logo Start */}
                         <div className="logo">
                             <Link to="/" className="link">
-                                <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${siteDetails?.siteLogo}`} alt="Logo" />
+                                <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}/${siteDetails?.siteLogo}`} alt="Logo" />
                             </Link>
                         </div>
                         {/* Logo End  */}
