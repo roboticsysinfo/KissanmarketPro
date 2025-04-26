@@ -24,6 +24,7 @@ const Account = () => {
                     <ul>
 
                         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+
                             <Row>
                                 <Col sm={3}>
                                     <Nav variant="pills" className="flex-column accountsidebar">
@@ -41,6 +42,7 @@ const Account = () => {
                                         </Nav.Item>
                                     </Nav>
                                 </Col>
+
                                 <Col sm={9}>
                                     <Tab.Content>
 
@@ -79,6 +81,7 @@ const Account = () => {
                                     </Tab.Content>
                                 </Col>
                             </Row>
+                            
                         </Tab.Container>
 
                     </ul>

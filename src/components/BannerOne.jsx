@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import { fetchBanners } from '../redux/slices/bannersSlice';
+import { Spinner } from 'react-bootstrap';
 
 const BannerOne = () => {
     const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const BannerOne = () => {
         slidesToScroll: 1,
         initialSlide: 0,
         nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />,   
+        prevArrow: <SamplePrevArrow />,
     };
 
     return (
@@ -64,11 +65,11 @@ const BannerOne = () => {
                     </a>
                     <div className="banner-slider">
                         {status === 'loading' ? (
-                            <p>Loading...</p>
+                            <Spinner variant='success' style={{margin: "auto"}}/>
                         ) : (
                             <Slider {...settings}>
-                                {banners.map((banner) => (
-                                    <div key={banner.id} className="banner-slider__item">
+                                {banners.map((banner, index) => (
+                                    <div key={banner.id || index} className="banner-slider__item">
                                         <div className="banner-slider__inner flex-between position-relative">
                                             <div className="banner-item__content">
                                                 <h1 className="banner-item__title bounce">{banner.title}</h1>

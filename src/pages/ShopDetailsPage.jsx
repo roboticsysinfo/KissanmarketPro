@@ -6,9 +6,10 @@ import HeaderOne from '../components/HeaderOne';
 import BreadcrumbTwo from '../components/BreadcrumbTwo';
 import FooterOne from '../components/FooterOne';
 import BottomFooter from '../components/BottomFooter';
-import FarmerDetailSection from '../components/FarmerDetailSection';
+import ShopReview from '../components/ShopReview';
+import ShopDetailsScreen from '../components/ShopDetailsSection';
 
-const FarmerDetailPage = () => {
+const ShopDetailsPage = () => {
 
     return (
         <>
@@ -26,11 +27,13 @@ const FarmerDetailPage = () => {
           <HeaderOne />
     
           {/* Breadcrumb */}
-          <BreadcrumbTwo title={"Farmer Details"} />
+          <BreadcrumbTwo title={"Shop Details"} />
     
-          {/* Farmer Detail section */}
-          <FarmerDetailSection />
+          {/* Shop Detail section */}
+          <ShopDetailsScreen />
     
+          {/* Review Sectino */}
+          <ShopReview />
     
           {/* FooterTwo */}
           <FooterOne />
@@ -44,4 +47,4 @@ const FarmerDetailPage = () => {
       );
 }
 
-export default FarmerDetailPage
+export default ShopDetailsPage

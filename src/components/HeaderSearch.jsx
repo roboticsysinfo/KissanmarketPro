@@ -41,7 +41,7 @@ const HeaderSearch = () => {
                     <div className="search-form__wrapper position-relative">
                         <input
                             type="text"
-                            className="search-form__input common-input py-13 ps-16 pe-18 rounded-end-pill pe-44"
+                            className="search-form__input common-input py-13 ps-16 pe-18 pe-44"
                             placeholder="Search for a product or shops"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}

@@ -1,270 +1,124 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../redux/slices/categorySlice';
-import { Link, useParams } from 'react-router-dom';
-import { fetchProductsByShopId, fetchShopByShopId } from "../redux/slices/shopSlice";
-import slugify from 'slugify';
+import { getFarmerDetailsById } from '../redux/slices/farmerSlice';
+import { sendFamilyRequest, getRequestsForCustomer } from '../redux/slices/farmerFamilySlice';
+import { Spinner } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
+import { FaCheckCircle } from 'react-icons/fa';
 
 const FarmerDetailSection = () => {
+  const { slug } = useParams();
+  const dispatch = useDispatch();
+  const { farmerDetailsforCustomer, loading } = useSelector((state) => state.farmers);
+  const { customerRequests } = useSelector((state) => state.familyfarmer);
 
-    const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user?.id;
 
-    // Categories state
-    const { categories, status: categoryStatus, error: categoryError } = useSelector((state) => state.categories);
-    const { products, status, error } = useSelector((state) => state.shop);
-    const { shop } = useSelector(state => state.shop);
-    const { reviews } = useSelector((state) => state.reviews);
-    const { slug } = useParams(); // Get Shop Id From URL
-    const slugParts = slug.split('-');
-    const shopId = slugParts[slugParts.length - 1]; // last part productId 
 
-    // Fetch categories when the component mounts
-    useEffect(() => {
-        if (categoryStatus === 'idle') {
-            dispatch(fetchCategories());
-        }
-    }, [dispatch, categoryStatus]);
+  const slugParts = slug.split('-');
+  const farmerId = slugParts[slugParts.length - 1]; // last part is farmerId
 
-    // Fetch shop details when the component mounts
-    useEffect(() => {
-        dispatch(fetchShopByShopId(shopId));
-    }, [dispatch, shopId]);
-
-    useEffect(() => {
-        dispatch(fetchProductsByShopId(shopId));
-    }, [dispatch, shopId]);
-
-    // Handle loading and error states for categories
-    if (categoryStatus === 'loading') {
-        return <p>Loading categories...</p>;
+  useEffect(() => {
+    if (farmerId) {
+      dispatch(getFarmerDetailsById(farmerId));
     }
-    if (categoryStatus === 'failed') {
-        return <p>Error: {categoryError}</p>;
+    if (userId) {
+      dispatch(getRequestsForCustomer(userId));
     }
+  }, [dispatch, farmerId, userId]);
 
-    // Handle loading and error states for shop
-    if (status === 'loading') return <p>Loading...</p>;
-    if (status === 'failed') return <p>Error: {error}</p>;
+  const handleSendRequest = () => {
+    if (userId && farmerId) {
+      dispatch(sendFamilyRequest({ fromCustomer: userId, toFarmer: farmerId }))
+        .unwrap()
+        .then(() => {
+          toast.success("Request sent successfully! 🎉");
+          dispatch(getRequestsForCustomer(userId));
+        })
+        .catch((err) => {
+          toast.error(err?.message || "Failed to send request");
+        });
+    }
+  };
 
+  const getRequestStatus = () => {
+    const request = customerRequests.find(
+      (req) => req.toFarmer?._id === farmerId
+    );
+    return request ? request.status : null;
+  };
 
+  if (loading) {
     return (
+      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "60vh" }}>
+        <Spinner animation="border" variant="success" />
+      </div>
+    );
+  }
 
-        <>
+  if (!farmerDetailsforCustomer) {
+    return (
+      <div className="text-center mt-5">
+        <h3>Farmer not found.</h3>
+      </div>
+    );
+  }
 
-            <section className="vendor-two-details py-80">
-                <div className="side-overlay false" />
-                <div className="container container-lg">
-                    <div className="vendor-two-details-wrapper d-flex flex-wrap align-items-start gap-24">
-                        <div className="shop-sidebar false">
-                            <button
-                                type="button"
-                                className="shop-sidebar__close d-lg-none d-flex w-32 h-32 flex-center border border-gray-100 rounded-circle hover-bg-main-600 bg-main-600 position-absolute inset-inline-end-0 me-10 mt-8 text-white border-main-600"
-                            >
-                                <i className="ph ph-x" />
-                            </button>
+  const status = getRequestStatus();
 
-                            <div className="d-flex flex-column gap-12 px-lg-0 px-3 py-lg-0 py-4">
-                                <div className="bg-neutral-600 rounded-8 p-24">
-                                    <div className="d-flex align-items-center justify-content-between">
-                                        <span className="w-80 h-80 flex-center bg-white rounded-8 flex-shrink-0">
-                                            <img
-                                                alt="{shop?.shop_name}"
-                                                src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${shop?.shop_profile_image || "default-image.jpg"}`}
-                                            />
-                                        </span>
-                                        {/* <div className="d-flex flex-column gap-24">
-                                            <a
-                                                href={`https://wa.me/91${shop?.whatsappNumber}`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-uppercase group border border-white px-16 py-8 rounded-pill text-white text-sm hover-bg-main-two-600 hover-text-white hover-border-main-two-600 transition-2 flex-center gap-8 w-100"
-                                            >
-                                                Chat on WhatsApp
-                                            </a>
+  return (
+    <div className="container py-60 my-60">
+      <div className="row justify-content-center">
+        <div className="col-lg-8 col-md-10 col-sm-12">
+          <div className="card shadow rounded-4 p-40">
+            <div className="d-flex flex-column align-items-center">
+              <img
+                src={`${process.env.REACT_APP_BASE_URL_PRIMARY}/${farmerDetailsforCustomer.profileImg}` || "https://avatar.iran.liara.run/public/boy"}
+                alt={farmerDetailsforCustomer.name}
+                className="rounded-circle object-fit-cover mb-4"
+                style={{ width: '120px', height: '120px', objectFit: 'cover' }}
+              />
+              <h1 className="text-uppercase fw-bold" style={{ color: '#5a6a3f', fontSize: '2rem' }}>
+                {farmerDetailsforCustomer.name}
+              </h1>
+              <h2 className="text-center fw-semibold mt-1 mb-0" style={{ color: '#305CDE', fontSize: '16px' }}>
+                <FaCheckCircle /> {farmerDetailsforCustomer.isKYCVerified ? "Verified" : "UnVerified"}
+              </h2>
+              <p className="mt-3 text-dark" style={{ maxWidth: '600px' }}>
+                {farmerDetailsforCustomer.city_district || "N/A"}
+              </p>
+              <p className="mt-3 text-dark" style={{ maxWidth: '600px' }}>
+                {farmerDetailsforCustomer.shop || "N/A"}
+              </p>
 
-                                        </div> */}
-                                    </div>
-                                    <div className="mt-32">
-                                        <h6 className="text-white fw-semibold mb-12">
-                                            {shop?.shop_name}
-                                        </h6>
-                                        <div className="flex-align gap-6">
-                                            <div className="flex-align gap-8">
-                                                <span className="text-15 fw-medium text-warning-600 d-flex">
-                                                    <i className="ph-fill ph-star" />
-                                                </span>
-                                                <span className="text-15 fw-medium text-warning-600 d-flex">
-                                                    <i className="ph-fill ph-star" />
-                                                </span>
-                                                <span className="text-15 fw-medium text-warning-600 d-flex">
-                                                    <i className="ph-fill ph-star" />
-                                                </span>
-                                                <span className="text-15 fw-medium text-warning-600 d-flex">
-                                                    <i className="ph-fill ph-star" />
-                                                </span>
-                                                <span className="text-15 fw-medium text-warning-600 d-flex">
-                                                    <i className="ph-fill ph-star" />
-                                                </span>
-                                            </div>
-                                            <span className="text-xs fw-medium text-white">
-                                                {reviews.averageRating ? reviews.averageRating.toFixed(1) : "0.0"}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div className="mt-32 d-flex flex-column gap-8">
-                                        <a
-                                            className="active px-16 py-12 border text-white border-neutral-500 w-100 rounded-4 hover-bg-main-600 hover-border-main-600"
+              <hr className="w-100 my-4" />
 
-                                        >
-                                            About Shop
-                                        </a>
-                                        <a
-                                            className="px-16 py-12 border text-white border-neutral-500 w-100 rounded-4 hover-bg-main-600 hover-border-main-600"
+              {/* Adopt Farmer Button */}
+              {status === 'pending' ? (
+                <button type="button" className="btn btn-warning rounded-pill mt-30" disabled>
+                  Pending
+                </button>
+              ) : status === 'accepted' ? (
+                <button type="button" className="btn btn-success rounded-pill mt-30" disabled>
+                  Accepted
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="btn btn-main rounded-pill mt-20"
+                  onClick={handleSendRequest}
+                >
+                  Adopt as Family Farmer
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-                                        >
-                                            Products
-                                        </a>
-
-                                    </div>
-                                </div>
-
-                                <div className="border border-gray-50 rounded-8 p-24">
-                                    <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">
-                                        Product Category
-                                    </h6>
-
-                                    <ul className="max-h-540 overflow-y-auto scroll-sm">
-
-                                        {categories.map((category) => (
-                                            <li key={category._id} className="mb-24">
-                                                <Link
-                                                    to={`/category/${category._id}`} // Assuming a route structure like /shop/categoryId
-                                                    className="text-gray-900 hover-text-main-600"
-                                                >
-                                                    {category.name} ({category.productCount || 0}) {/* Adjust if you have product counts */}
-                                                </Link>
-                                            </li>
-                                        ))}
-
-                                    </ul>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div className="vendor-two-details__contents h-200" >
-
-                            <div
-                                className="inner-banner-two bg-img mb-30 rounded-16 overflow-hidden"
-                                style={{
-                                    backgroundImage: `url(${process.env.REACT_APP_BASE_URL_PRIMARY}${shop?.shop_cover_image?.replace(/\\/g, "/") || "assets/images/thumbs/inner-banner-two-bg.png"})`,
-                                    backgroundSize: "cover",
-                                    backgroundPosition: "center",
-                                }}
-                            >
-
-                                <div className="row">
-                                    <div className="col-6 d-xl-block d-none" />
-                                    <div className="col-xl-6 d-xl-flex">
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="shop_about_section">
-                                <h4 className=''>About Us</h4>
-                                <hr />
-                                <p>
-                                    {shop?.shop_description}
-                                </p>
-                            </div>
-
-                            <div className='shop_products_section'>
-
-                                <h4>Our Products</h4>
-                                <hr />
-
-                                <div className='row'>
-
-                                    {products.length > 0 ? (
-                                        products.map((product) => (
-
-                                            <div key={product._id} className='col-lg-4 col-md-6 col-xs-12 col-sm-12 mb-30' >
-
-                                                <div
-
-                                                    className="product-card h-100 p-16  border border-gray-100 hover-border-main-600 rounded-16 position-relative transition-2"
-                                                >
-                                                    <div className="product-card__thumb rounded-8 bg-gray-50 position-relative">
-                                                        <Link className="w-100 h-100 flex-center" to={`/product/${slugify(product.name, { lower: true })}-${product._id}`}>
-                                                            <img alt={product.name} className="w-auto max-w-unset"
-                                                                src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${product.product_image}`}
-                                                            />
-                                                        </Link>
-
-                                                        <div className="position-absolute inset-block-start-0 inset-inline-start-0 mt-16 ms-16 z-1 d-flex flex-column gap-8">
-                                                            {product.discount && (
-                                                                <span className="text-main-two-600 w-40 h-40 d-flex justify-content-center align-items-center bg-white rounded-circle shadow-sm text-xs fw-semibold">
-                                                                    {product.discount}%
-                                                                </span>
-                                                            )}
-                                                            {product.label && (
-                                                                <span className="text-neutral-600 w-40 h-40 d-flex justify-content-center align-items-center bg-white rounded-circle shadow-sm text-xs fw-semibold">
-                                                                    {product.label}
-                                                                </span>
-                                                            )}
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="product-card__content mt-16 w-100">
-
-                                                        <h6 className="title text-lg fw-semibold my-16">
-                                                            <Link className="link text-line-2" to={`/product/${slugify(product.name, { lower: true })}-${product._id}`}>
-                                                                {product.name}
-                                                            </Link>
-                                                        </h6>
-
-                                                        <span className="py-2 px-8 text-xs rounded-pill text-main-two-600 bg-main-two-50 mt-16">
-                                                            by {product.shop_id?.shop_name}
-                                                        </span>
-                                                        <div className="product-card__price mt-16 mb-30">
-                                                            <span class="mb-[6px] text-[#191919] text-base font-medium font-['Poppins'] leading-normal">
-                                                                Rs{product.price_per_unit}
-                                                            </span>
-
-                                                            <span className="text-heading text-md fw-semibold">
-                                                                {product.quantity} <span className="text-gray-500 fw-normal">/Qty</span>
-                                                            </span>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-                                        ))
-                                    ) : (
-                                        <p>No products available.</p>
-                                    )}
-
-                                </div>
-
-                            </div>
-
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </>
-
-    )
-}
-
-export default FarmerDetailSection
+export default FarmerDetailSection;

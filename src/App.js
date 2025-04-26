@@ -66,6 +66,11 @@ import CustomerPointsTable from "./pages/admin/CustomerPointsTable";
 import CustomerPointsTransactions from "./pages/admin/CustomerPointsTransactions";
 import CustomerRedeemHistory from "./pages/admin/CustomerRedeemHistory";
 import CustomerHelpSupport from "./pages/admin/CustomerHelpSupport";
+import ShopDetailsPage from "./pages/ShopDetailsPage"
+import Farmers from "./pages/Farmers";
+import SitePrivacyPolicyPage from "./pages/SitePrivacyPolicyPage";
+import SiteTermsConditionsPage from "./pages/SiteTermsConditionsPage";
+import KGMobileAppsPage from "./pages/KGMobileAppsPage";
 
 
 function App() {
@@ -79,20 +84,28 @@ function App() {
         {/* Public Routes */}
         <Route path="/" element={<HomePageOne />} />
         <Route path="products" element={<ShopPage />} />
+        <Route path="farmers" element={<Farmers />} />
         <Route path="about-us" element={<AboutPage />} />
         <Route path="shops" element={<VendorPage />} />
         <Route path="product/:slug" element={<ProductDetailsPageOne />} />
         <Route path="cart" element={<CartPage />} />
         <Route path="blogs" element={<BlogPage />} />
         <Route path="blog/:slug" element={<BlogDetailsPage />} />
-        <Route path="shop/:slug" element={<FarmerDetailPage />} />
+        <Route path="farmer/:slug" element={<FarmerDetailPage />} />
+        <Route path="shop/:slug" element={<ShopDetailsPage />} />
         <Route path="category/:categoryId" element={<CategoryShopPage />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="shops/:locationvalue" element={<ShopLocation />} />
 
+        <Route path="kissan-growth-mobile-apps" element={<KGMobileAppsPage />} />
+
+        <Route path="privacy-policy" element={<SitePrivacyPolicyPage />} />
+        <Route path="terms-and-conditions" element={<SiteTermsConditionsPage />} />
+
         {/* Login and Register Routes */}
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
+
 
         {/* Customer Routes */}
         <Route
@@ -111,7 +124,6 @@ function App() {
             </PrivateRoute>
           }
         />
-
 
         {/* Admin Routes */}
 

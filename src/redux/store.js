@@ -17,7 +17,8 @@ import redeemProductsReducer from './slices/redeemProductSlice';
 import adminMessageReducer from './slices/adminMessageSlice';
 import farmingTipsReducer from './slices/farmingTipsSlice';
 import customerRedeemProductReducer from './slices/customerRedeemProductSlice';
-import customerHelpSupportReducer from './slices/customerHelpSupportSlice'
+import customerHelpSupportReducer from './slices/customerHelpSupportSlice';
+import familyFarmerReducer from './slices/farmerFamilySlice'
 
 
 const store = configureStore({
@@ -42,7 +43,8 @@ const store = configureStore({
     adminMessages: adminMessageReducer,
     farmingTips: farmingTipsReducer,
     customerRedeemProducts: customerRedeemProductReducer,
-    customerHelpSupport: customerHelpSupportReducer
+    customerHelpSupport: customerHelpSupportReducer,
+    familyfarmer: familyFarmerReducer,
   },
 
 });

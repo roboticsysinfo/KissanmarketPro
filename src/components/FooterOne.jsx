@@ -48,19 +48,6 @@ const FooterOne = () => {
                             </div>
                             <div className="flex-align gap-16 mb-16">
                                 <span className="w-32 h-32 flex-center rounded-circle bg-main-600 text-white text-md flex-shrink-0">
-                                    <i className="ph-fill ph-phone-call" />
-                                </span>
-                                <div className="flex-align gap-16 flex-wrap">
-                                    <Link
-                                        to="/tel:{siteDetails?.phone}"
-                                        className="text-md text-gray-900 hover-text-main-600"
-                                    >
-                                        {siteDetails?.contactDetails?.phone}
-                                    </Link>
-                                </div>
-                            </div>
-                            <div className="flex-align gap-16 mb-16">
-                                <span className="w-32 h-32 flex-center rounded-circle bg-main-600 text-white text-md flex-shrink-0">
                                     <i className="ph-fill ph-envelope" />
                                 </span>
                                 <Link
@@ -152,7 +139,7 @@ const FooterOne = () => {
                             <ul className="footer-menu">
 
                                 <li className="mb-16">
-                                    <Link to="/term-and-conditions" className="text-gray-600 hover-text-main-600">
+                                    <Link to="/terms-and-conditions" className="text-gray-600 hover-text-main-600">
                                         Terms & Conditions
                                     </Link>
                                 </li>

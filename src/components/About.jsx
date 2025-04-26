@@ -22,14 +22,15 @@ const About = () => {
 
             {/* SEO Meta Tags */}
             <Helmet>
-                <title>Kissan Growth: Your Local Farm Marketplace!</title>
-                <meta name="description" content="Discover Kissan Growth, India’s trusted local farm marketplace connecting local farmers and consumers. Buy fresh fruits, vegetables, dairy, and crops directly from farmers at fair prices—no middlemen. Support local agriculture today!" />
-                <meta name="keywords" content="Kissan Growth, fresh produce, buy from farmers, organic fruits and vegetables, local farm marketplace, Indian farmers, dairy products, sustainable farming, support local agriculture, buy direct from farmers, farm fresh food, affordable produce, fair prices, India farm revolution, farm-to-table, no middlemen." />
-                <meta property="og:title" content="Kissan Growth: Your Local Farm Marketplace!" />
-                <meta property="og:description" content="Discover Kissan Growth, India’s trusted local farm marketplace connecting local farmers and consumers. Buy fresh fruits, vegetables, dairy, and crops directly from farmers at fair prices—no middlemen. Support local agriculture today!" />
-                <meta property="og:keywords"  content="Kissan Growth, fresh produce, buy from farmers, organic fruits and vegetables, local farm marketplace, Indian farmers, dairy products, sustainable farming, support local agriculture, buy direct from farmers, farm fresh food, affordable produce, fair prices, India farm revolution, farm-to-table, no middlemen." />
+                <title>Kissan Growth: India’s #1 Farm Online Marketplace</title>
+                <meta name="description" content="Kissan Growth, India’s #1 Farm Online Marketplace connecting local farmers and consumers. Buy crops, fresh fruits, vegetables directly from farmers." />
+                <meta name="keywords" content="Kissan Growth, fresh produce, buy from farmers, organic fruits and vegetables, local farm marketplace, Indian farmers, dairy products, sustainable farming, support local agriculture, buy direct from farmers, farm fresh food, affordable produce, fair prices, India farm revolution, farm-to-table, no middlemen, India’s #1 Farm Online Marketplace" />
+                <meta property="og:title" content="Kissan Growth: India’s #1 Farm Online Marketplace" />
+                <meta property="og:description" content="Kissan Growth, India’s #1 Farm Online Marketplace connecting local farmers and consumers. Buy crops, fresh fruits, vegetables directly from farmers." />
+                <meta property="og:keywords" content="Kissan Growth, fresh produce, buy from farmers, organic fruits and vegetables, local farm marketplace, Indian farmers, dairy products, sustainable farming, support local agriculture, buy direct from farmers, farm fresh food, affordable produce, fair prices, India farm revolution, farm-to-table, no middlemen, India’s #1 Farm Online Marketplace" />
                 <meta property="og:type" content="website" />
             </Helmet>
+
 
             <div className='container my-60 py-40'>
 
@@ -57,7 +58,7 @@ const About = () => {
 }
 
 const styles = {
-    heading:{
+    heading: {
         fontSize: 42,
         marginBottom: 30
     }

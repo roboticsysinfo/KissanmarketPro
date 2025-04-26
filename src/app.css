@@ -6,9 +6,40 @@
     background-color: rgb(0 0 0 / 40%) !important;
 }
 
+.kissan-growth-app-info strong {
+    color: #353535;
+}
+
+.kissan-growth-customer-info strong, .kissan-growth-farmer-info strong {
+    color: #333;
+}
+
+.app-image {
+    border: 2px solid #efefef;
+}
+
+.search-form__input{
+    border-radius: 100px !important;
+}
+
+.bg-main-600 {
+    background-color: #299e60 !important;
+}
+
+.rounded-end-pill {
+    border-radius: 100px !important;
+}
+
 .logo img {
     max-width: 150px !important;
     mix-blend-mode: darken;
+}
+
+.footer-item__logo a img {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 100px !important;
 }
 
 .page_heading {

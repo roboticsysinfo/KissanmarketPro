@@ -163,25 +163,17 @@ const Contact = () => {
                                         {error && <p className="text-danger mt-3">{error}</p>}
 
                                     </div>
+
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div className="col-lg-4">
                         <div className="contact-box border border-gray-100 rounded-16 px-24 py-40">
-                            <h6 className="mb-48">Contact Information</h6>
-                            <div className="flex-align gap-16 mb-16">
-                                <span className="w-40 h-40 flex-center rounded-circle border border-gray-100 text-main-two-600 text-2xl flex-shrink-0">
-                                    <i className="ph-fill ph-phone-call" />
-                                </span>
-                                <Link
-                                    to="/tel:{siteDetails?.contactDetails?.phone}"
-                                    className="text-md text-gray-900 hover-text-main-600"
-                                >
-                                    {siteDetails?.contactDetails?.phone ?? "Null"}
-
-                                </Link>
-                            </div>
+                            <h6 className="mb-10">Contact Information</h6>
+                            <p className='mb-30'>
+                                Contact Nodal Officer for Any Queries
+                            </p>
                             <div className="flex-align gap-16 mb-16">
                                 <span className="w-40 h-40 flex-center rounded-circle border border-gray-100 text-main-two-600 text-2xl flex-shrink-0">
                                     <i className="ph-fill ph-envelope" />

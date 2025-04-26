@@ -105,6 +105,32 @@ export const updateSiteBanner = createAsyncThunk(
 );
 
 
+// ✅ Update Terms and Conditions
+export const updateTermsAndConditions = createAsyncThunk(
+    "siteDetails/updateTermsAndConditions",
+    async (termsContent, { rejectWithValue }) => {
+        try {
+            const response = await axiosInstance.put("/update/site-termsconditions", { termsAndConditions: termsContent });
+            return response.data.termsAndConditions;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || "Error updating terms and conditions");
+        }
+    }
+);
+
+// ✅ Update Privacy Policy
+export const updatePrivacyPolicy = createAsyncThunk(
+    "siteDetails/updatePrivacyPolicy",
+    async (privacyContent, { rejectWithValue }) => {
+        try {
+            const response = await axiosInstance.put("/update/site-privacypolicy", { privacyPolicy: privacyContent });
+            return response.data.privacyPolicy;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || "Error updating privacy policy");
+        }
+    }
+);
+
 
 // ✅ Slice (Reducer)
 const siteDetailsSlice = createSlice({
@@ -154,6 +180,17 @@ const siteDetailsSlice = createSlice({
                     state.data.banners = [...state.data.banners, ...action.payload]; // ✅ Append new banners
                 }
             })
+
+            .addCase(updateTermsAndConditions.fulfilled, (state, action) => {
+                if (state.data) {
+                    state.data.termsAndConditions = action.payload; // ✅ Update terms in state
+                }
+            })
+            .addCase(updatePrivacyPolicy.fulfilled, (state, action) => {
+                if (state.data) {
+                    state.data.privacyPolicy = action.payload; // ✅ Update privacy in state
+                }
+            });
             
 
     }

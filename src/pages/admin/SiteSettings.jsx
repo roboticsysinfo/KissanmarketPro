@@ -5,6 +5,8 @@ import SiteLogoForm from '../../components/admin/SiteLogoForm'
 import ContactForm from '../../components/admin/ContactForm'
 import SocialMediaForm from '../../components/admin/SocialMediaForm'
 import BannerForm from '../../components/admin/BannerForm'
+import AddPrivacyPolicy from '../../components/admin/AddPrivacyPolicy'
+import AddTermsCondition from '../../components/admin/AddTermsCondition'
 
 const SiteSettings = () => {
     return (
@@ -29,6 +31,14 @@ const SiteSettings = () => {
 
                             <Nav.Item>
                                 <Nav.Link eventKey="five">Site Banner</Nav.Link>
+                            </Nav.Item>
+
+                            <Nav.Item>
+                                <Nav.Link eventKey="six">Site Privacy Policy</Nav.Link>
+                            </Nav.Item>
+
+                            <Nav.Item>
+                                <Nav.Link eventKey="seven">Site Terms & Conditions</Nav.Link>
                             </Nav.Item>
 
                         </Nav>
@@ -72,6 +82,21 @@ const SiteSettings = () => {
                             <Tab.Pane eventKey="five">
 
                                 <BannerForm />
+
+                            </Tab.Pane>
+
+
+                            {/* Site Privacy Policy  */}
+                            <Tab.Pane eventKey="six">
+
+                                <AddPrivacyPolicy />
+
+                            </Tab.Pane>
+
+                            {/* Site Terms & Conditions  */}
+                            <Tab.Pane eventKey="seven">
+
+                                <AddTermsCondition />
 
                             </Tab.Pane>
 

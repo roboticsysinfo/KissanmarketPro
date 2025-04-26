@@ -35,7 +35,7 @@ const ProductListOne = () => {
 
                 <div className='row justify-content-center'>
                     <div className='col-lg-3 col-xs-12 col-sm-12 text-center'>
-                        <h3 class="sectionheading">Products</h3>
+                        <h3 className="sectionheading">Products</h3>
                     </div>
                 </div>
 

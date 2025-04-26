@@ -14,6 +14,7 @@ export const fetchFarmers = createAsyncThunk('farmers/fetchFarmers', async () =>
 });
 
 
+
 // Get Farmer by ID (Separate state for farmer details)
 export const getFarmerByIdForAdmin = createAsyncThunk(
   "auth/getFarmerByIdForAdmin",
@@ -26,6 +27,24 @@ export const getFarmerByIdForAdmin = createAsyncThunk(
     }
   }
 );
+
+
+// Get Farmer by ID (Separate state for farmer details)
+
+export const getFarmerDetailsById = createAsyncThunk(
+  "auth/getFarmerDetailsById",
+  async (farmerId, { rejectWithValue }) => {
+    try {
+
+      const response = await axiosInstance.get(`/get/farmer-details/${farmerId}`);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || { message: "Failed to fetch farmer" });
+    }
+  }
+);
+
 
 
 export const getFarmerReferralDetail = createAsyncThunk(
@@ -64,6 +83,7 @@ const farmersSlice = createSlice({
     farmers: [],
     pointsTransactions: [],
     farmerDetails: null,
+    farmerDetailsforCustomer: null,
     referralDetail: null,
     loading: false,
     error: null,
@@ -118,6 +138,20 @@ const farmersSlice = createSlice({
         state.farmerDetails = action.payload;
       })
       .addCase(getFarmerByIdForAdmin.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Failed to fetch farmer";
+      })
+
+      // Get Farmer by ID (Separating from user)
+      .addCase(getFarmerDetailsById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getFarmerDetailsById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.farmerDetailsforCustomer = action.payload;
+      })
+      .addCase(getFarmerDetailsById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || "Failed to fetch farmer";
       })

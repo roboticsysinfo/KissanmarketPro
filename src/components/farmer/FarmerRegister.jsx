@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import api from '../../utils/api';
 import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 
 const FarmerRegister = () => {
   const [name, setName] = useState('');
@@ -78,144 +79,166 @@ const FarmerRegister = () => {
   };
 
   return (
-    <div className='container-fluid ps-0'>
-      <div className='row'>
-        <div className='col-lg-7 col-xs-12 col-sm-12'>
-          <img src='/assets/images/bg/bg-banner-kg.jpg' style={styles.register_img} alt='Kisaan Growth' />
-        </div>
 
-        <div className='col-lg-5 col-xs-12 col-sm-12'>
-          <div className='form_container'>
-            <h4 className="text-start mb-4">Farmer Register</h4>
-            <hr />
+    <>
 
-            <Form onSubmit={handleRegister} encType="multipart/form-data">
-              <Form.Group className="my-3">
-                <Form.Label>Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </Form.Group>
+      {/* SEO Meta Tags */}
+      <Helmet>
+        <title>Register as a Farmer | KissanGrowth</title>
+        <meta name="description" content="Join KissanGrowth to access modern farming tools, market insights, and support. Register now to become part of India's digital agriculture revolution." />
+        <meta name="keywords" content="farmer registration, KissanGrowth, digital farming India, agriculture platform, online registration for farmers, farmer support India, agri tech solutions, Indian farmers, smart farming, farmer tools" />
+        <meta property="og:title" content="Register as a Farmer | KissanGrowth" />
+        <meta property="og:description" content="Join KissanGrowth to access modern farming tools, market insights, and support. Register now to become part of India's digital agriculture revolution." />
+        <meta property="og:keywords" content="farmer registration, KissanGrowth, digital farming India, agriculture platform, online registration for farmers, farmer support India, agri tech solutions, Indian farmers, smart farming, farmer tools" />
+        <meta property="og:type" content="website" />
+      </Helmet>
 
-              <Form.Group className="my-3">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </Form.Group>
 
-              <Form.Group className="my-3">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </Form.Group>
+      <div className='container-fluid ps-0'>
+        <div className='row'>
+          <div className='col-lg-7 col-xs-12 col-sm-12'>
+            <img src='/assets/images/bg/bg-banner-kg.jpg' style={styles.register_img} alt='Kisaan Growth' />
+          </div>
 
-              <Form.Group className="my-3">
-                <Form.Label>Phone Number</Form.Label>
-                <Form.Control
-                  type="number"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  maxLength={10}
-                  required
-                />
-              </Form.Group>
+          <div className='col-lg-5 col-xs-12 col-sm-12'>
+            <div className='form_container'>
+              <h4 className="text-start mb-4">Register as a Farmer </h4>
+              <p className='text-muted small'>
+                Sign up for free to create your farmers shop and placing orders
+              </p>
+              <hr />
 
-              <Form.Group className="my-3">
-                <Form.Label>Address</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  required
-                />
-              </Form.Group>
+              <Form onSubmit={handleRegister} encType="multipart/form-data">
+                <Form.Group className="my-3">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </Form.Group>
 
-              <Form.Group className="my-3">
-                <Form.Label>State</Form.Label>
-                <Form.Select value={selectedState} onChange={handleStateChange} required>
-                  <option value="">Select State</option>
-                  {statesCities.map((state) => (
-                    <option key={state._id} value={state.state}>{state.state}</option>
-                  ))}
-                </Form.Select>
-              </Form.Group>
+                <Form.Group className="my-3">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </Form.Group>
 
-              <Form.Group className="my-3">
-                <Form.Label>City/District</Form.Label>
-                <Form.Select
-                  value={selectedCity}
-                  onChange={(e) => setSelectedCity(e.target.value)}
-                  required
-                  disabled={!districts.length}
-                >
-                  <option value="">Select District</option>
-                  {districts.map((district, idx) => (
-                    <option key={idx} value={district}>{district}</option>
-                  ))}
-                </Form.Select>
-              </Form.Group>
+                <Form.Group className="my-3">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </Form.Group>
 
-              <Form.Group className="my-3">
-                <Form.Label>Village (Optional)</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={village}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </Form.Group>
+                <Form.Group className="my-3">
+                  <Form.Label>Phone Number</Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    maxLength={10}
+                    required
+                  />
+                </Form.Group>
 
-              <Form.Group className="my-3">
-                <Form.Label>Aadhar Card Number</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={aadharCard}
-                  onChange={(e) => setAadharCard(e.target.value)}
-                  maxLength={12}
-                  required
-                />
-              </Form.Group>
+                <Form.Group className="my-3">
+                  <Form.Label>Address</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    required
+                  />
+                </Form.Group>
 
-              <Form.Group className="my-3">
-                <Form.Label>Upload Aadhar Card</Form.Label>
-                <Form.Control
-                  type="file"
-                  onChange={(e) => setUploadAadharCard(e.target.files[0])}
-                  required
-                />
-              </Form.Group>
+                <Form.Group className="my-3">
+                  <Form.Label>State</Form.Label>
+                  <Form.Select value={selectedState} onChange={handleStateChange} required>
+                    <option value="">Select State</option>
+                    {statesCities.map((state) => (
+                      <option key={state._id} value={state.state}>{state.state}</option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
 
-              <Form.Group className="my-3">
-                <Form.Label>Upload Profile Image</Form.Label>
-                <Form.Control
-                  type="file"
-                  onChange={(e) => setProfileImg(e.target.files[0])}
-                  required
-                />
-              </Form.Group>
+                <Form.Group className="my-3">
+                  <Form.Label>City/District</Form.Label>
+                  <Form.Select
+                    value={selectedCity}
+                    onChange={(e) => setSelectedCity(e.target.value)}
+                    required
+                    disabled={!districts.length}
+                  >
+                    <option value="">Select District</option>
+                    {districts.map((district, idx) => (
+                      <option key={idx} value={district}>{district}</option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
 
-              <Button variant="success" className='w-100' type="submit" disabled={loading}>
-                {loading ? 'Registering...' : 'Register as Farmer'}
-              </Button>
+                <Form.Group className="my-3">
+                  <Form.Label>Village (Optional)</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={village}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                </Form.Group>
 
-              <div className="my-4 text-center">
-                <p>Already have an account? <Link to="/farmer/login">Login</Link></p>
-              </div>
-            </Form>
+                <Form.Group className="my-3">
+                  <Form.Label>Aadhar Card Number</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={aadharCard}
+                    onChange={(e) => setAadharCard(e.target.value)}
+                    maxLength={12}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="my-3">
+                  <Form.Label>Upload Aadhar Card</Form.Label>
+                  <Form.Control
+                    type="file"
+                    onChange={(e) => setUploadAadharCard(e.target.files[0])}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="my-3">
+                  <Form.Label>Upload Profile Image</Form.Label>
+                  <Form.Control
+                    type="file"
+                    onChange={(e) => setProfileImg(e.target.files[0])}
+                    required
+                  />
+                </Form.Group>
+
+                <Button variant="success" className='w-100' type="submit" disabled={loading}>
+                  {loading ? 'Registering...' : 'Register as Farmer'}
+                </Button>
+
+                <div className="my-4 text-center">
+                  <p>Already have an account? <Link to="/farmer/login">Login</Link></p>
+                </div>
+              </Form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+    </>
+
+
   );
 };
 
