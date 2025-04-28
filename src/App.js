@@ -71,6 +71,7 @@ import Farmers from "./pages/Farmers";
 import SitePrivacyPolicyPage from "./pages/SitePrivacyPolicyPage";
 import SiteTermsConditionsPage from "./pages/SiteTermsConditionsPage";
 import KGMobileAppsPage from "./pages/KGMobileAppsPage";
+import UpgradePlans from "./pages/farmer/UpgradePlans";
 
 
 function App() {
@@ -198,7 +199,6 @@ function App() {
 
           <Route path="customer-points/:customerId" element={<CustomerPointsTransactions />} />
 
-
         </Route>
 
 
@@ -216,7 +216,7 @@ function App() {
           }
         >
 
-          <Route path="farmer-dashboard" element={<FarmerDashboard />} /> {/* Use relative path */}
+          <Route path="farmer-dashboard" element={<FarmerDashboard />} /> 
           <Route path="add-product" element={<AddProduct />} />
           <Route path="products-list" element={<ProductsList />} />
           <Route path="farmer-profile" element={<FarmerProfile />} />
@@ -226,6 +226,7 @@ function App() {
           <Route path="farm-details" element={<FarmDetail />} />
           <Route path="crops-detail" element={<CropsDetail />} />
           <Route path="orders" element={<FarmerOrder />} />
+          <Route path="upgrade-plans" element={<UpgradePlans />} />
 
         </Route>
 

@@ -22,8 +22,7 @@ const FarmerSidevbar
               <Accordion.Item eventKey="0">
                 <Accordion.Header>Basic Info</Accordion.Header>
                 <Accordion.Body>
-                  <Link className="nav-link" to="farm-details">Farm Details</Link>
-                  <Link className="nav-link" to="crops-detail">Crop Details</Link>
+                  <Link className="nav-link" to="upgrade-plans">Upgrade Plans</Link>
                   <Link className="nav-link" to="delivery-preference">Delivery Prefrence</Link>
 
                 </Accordion.Body>
