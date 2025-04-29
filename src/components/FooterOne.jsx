@@ -19,6 +19,7 @@ const FooterOne = () => {
     if (siteDetailsError) return <p>siteDetailsError: {siteDetailsError}</p>;
 
     return (
+
         <footer className="footer py-120">
             <img
                 src="assets/images/bg/body-bottom-bg.png"
@@ -57,19 +58,6 @@ const FooterOne = () => {
                                     className="text-md text-gray-900 hover-text-main-600"
                                 >
                                     {siteDetails?.contactDetails?.email}
-                                </Link>
-                            </div>
-
-                            <div className='download_App'>
-                                <Link >
-                                    <img src={googlePlayStoreImg} alt="Download Farmer App" srcset="" />
-                                    <h6>Download Android App for Farmer</h6>
-                                </Link>
-                            </div>
-                            <div className='download_App'>
-                                <Link>
-                                    <img src={googlePlayStoreImg} alt="Download Customer App" srcset="" />
-                                    <h6>Download Android App for Customer</h6>
                                 </Link>
                             </div>
 
@@ -171,6 +159,28 @@ const FooterOne = () => {
 
                     </div>
 
+                </div>
+                <div className='row'>
+                    <div className='col-lg-12 col-xs-12 col-sm-12'>
+
+                        <div className='app_container'>
+
+                            <div className='download_App'>
+                                <Link >
+                                    <img src={googlePlayStoreImg} alt="Download Farmer App" srcset="" />
+                                    <h6>Download Android App for Farmer</h6>
+                                </Link>
+                            </div>
+                            <div className='download_App'>
+                                <Link>
+                                    <img src={googlePlayStoreImg} alt="Download Customer App" srcset="" />
+                                    <h6>Download Android App for Customer</h6>
+                                </Link>
+                            </div>
+
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </footer>
