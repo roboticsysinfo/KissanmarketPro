@@ -9,6 +9,7 @@ import Select from "react-select";
 import { FiLogOut } from "react-icons/fi";
 import { fetchSiteDetails } from '../redux/slices/siteDeatilsSlice';
 import HeaderSearch from './HeaderSearch';
+import googlePlayStoreImg from "../assets/images/google-play-store.svg"
 
 const HeaderOne = () => {
 
@@ -271,6 +272,25 @@ const HeaderOne = () => {
                                     About us
                                 </Link>
                             </li>
+
+                            <li className="border-right-item">
+                                <Link>
+                                    <div className='header_app'>
+                                        <img src={googlePlayStoreImg} alt='Download Farmer App'  />
+                                        <p>Download Android App for Farmer</p>
+                                    </div>
+                                </Link>
+                            </li>
+
+                            <li>
+                                <Link>
+                                    <div className='header_app'>
+                                        <img src={googlePlayStoreImg} alt='Download Customer App'  />
+                                        <p>Download Android App for Customer</p>
+                                    </div>
+                                </Link>
+                            </li>
+
                         </ul>
                         <ul className="header-top__right flex-align flex-wrap">
                             <li className="on-hover-item border-right-item border-right-item-sm-space has-submenu arrow-white">

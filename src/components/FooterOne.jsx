@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { fetchSiteDetails } from '../redux/slices/siteDeatilsSlice';
 import { Spinner } from 'react-bootstrap';
+import googlePlayStoreImg from '../assets/images/google-play-store.svg'
+
 
 const FooterOne = () => {
 
@@ -57,6 +59,20 @@ const FooterOne = () => {
                                     {siteDetails?.contactDetails?.email}
                                 </Link>
                             </div>
+
+                            <div className='download_App'>
+                                <Link >
+                                    <img src={googlePlayStoreImg} alt="Download Farmer App" srcset="" />
+                                    <h6>Download Android App for Farmer</h6>
+                                </Link>
+                            </div>
+                            <div className='download_App'>
+                                <Link>
+                                    <img src={googlePlayStoreImg} alt="Download Customer App" srcset="" />
+                                    <h6>Download Android App for Customer</h6>
+                                </Link>
+                            </div>
+
                         </div>
 
                     </div>

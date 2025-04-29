@@ -10,28 +10,41 @@ const Register = () => {
         password: '',
         phoneNumber: '',
         address: '',
+        agreedToPrivacyPolicyAndTermsAndConditions: false, // NEW
+        agreementTimestamp: '', // NEW
     });
     const [loading, setLoading] = useState(false); // Loading state
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value, type, checked } = e.target;
+        setFormData({
+            ...formData,
+            [name]: type === 'checkbox' ? checked : value,
+        });
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true); // Show spinner when registration starts
+        setLoading(true);
 
         try {
-            const response = await api.post('/auth/customer_register', formData);
+            const payload = {
+                ...formData,
+                agreementTimestamp: new Date().toISOString(), // Set current time
+            };
+
+            const response = await api.post('/auth/customer_register', payload);
             toast.success('Registration successful! Please log in.');
-            navigate('/login'); // Redirect to login page after successful registration
+            navigate('/login');
         } catch (error) {
             toast.error(error.response?.data?.message || 'Registration failed');
         } finally {
-            setLoading(false); // Hide spinner when request completes
+            setLoading(false);
         }
     };
+
 
     return (
         <section className="account py-80">
@@ -42,7 +55,7 @@ const Register = () => {
                         <div className="col-xl-6">
                             <div className="border border-gray-100 hover-border-main-600 transition-1 rounded-16 px-24 py-40">
                                 <h6 className="text-xl mb-32">Register</h6>
-                                
+
                                 <div className="mb-24">
                                     <label htmlFor="name" className="text-neutral-900 text-lg mb-8 fw-medium">
                                         Name <span className="text-danger">*</span>
@@ -101,6 +114,7 @@ const Register = () => {
                                         id="phoneNumber"
                                         name="phoneNumber"
                                         value={formData.phoneNumber}
+                                        maxLength={10}
                                         onChange={handleChange}
                                         placeholder="Enter Phone Number"
                                         required
@@ -123,15 +137,28 @@ const Register = () => {
                                     />
                                 </div>
 
-                                <div className="my-48">
-                                    <p className="text-gray-500">
-                                        Your personal data will be used to process your order, support your experience throughout this website, and for other purposes
-                                        described in our{' '}
-                                        <Link to="#" className="text-main-600 text-decoration-underline">
-                                            privacy policy
-                                        </Link>.
-                                    </p>
+                                <div className="mb-24 form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        id="agreedToPrivacyPolicyAndTermsAndConditions"
+                                        name="agreedToPrivacyPolicyAndTermsAndConditions"
+                                        checked={formData.agreedToPrivacyPolicyAndTermsAndConditions}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                    <label className="form-check-label ms-2" htmlFor="agreedToPrivacyPolicyAndTermsAndConditions">
+                                        I agree to the{' '}
+                                        <Link to="/privacy-policy" className="text-main-600 text-decoration-underline">
+                                            Privacy Policy
+                                        </Link>{' '}
+                                        and{' '}
+                                        <Link to="/terms-and-conditions" className="text-main-600 text-decoration-underline">
+                                            Terms and Conditions
+                                        </Link>
+                                    </label>
                                 </div>
+
 
                                 <div className="mt-48">
                                     <button type="submit" className="btn btn-main py-18 px-40" disabled={loading}>

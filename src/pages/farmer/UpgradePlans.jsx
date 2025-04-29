@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';  // Updated import
 import { BsCheckCircle } from 'react-icons/bs';
 
 const UpgradePlansScreen = () => {
+    
   const navigate = useNavigate();  // Updated hook
 
   const handleUpgradeClick = () => {

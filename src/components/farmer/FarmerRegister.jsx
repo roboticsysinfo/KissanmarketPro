@@ -23,6 +23,8 @@ const FarmerRegister = () => {
   const [selectedState, setSelectedState] = useState('');
   const [districts, setDistricts] = useState([]);
   const [selectedCity, setSelectedCity] = useState('');
+  const [agreed, setAgreed] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -61,6 +63,9 @@ const FarmerRegister = () => {
     formData.append('profileImg', profileImg); // ✅ Added
     formData.append('state', selectedState);
     formData.append('city_district', selectedCity);
+    formData.append('agreedToPrivacyPolicyAndTermsAndConditions', agreed);
+    formData.append('agreementTimestamp', new Date().toISOString());
+
 
     setLoading(true);
     try {
@@ -223,9 +228,29 @@ const FarmerRegister = () => {
                   />
                 </Form.Group>
 
+
+                <Form.Group className="my-3">
+                  <Form.Check
+                    type="checkbox"
+                    label={
+                      <>
+                        I agree to the <Link to="/terms-and-conditions" target="_blank">Terms & Conditions</Link> and <Link to="/privacy-policy" target="_blank">Privacy Policy</Link>.
+                      </>
+                    }
+                    checked={agreed}
+                    onChange={(e) => setAgreed(e.target.checked)}
+                    required
+                  />
+                </Form.Group>
+
+
+
                 <Button variant="success" className='w-100' type="submit" disabled={loading}>
                   {loading ? 'Registering...' : 'Register as Farmer'}
                 </Button>
+
+
+
 
                 <div className="my-4 text-center">
                   <p>Already have an account? <Link to="/farmer/login">Login</Link></p>

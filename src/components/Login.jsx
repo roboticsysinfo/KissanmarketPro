@@ -87,11 +87,11 @@ const Login = () => {
                                         )}
                                     </button>
                                 </div>
-                                <div className="mt-48">
+                                {/* <div className="mt-48">
                                     <Link to="/forgot-password" className="text-danger-600 text-sm fw-semibold hover-text-decoration-underline">
                                         Forgot your password?
                                     </Link>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
