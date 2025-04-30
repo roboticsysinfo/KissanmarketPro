@@ -10,6 +10,7 @@ import { Button } from 'react-bootstrap';
 import RequestOrderModal from './RequestOrderModal';
 import { setSelectedProduct } from "../redux/slices/productSlice";
 import slugify from 'slugify';
+import { FaRupeeSign } from "react-icons/fa";
 
 
 const ShopSection = () => {
@@ -151,44 +152,56 @@ const ShopSection = () => {
                             </div>
 
                             {/* Top End */}
-                            <div className={`list-grid-wrapper ${grid && 'list-view'}`}>
+
+                            <div className="row">
+
                                 {products?.length > 0 ? (
                                     products.map((product) => {
                                         // ✅ Slugify product name
                                         const productSlug = slugify(product.name || "", { lower: true, strict: true });
 
                                         return (
-                                            <div key={product._id} className="product-card h-100 p-16 border border-gray-100 hover-border-main-600 rounded-16 position-relative transition-2">
-                                                <Link to={`/product/${productSlug}-${product._id}`} className="product-card__thumb flex-center rounded-8 bg-gray-50 position-relative">
-                                                    <img
-                                                        src={product.product_image ? `${process.env.REACT_APP_BASE_URL_PRIMARY}${product.product_image}` : 'https://placehold.co/100x100'}
-                                                        alt={product.name}
-                                                        className="w-auto max-w-unset"
-                                                    />
-                                                </Link>
-                                                <div className="product-card__content mt-16">
-                                                    <h6 className="title text-lg fw-semibold mt-12 mb-8">
-                                                        <Link to={`/product/${productSlug}-${product._id}`} className="link text-line-2">
-                                                            {product.name}
-                                                        </Link>
-                                                    </h6>
-                                                    <div className="product-card__price my-20">
-                                                        <span className="text-gray-400 text-md fw-semibold text-decoration-line-through">
-                                                            Rs.{product.price_per_unit}
-                                                        </span>
-                                                        <span className="text-heading text-md fw-semibold">${product.quantity} /Qty</span>
-                                                    </div>
+                                            <div className='col-lg-4 col-xs-12 col-sm-12' key={product._id}>
 
-                                                    <Button
-                                                        className='btn btn-success btn-block w-100'
-                                                        onClick={() => {
-                                                            dispatch(setSelectedProduct(product)); // ✅ Redux me product set karo
-                                                            setShowModal(true); // ✅ Modal open karo
-                                                        }}
-                                                    >
-                                                        Request Order
-                                                    </Button>
+                                                <div className="product-card h-100 p-16 border border-gray-100 hover-border-main-600 rounded-16 position-relative transition-2">
+                                                    <Link to={`/product/${productSlug}-${product._id}`} className="product-card__thumb flex-center rounded-8 bg-gray-50 position-relative">
+                                                        <img
+                                                            src={product.product_image ? `${process.env.REACT_APP_BASE_URL_PRIMARY}${product.product_image}` : 'https://placehold.co/100x100'}
+                                                            alt={product.name}
+                                                            className="w-auto max-w-unset"
+                                                        />
+                                                    </Link>
+                                                    <div className="product-card__content mt-16">
+                                                        <h6 className="title text-lg fw-semibold mt-12 mb-8">
+                                                            <Link to={`/product/${productSlug}-${product._id}`} className="link text-line-2">
+                                                                {product.name}
+                                                            </Link>
+                                                        </h6>
+                                                        <div className="product-card__price my-20">
+                                                            <span className="text-gray-400 text-md fw-semibold">
+                                                                <FaRupeeSign /> {product.price_per_unit}
+                                                            </span>
+                                                            <span className="text-heading text-md fw-semibold">{product.quantity}/ {product.unit} /Qty</span>
+                                                        </div>
+
+                                                        <Button
+                                                            className='btn btn-success btn-block w-100'
+                                                            onClick={() => {
+                                                                const user = JSON.parse(localStorage.getItem("user"));
+                                                                if (user && user.id) {
+                                                                    dispatch(setSelectedProduct(product)); // ✅ Redux me product set karo
+                                                                    setShowModal(true); // ✅ Modal open karo
+                                                                } else {
+                                                                    window.location.href = "/login"; // 🔁 Redirect to login
+                                                                }
+                                                            }}
+                                                        >
+                                                            Request Order
+                                                        </Button>
+
+                                                    </div>
                                                 </div>
+
                                             </div>
                                         );
                                     })

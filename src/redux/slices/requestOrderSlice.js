@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import axiosInstance from "../../utils/axiosInstance";
 
 // Create a request order
 export const createRequestOrder = createAsyncThunk(
@@ -71,7 +72,7 @@ export const approveOrderRequest = createAsyncThunk(
   async (orderId, { rejectWithValue }) => {
     try {
 
-      const response = await axios.put(`${process.env.REACT_APP_API_URI}/approve/${orderId}`, {
+      const response = await axiosInstance.put(`/approve/${orderId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

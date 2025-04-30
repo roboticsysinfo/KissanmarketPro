@@ -6,6 +6,13 @@
     background-color: rgb(0 0 0 / 40%) !important;
 }
 
+.product-card__thumb img {
+    max-width: 300px !important;
+    width: 100%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
 .kissan-growth-app-info strong {
     color: #353535;
 }
@@ -88,7 +95,7 @@
 
 .vendor-two-details__contents {
     max-width: 100%;
-    width: 75%;
+    width: 70%;
 }
 
 .admin-accordion-button {

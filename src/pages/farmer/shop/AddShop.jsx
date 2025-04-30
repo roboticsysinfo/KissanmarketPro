@@ -71,23 +71,16 @@ const AddShop = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const farmerId = localStorage.getItem("farmerId"); 
 
-    // Retrieve the token from localStorage
-    const token = localStorage.getItem("token"); // Replace with your actual token key in localStorage
-
-    if (!token) {
-      toast.error("Token not found, please login.");
+    if (!farmerId) {
+      toast.error("farmerId not found, please login.");
       return;
     }
 
     try {
-      // Decode the JWT token
-      const decodedToken = jwtDecode(token);
 
-      // Extract the userId from the decoded token (assuming the userId is in the token payload)
-      const farmer_id = decodedToken.userId; // Use 'userId' instead of 'farmerId'
-
-      if (!farmer_id) {
+      if (!farmerId) {
         toast.error("Farmer ID not found in token.");
         return;
       }
@@ -105,7 +98,7 @@ const AddShop = () => {
       formDataObj.append("whatsappNumber", shopData.whatsappNumber);
       formDataObj.append("state", shopData.state);
       formDataObj.append("city_district", shopData.city_district);
-      formDataObj.append("farmer_id", farmer_id);
+      formDataObj.append("farmer_id", farmerId);
 
       // If files are provided, append them to the shopData
       if (shopData.shop_profile_image) {
@@ -122,6 +115,7 @@ const AddShop = () => {
 
       // Send the formData to the server using API call
       dispatch(createShop(formDataObj));
+      toast.success("Shop Created Successfully");
 
 
     } catch (error) {
@@ -318,7 +312,7 @@ const AddShop = () => {
                     className="form-control"
                     name="shop_profile_image"
                     onChange={handleChange}
-                    
+                    required
                   />
                 </div>
               </div>
@@ -331,7 +325,7 @@ const AddShop = () => {
                     className="form-control"
                     name="shop_cover_image"
                     onChange={handleChange}
-                    
+                    required
                   />
                 </div>
               </div>

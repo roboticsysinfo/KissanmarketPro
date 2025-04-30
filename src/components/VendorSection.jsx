@@ -167,7 +167,7 @@ const VendorSection = () => {
 
                             <div className="vendors-two-item-wrapper row false">
                                 {shops.map((shop) => {
-                                   
+
                                     const shopSlug = slugify(shop.shop_name || "", { lower: true, strict: true });
 
                                     return (
@@ -194,7 +194,7 @@ const VendorSection = () => {
                                                                 </Link>
                                                             </h6>
                                                             <div className="flex-align gap-6">
-                                                                
+
                                                                 {/* Add Star Rating */}
 
                                                                 <div className="flex-align gap-8">
@@ -219,12 +219,16 @@ const VendorSection = () => {
                                                             <span className="flex-center text-main-two-600 text-2xl flex-shrink-0">
                                                                 <i className="ph ph-map-pin-line" />
                                                             </span>
-                                                            <p className="text-md text-gray-900">{shop.shop_address}</p>
+                                                            <p className="text-md text-gray-900">{shop.city_district}</p>
                                                         </div>
 
-                                                        <div className="flex-align gap-8">
-                                                            <p className="line-clamp-text text-sm text-gray-900">{shop.shop_description}</p>
-                                                        </div>
+                                                        <p className="text-sm text-gray-900">
+                                                            {(typeof shop.shop_description === 'string'
+                                                                ? shop.shop_description
+                                                                : shop.shop_description?.en || "No description available"
+                                                            ).slice(0, 72)}...
+                                                        </p>
+
                                                     </div>
                                                     <Link
                                                         className="btn bg-success-700 hover-bg-success-600 text-white py-12 px-24 rounded-8 flex-center gap-8 fw-medium mt-24"

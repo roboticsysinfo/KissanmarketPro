@@ -8,6 +8,7 @@ import { toast } from 'react-hot-toast';
 import { FaCheckCircle } from 'react-icons/fa';
 
 const FarmerDetailSection = () => {
+
   const { slug } = useParams();
   const dispatch = useDispatch();
   const { farmerDetailsforCustomer, loading } = useSelector((state) => state.farmers);
@@ -15,7 +16,6 @@ const FarmerDetailSection = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = user?.id;
-
 
   const slugParts = slug.split('-');
   const farmerId = slugParts[slugParts.length - 1]; // last part is farmerId
@@ -67,6 +67,7 @@ const FarmerDetailSection = () => {
   }
 
   const status = getRequestStatus();
+  const shop = farmerDetailsforCustomer?.shop || {};
 
   return (
     <div className="container py-60 my-60">
@@ -75,7 +76,7 @@ const FarmerDetailSection = () => {
           <div className="card shadow rounded-4 p-40">
             <div className="d-flex flex-column align-items-center">
               <img
-                src={`${process.env.REACT_APP_BASE_URL_PRIMARY}/${farmerDetailsforCustomer.profileImg}` || "https://avatar.iran.liara.run/public/boy"}
+                src={`${process.env.REACT_APP_BASE_URL_PRIMARY}/${farmerDetailsforCustomer?.profileImg}` || "https://avatar.iran.liara.run/public/boy"}
                 alt={farmerDetailsforCustomer.name}
                 className="rounded-circle object-fit-cover mb-4"
                 style={{ width: '120px', height: '120px', objectFit: 'cover' }}
@@ -84,13 +85,17 @@ const FarmerDetailSection = () => {
                 {farmerDetailsforCustomer.name}
               </h1>
               <h2 className="text-center fw-semibold mt-1 mb-0" style={{ color: '#305CDE', fontSize: '16px' }}>
-                <FaCheckCircle /> {farmerDetailsforCustomer.isKYCVerified ? "Verified" : "UnVerified"}
+                <FaCheckCircle /> {farmerDetailsforCustomer?.isKYCVerified ? "Verified" : "UnVerified"}
               </h2>
+
+              {/* City / District */}
               <p className="mt-3 text-dark" style={{ maxWidth: '600px' }}>
-                {farmerDetailsforCustomer.city_district || "N/A"}
+                <strong>City/District:</strong> {farmerDetailsforCustomer?.city_district || "N/A"}
               </p>
+
+              {/* Shop Details */}
               <p className="mt-3 text-dark" style={{ maxWidth: '600px' }}>
-                {farmerDetailsforCustomer.shop || "N/A"}
+                <strong>Shop Name:</strong> {shop?.shop_name || "N/A"}
               </p>
 
               <hr className="w-100 my-4" />

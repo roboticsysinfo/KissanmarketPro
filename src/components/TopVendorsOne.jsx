@@ -23,9 +23,9 @@ const TopVendorsOne = () => {
       <div className="container container-lg">
 
         <div className='row justify-content-center'>
-            <div className='col-lg-3 col-xs-12 text-center'>
-              <h3 className='sectionheading'>Farmer's Shops</h3>
-            </div>
+          <div className='col-lg-3 col-xs-12 text-center'>
+            <h3 className='sectionheading'>Farmer's Shops</h3>
+          </div>
         </div>
 
         <div className="row mt-40">
@@ -41,7 +41,10 @@ const TopVendorsOne = () => {
                       className="vendor-card__logo m-12"
                     />
                     <h6 className="title mt-32">{shop.shop_name}</h6>
-                    <span className="text-heading text-sm d-block">{shop.shop_description}</span>
+                    <span className="text-heading text-sm d-block">
+                      {shop.shop_description?.split(" ").slice(0, 20).join(" ")}{shop.shop_description?.split(" ").length > 20 ? "..." : ""}
+                    </span>
+
                     <Link to={`/shop/${slugify(shop.shop_name, { lower: true })}-${shop._id}`} className="btn btn-main-two rounded-pill py-6 px-16 text-12 mt-8">
                       View Shop
                     </Link>

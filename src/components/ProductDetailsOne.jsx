@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { FaIndianRupeeSign } from 'react-icons/fa6';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import RequestOrderModal from './RequestOrderModal';
 import { Button } from 'react-bootstrap';
 
+
 const ProductDetailsOne = () => {
+
 
     const [showModal, setShowModal] = useState(false);
     const { slug } = useParams(); // Get Product Id From URL
@@ -45,7 +47,7 @@ const ProductDetailsOne = () => {
                                         <div className="product-details__thumb-slider border border-gray-100 rounded-16">
                                             <div className="">
                                                 <div className="product-details__thumb flex-center h-100">
-                                                    <img src={product?.product_image || "default-image.png"} alt="Main Product" />
+                                                    <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${product?.product_image}` || "default-image.png"} alt="Main Product" />
                                                 </div>
                                             </div>
                                         </div>
@@ -69,25 +71,6 @@ const ProductDetailsOne = () => {
                                         <span className="text-gray-900 d-block mb-8">Quantity:</span>
                                         <div className="flex-between gap-16 flex-wrap">
                                             <div className="flex-align flex-wrap gap-16">
-                                                <div className="border border-gray-100 rounded-pill py-9 px-16 flex-align">
-                                                    <button onClick={decrementQuantity}
-                                                        type="button"
-                                                        className="quantity__minus p-4 text-gray-700 hover-text-main-600 flex-center"
-                                                    >
-                                                        <i className="ph ph-minus" />
-                                                    </button>
-                                                    <input
-                                                        type="number"
-                                                        className="quantity__input border-0 text-center w-32"
-                                                        value={quantity} readOnly
-                                                    />
-                                                    <button onClick={incrementQuantity}
-                                                        type="button"
-                                                        className="quantity__plus p-4 text-gray-700 hover-text-main-600 flex-center"
-                                                    >
-                                                        <i className="ph ph-plus" />
-                                                    </button>
-                                                </div>
 
                                                 <Button variant="success" onClick={() => setShowModal(true)}>
                                                     Request Product
@@ -129,6 +112,7 @@ const ProductDetailsOne = () => {
                                     </li>
                                 </ul>
                             </div>
+
                             <div className="product-dContent__box">
                                 <div className="tab-content show" id="pills-tabContent">
 
@@ -141,13 +125,14 @@ const ProductDetailsOne = () => {
                                     >
                                         <div className="mb-40">
                                             <h6 className="mb-24">Product Description</h6>
-                                            {product.description}
+                                            {product?.description || "Not Available"}
                                         </div>
 
                                     </div>
 
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

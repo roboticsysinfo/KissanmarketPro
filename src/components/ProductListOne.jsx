@@ -3,31 +3,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchProducts } from '../redux/slices/productSlice';
 import slugify from 'slugify';
+import { FaRupeeSign } from "react-icons/fa";
+
+// Helper to safely slugify strings
+const slugifySafe = (text) => {
+    return slugify(typeof text === 'string' ? text : '', { lower: true, strict: true });
+};
 
 const ProductListOne = () => {
-
     const dispatch = useDispatch();
 
-    // Products state
     const { data: products, status: productStatus } = useSelector((state) => state.products);
 
-
-
-    // Fetch products when the component mounts
     useEffect(() => {
         if (productStatus === 'idle') {
             dispatch(fetchProducts({ page: 1, limit: 10, search: '', filter: '' }));
         }
     }, [dispatch, productStatus]);
 
-    // Handle loading and error states for products
     if (productStatus === 'loading') {
         return <div>Loading products...</div>;
     }
+
     if (productStatus === 'failed') {
         return <div>Error loading products</div>;
     }
-
 
     return (
         <div className="product mt-60 mb-60">
@@ -41,7 +41,7 @@ const ProductListOne = () => {
 
                 <div className="row mt-30 gy-4 g-12">
                     {products?.map((product) => {
-                        const productSlug = slugify(product.name || "", { lower: true, strict: true });
+                        const productSlug = slugifySafe(product.name);
 
                         return (
                             <div key={product._id} className="col-xxl-2 col-lg-3 col-sm-4 col-6">
@@ -50,23 +50,28 @@ const ProductListOne = () => {
                                         to={`/product/${productSlug}-${product._id}`}
                                         className="product-card__thumb flex-center"
                                     >
-                                        <img src={product.product_image ? `${process.env.REACT_APP_BASE_URL_SECONDARY}${product.product_image}` : 'https://placehold.co/100x100'} alt={product.name} />
+                                        <img
+                                            src={
+                                                product.product_image
+                                                    ? `${process.env.REACT_APP_BASE_URL_PRIMARY}${product.product_image}`
+                                                    : 'https://placehold.co/100x100'
+                                            }
+                                            alt={product.name || 'Product'}
+                                        />
                                     </Link>
                                     <div className="product-card__content mt-12">
                                         <div className="product-card__price mb-16">
                                             <span className="text-heading text-md fw-semibold">
-                                                Rs. {product.price_per_unit} <span className="text-gray-500 fw-normal">/Qty</span>
+                                                <FaRupeeSign /> {product.price_per_unit}{' '}
+                                                <span className="text-gray-500 fw-normal">/ {product.quantity}/ Qty</span>
                                             </span>
                                         </div>
-                                        <div className="flex-align gap-6">
-                                            <span className="text-xs fw-bold text-gray-600">4.8</span>
-                                            <span className="text-15 fw-bold text-warning-600 d-flex">
-                                                <i className="ph-fill ph-star" />
-                                            </span>
-                                            <span className="text-xs fw-bold text-gray-600">(17k)</span>
-                                        </div>
+
                                         <h6 className="title text-lg fw-semibold mt-12 mb-8">
-                                            <Link to={`/product/${productSlug}-${product._id}`} className="link text-line-2">
+                                            <Link
+                                                to={`/product/${productSlug}-${product._id}`}
+                                                className="link text-line-2"
+                                            >
                                                 {product.name}
                                             </Link>
                                         </h6>
@@ -76,7 +81,16 @@ const ProductListOne = () => {
                                             </span>
                                             <span className="text-gray-500 text-xs">
                                                 By&ensp;
-                                                <Link className='text-success' to={`/shop/${slugify(product.shop_id?.shop_name, { lower: true })}-${product.shop_id?._id}`}>{product.shop_id?.shop_name}</Link>
+                                                {product.shop_id?.shop_name && product.shop_id?._id ? (
+                                                    <Link
+                                                        className="text-success"
+                                                        to={`/shop/${slugifySafe(product.shop_id.shop_name)}-${product.shop_id._id}`}
+                                                    >
+                                                        {product.shop_id.shop_name}
+                                                    </Link>
+                                                ) : (
+                                                    <span className="text-danger">Unknown Shop</span>
+                                                )}
                                             </span>
                                         </div>
                                         <div className="mt-12">
@@ -90,7 +104,7 @@ const ProductListOne = () => {
                                             >
                                                 <div
                                                     className="progress-bar bg-main-600 rounded-pill"
-                                                    style={{ width: "35%" }}
+                                                    style={{ width: '35%' }}
                                                 />
                                             </div>
                                         </div>
@@ -99,7 +113,6 @@ const ProductListOne = () => {
                             </div>
                         );
                     })}
-
                 </div>
             </div>
         </div>

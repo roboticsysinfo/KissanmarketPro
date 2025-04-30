@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, Button, ListGroup, Row, Col, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { BsCheckCircle } from 'react-icons/bs';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../../utils/axiosInstance';
+import { getFarmerDetailsById } from '../../redux/slices/farmerSlice';
 
 const UpgradePlansScreen = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { farmerDetailsforCustomer, loading } = useSelector((state) => state.farmers);
-  const user = JSON.parse(localStorage.getItem("user"));
-  const farmerId = user?.id;
 
-  console.log("user", user)
-  console.log("farmerId", farmerId)
+  const farmerId = localStorage.getItem("farmerId");
+
+  useEffect(() => {
+    if (farmerId) {
+      dispatch(getFarmerDetailsById(farmerId));
+    }
+
+  }, [dispatch, farmerId]);
+
 
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -35,9 +42,12 @@ const UpgradePlansScreen = () => {
 
     try {
       // Call your backend to create an order
-      const orderResponse = await axiosInstance.post("/farmer/createRazorpayOrder", {
-        amount: 10000  // Amount in paise
+      const orderResponse = await axiosInstance.post("/farmer/create-order-plan", {
+        planName: "Farmer Friendly Plan" ,
+        planAmount: 100  // Amount in paise
       });
+
+      console.log("orderResponse", orderResponse)
 
       const options = {
         key: "rzp_test_3DSEzlHPip5mQr",
@@ -47,9 +57,9 @@ const UpgradePlansScreen = () => {
         description: "Upgrade to Farmer Plan",
         order_id: orderResponse.data.id,
         prefill: {
-          name: user.name || "Farmer",
-          email: user.email,
-          contact: user.phone,
+          name: farmerDetailsforCustomer.name || "Farmer",
+          email: farmerDetailsforCustomer.email,
+          contact: farmerDetailsforCustomer.phoneNumber,
         },
         theme: {
           color: "#4caf50", // Replace COLORS.primaryColor

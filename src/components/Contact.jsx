@@ -45,7 +45,7 @@ const Contact = () => {
 
                 <div className="row">
                     <div className='col-lg-12 col-xs-12 text-center'>
-                        <h1 className='page_heading mb-60'>Contact Us - Kissan Growth: Your Local Farm Marketplace</h1>
+                        <h1 className='page_heading mb-60'>Contact Us - Kissan Growth: India’s #1 Farm Online Marketplace</h1>
                     </div>
                 </div>
 

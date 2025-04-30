@@ -16,6 +16,7 @@ import ShippingOne from "../components/ShippingOne";
 import WhyKissanGrowthCards from "../components/WhyKissanGrowthCards";
 import HowItWorksCards from "./HowItWorksCards";
 
+
 const HomePageOne = () => {
 
   return (
@@ -46,12 +47,9 @@ const HomePageOne = () => {
       {/* Home Content Static*/}
       <HomeContent />
 
-
       <WhyKissanGrowthCards />
 
-
       <HowItWorksCards />
-
 
       {/* ProductListOne */}
       <ProductListOne />
@@ -70,6 +68,7 @@ const HomePageOne = () => {
 
 
     </>
+
   );
 };
 

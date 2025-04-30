@@ -12,6 +12,7 @@ const FarmerAdminNavbar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userRole");
     localStorage.removeItem("farmerId");
+    localStorage.removeItem("farmerName")
     navigate("/farmer/login"); // redirect to '/Farmer/login'
   };
 

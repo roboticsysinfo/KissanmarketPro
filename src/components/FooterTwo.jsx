@@ -242,40 +242,7 @@ const FooterTwo = () => {
                                 <img src="assets/images/thumbs/store-img2.png" alt="" />
                             </Link>
                         </div>
-                        <ul className="flex-align gap-16">
-                            <li>
-                                <Link
-                                    to="/https://www.facebook.com"
-                                    className="w-44 h-44 flex-center bg-main-two-50 text-main-two-600 text-xl rounded-8 hover-bg-main-two-600 hover-text-white"
-                                >
-                                    <i className="ph-fill ph-facebook-logo" />
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/https://www.twitter.com"
-                                    className="w-44 h-44 flex-center bg-main-two-50 text-main-two-600 text-xl rounded-8 hover-bg-main-two-600 hover-text-white"
-                                >
-                                    <i className="ph-fill ph-twitter-logo" />
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/https://www.linkedin.com"
-                                    className="w-44 h-44 flex-center bg-main-two-50 text-main-two-600 text-xl rounded-8 hover-bg-main-two-600 hover-text-white"
-                                >
-                                    <i className="ph-fill ph-instagram-logo" />
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/https://www.pinterest.com"
-                                    className="w-44 h-44 flex-center bg-main-two-50 text-main-two-600 text-xl rounded-8 hover-bg-main-two-600 hover-text-white"
-                                >
-                                    <i className="ph-fill ph-linkedin-logo" />
-                                </Link>
-                            </li>
-                        </ul>
+
                     </div>
                 </div>
             </div>

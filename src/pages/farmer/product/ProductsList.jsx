@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductByFarmerId, deleteProduct } from "../../../redux/slices/productSlice";
 import DataTable from "react-data-table-component";
+import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 
 const ProductsList = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const ProductsList = () => {
   const farmerid = localStorage.getItem("farmerId");
 
   console.log("farmer id", farmerid)
+  console.log("productByFarmer", productByFarmer)
 
   useEffect(() => {
     dispatch(getProductByFarmerId(farmerid));
@@ -36,7 +38,7 @@ const ProductsList = () => {
     },
     {
       name: "Category",
-      selector: (row) => (row.category_id && row.category_id.name ? row.category_id.name : "Unknown Category"),
+      selector: (row) => (row.category_id ? row.category_id?.name : "Unknown Category"),
       sortable: true,
     },
     {
@@ -64,29 +66,30 @@ const ProductsList = () => {
       cell: (row) => (
         <>
           <Button variant="warning" className="me-2">
-            Update
+            <FaEdit />
           </Button>
           <Button variant="danger" onClick={() => handleDelete(row._id)}>
-            Delete
+            <FaRegTrashAlt />
           </Button>
         </>
       ),
     },
   ];
-  
+
 
   return (
     <div className="container mt-4">
       <h2>Product List</h2>
       {fetchProductByFarmerStatus === "loading" ? (
-        <p>Loading products...</p>
+        <Spinner variant="success" />
       ) : (
         <DataTable
           columns={columns}
-          data={productByFarmer ? [productByFarmer] : []}
+          data={Array.isArray(productByFarmer) ? productByFarmer : []}
           pagination
           highlightOnHover
         />
+
       )}
     </div>
   );

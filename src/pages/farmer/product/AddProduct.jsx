@@ -231,6 +231,7 @@ const AddProduct = ({ isEdit, productData }) => {
             name="description"
             value={product.description}
             onChange={handleChange}
+            required
           />
 
         </div>
@@ -243,6 +244,7 @@ const AddProduct = ({ isEdit, productData }) => {
             name="product_image"
             type="file"
             onChange={handleImageChange}
+            required
           />
 
         </div>

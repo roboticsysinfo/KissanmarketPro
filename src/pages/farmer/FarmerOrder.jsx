@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DataTable from "react-data-table-component";
 import { getOrderRequestByFarmerId, approveOrderRequest, cancelOrderRequest } from "../../redux/slices/requestOrderSlice"; // Adjust path as needed
+import toast from "react-hot-toast";
 
 const FarmerOrder = () => {
   const dispatch = useDispatch();
@@ -9,10 +10,15 @@ const FarmerOrder = () => {
   // Get orders and loading/error states from Redux
   const { requests: orders, loading, error } = useSelector((state) => state.requestOrder);
 
-
-  const handleAccepted = (orderId) => {
+  const handleAccepted = async (orderId) => {
     if (window.confirm("Are you sure you want to accept this order?")) {
-      dispatch(approveOrderRequest(orderId));
+      const result = await dispatch(approveOrderRequest(orderId));
+
+      if (approveOrderRequest.fulfilled.match(result)) {
+        toast.success("Order approved successfully!");
+      } else {
+        toast.error(result.payload?.message || "Failed to approve order.");
+      }
     }
   };
 
@@ -22,13 +28,12 @@ const FarmerOrder = () => {
     }
   };
 
-
   // Fetch orders when the component mounts
   useEffect(() => {
     dispatch(getOrderRequestByFarmerId());
   }, [dispatch]);
 
-  
+
   const columns = [
     { name: "Order ID", selector: (row) => row._id, sortable: true },
     { name: "Customer Name", selector: (row) => row.customer_id?.name || "N/A", sortable: true },
@@ -42,30 +47,31 @@ const FarmerOrder = () => {
       name: "Actions",
       cell: (row) => (
         <>
+
           <button
-            className={`btn btn-sm btn-success px-3 py-1 rounded-md ${
-              row.status === "pending" ? "bg-green-500 text-white hover:bg-green-600" : "bg-gray-400 text-white cursor-not-allowed"
-            }`}
+            className={`btn btn-sm btn-success px-3 py-1 rounded-md ${row.status === "pending" ? "bg-green-500 text-white hover:bg-green-600" : "bg-gray-400 text-white cursor-not-allowed"
+              }`}
             disabled={row.status !== "pending"}
             onClick={() => handleAccepted(row._id)}
           >
             Approve
           </button>
+
           <button
-            className={`btn btn-sm btn-danger px-3 py-1 rounded-md ml-2 ${
-              row.status === "pending" ? "bg-red-500 text-white hover:bg-red-600" : "bg-gray-400 text-white cursor-not-allowed"
-            }`}
+            className={`btn btn-sm btn-danger px-3 py-1 rounded-md ml-2 ${row.status === "pending" ? "bg-red-500 text-white hover:bg-red-600" : "bg-gray-400 text-white cursor-not-allowed"
+              }`}
             disabled={row.status !== "pending"}
             onClick={() => handleCancel(row._id)}
           >
             Cancel
           </button>
+
         </>
       ),
     },
   ];
-  
-  
+
+
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">

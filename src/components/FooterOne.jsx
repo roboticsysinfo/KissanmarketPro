@@ -163,7 +163,7 @@ const FooterOne = () => {
                 <div className='row'>
                     <div className='col-lg-12 col-xs-12 col-sm-12'>
 
-                        <div className='app_container'>
+                        {/* <div className='app_container'>
 
                             <div className='download_App'>
                                 <Link >
@@ -178,7 +178,41 @@ const FooterOne = () => {
                                 </Link>
                             </div>
 
-                        </div>
+                        </div> */}
+
+
+
+                        <ul className="flex-align gap-16">
+                            {siteDetails?.socialMedia?.map((item, index) => {
+                                const platform = item.platform?.toLowerCase();
+
+                                console.log(item.platform, item.url);
+
+                                // Map platform to Phosphor icon class
+                                const iconMap = {
+                                    instagram: "ph-instagram-logo",
+                                    twitter: "ph-twitter-logo", // or "ph-x-logo" if you use X icon
+                                    youtube: "ph-youtube-logo",
+                                    pinterest: "ph-pinterest-logo",
+                                    linkedin: "ph-linkedin-logo",
+                                };
+
+                                const iconClass = iconMap[platform] || "ph-link"; // fallback icon
+
+                                return (
+                                    <li key={index}>
+                                        <a
+                                            href={item.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="w-44 h-44 flex-center bg-main-two-50 text-main-600 text-xl rounded-8 hover-bg-main-600 hover-text-white"
+                                        >
+                                            <i className={`ph-fill text-3xl ${iconClass}`} />
+                                        </a>
+                                    </li>
+                                );
+                            })}
+                        </ul>
 
                     </div>
                 </div>
