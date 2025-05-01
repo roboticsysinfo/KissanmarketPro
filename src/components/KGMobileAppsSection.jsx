@@ -1,10 +1,19 @@
 import React from 'react';
-import farmerloginimg from "../assets/app_screenshots/farmer1.jpg"
-import farmerhomeimg from "../assets/app_screenshots/farmer2.jpg"
-import farmerreferearnimg from "../assets/app_screenshots/farmer3.jpg"
-import customerloginimg from "../assets/app_screenshots/customer1.jpg"
-import customerhomeimg from "../assets/app_screenshots/customer2.jpg"
-import customerreferearnimg from "../assets/app_screenshots/customer3.jpg"
+import farmerloginimg from "../assets/app_screenshots/farmer/farmer1.jpg"
+import farmerhomeimg from "../assets/app_screenshots/farmer/farmer2.jpg"
+import farmerreferearnimg from "../assets/app_screenshots/farmer/farmer3.jpg"
+import farmerorders from "../assets/app_screenshots/farmer/farmerorder.jpg"
+import farmerpoints from "../assets/app_screenshots/farmer/farmerpoints.jpg"
+import farmershop from "../assets/app_screenshots/farmer/farmershop.jpg"
+
+import customerloginimg from "../assets/app_screenshots/customer/customer1.jpg"
+import customerhomeimg from "../assets/app_screenshots/customer/customer2.jpg"
+import customerreferearnimg from "../assets/app_screenshots/customer/customer3.jpg"
+
+import customerproducts from "../assets/app_screenshots/customer/customerproducts.jpg"
+import customerfamilyfarmer from "../assets/app_screenshots/customer/customerfamilyfarmer.jpg"
+import customerpoints from "../assets/app_screenshots/customer/customerpoints.jpg"
+
 import { Link } from 'react-router-dom';
 
 const KGMobileAppsSection = () => {
@@ -22,6 +31,8 @@ const KGMobileAppsSection = () => {
                         <div className="kissan-growth-app-info">
 
                             <h1 className='text-5xl'>Kissan Growth Mobile App: Connecting Farmers and Consumers</h1>
+
+                            <h5 className='mb-20'>How does Kissan Growth Farmer and Kissan Growth Customer App Works?</h5>
 
                             <p>
                                 The Kissan Growth Mobile App is a game-changer in Indian agriculture, designed to eliminate middlemen and build a direct <strong>bridge between farmers and consumers.</strong>
@@ -58,19 +69,19 @@ const KGMobileAppsSection = () => {
 
                         <div className='col-lg-3 col-xs-12 col-sm-12'>
                             <div className="app-image">
-                                <img src={farmerloginimg} alt="" />
+                                <img src={farmerloginimg} alt="Farmer App" />
                             </div>
                         </div>
 
                         <div className='col-lg-3 col-xs-12 col-sm-12'>
                             <div className="app-image">
-                                <img src={farmerhomeimg} alt="" />
+                                <img src={farmerhomeimg} alt="Farmer App" />
                             </div>
                         </div>
 
                         <div className='col-lg-3 col-xs-12 col-sm-12'>
                             <div className="app-image">
-                                <img src={farmerreferearnimg} alt="" />
+                                <img src={farmerreferearnimg} alt="Farmer App" />
                             </div>
                         </div>
 
@@ -88,6 +99,24 @@ const KGMobileAppsSection = () => {
                         </p>
 
                         <h4 className='text-2xl mt-20'>How It Works:</h4>
+
+                        <div className='row justify-content-center my-40'>
+                            <div className='col-lg-3 col-xs-12 col-sm-12'>
+                                <div className="app-image">
+                                    <img src={farmershop} alt="" />
+                                </div>
+                            </div>
+                            <div className='col-lg-3 col-xs-12 col-sm-12'>
+                                <div className="app-image">
+                                    <img src={farmerorders} alt="" />
+                                </div>
+                            </div>
+                            <div className='col-lg-3 col-xs-12 col-sm-12'>
+                                <div className="app-image">
+                                    <img src={farmerpoints} alt="" />
+                                </div>
+                            </div>
+                        </div>
 
                         <ul>
                             <li><strong>Refer Another Farmer:</strong> Help a fellow farmer join — <strong>earn 10 points</strong> when they list their first crop.</li>
@@ -171,6 +200,26 @@ const KGMobileAppsSection = () => {
                             </p>
 
                             <h4 className='mt-30'>How It Works:</h4>
+
+
+                            <div className='row justify-content-center my-40'>
+                                <div className='col-lg-3 col-xs-12 col-sm-12'>
+                                    <div className="app-image">
+                                        <img src={customerproducts} alt="" />
+                                    </div>
+                                </div>
+                                <div className='col-lg-3 col-xs-12 col-sm-12'>
+                                    <div className="app-image">
+                                        <img src={customerfamilyfarmer} alt="" />
+                                    </div>
+                                </div>
+                                <div className='col-lg-3 col-xs-12 col-sm-12'>
+                                    <div className="app-image">
+                                        <img src={customerpoints} alt="" />
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <ul>
                                 <li><strong>Refer a Friend:</strong> Share your referral link — <strong>earn 10 points</strong> when they sign up & shop.</li>

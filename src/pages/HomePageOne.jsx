@@ -36,10 +36,10 @@ const HomePageOne = () => {
       <HeaderOne />
 
       {/* BannerOne */}
-      {/* <BannerOne /> */}
+      <BannerOne />
 
       {/* FeatureOne */}
-      {/* <FeatureOne /> */}
+      <FeatureOne />
 
       {/* PromotionalOne */}
       <PromotionalOne />
