@@ -24,7 +24,7 @@ const HomePageOne = () => {
     <>
 
       {/* Preloader */}
-      <Preloader />
+      {/* <Preloader /> */}
 
       {/* ScrollToTop */}
       <ScrollToTop smooth color="#299E60" />
@@ -36,10 +36,10 @@ const HomePageOne = () => {
       <HeaderOne />
 
       {/* BannerOne */}
-      <BannerOne />
+      {/* <BannerOne /> */}
 
       {/* FeatureOne */}
-      <FeatureOne />
+      {/* <FeatureOne /> */}
 
       {/* PromotionalOne */}
       <PromotionalOne />
