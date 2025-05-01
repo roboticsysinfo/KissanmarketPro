@@ -12,7 +12,7 @@ import { fetchProductsByCategory, setSelectedProduct } from "../redux/slices/pro
 const CategoryShopSection = () => {
 
     const [showModal, setShowModal] = useState(false);
-    const {categoryId} = useParams();
+    const { categoryId } = useParams();
 
     const dispatch = useDispatch();
 
@@ -37,10 +37,10 @@ const CategoryShopSection = () => {
 
     useEffect(() => {
         if (categoryId) {
-          dispatch(fetchProductsByCategory(categoryId));
+            dispatch(fetchProductsByCategory(categoryId));
         }
-      }, [categoryId, dispatch]);
-    
+    }, [categoryId, dispatch]);
+
 
     // Fetch categories when the component mounts
     useEffect(() => {
@@ -169,7 +169,7 @@ const CategoryShopSection = () => {
                                         <div key={product._id} className="product-card h-100 p-16 border border-gray-100 hover-border-main-600 rounded-16 position-relative transition-2">
                                             <Link to={`/product/${product._id}`} className="product-card__thumb flex-center rounded-8 bg-gray-50 position-relative">
                                                 <img
-                                                    src={product.product_image ? `${process.env.REACT_APP_BASE_URL_SECONDARY}${product.product_image}` : 'https://placehold.co/100x100'}
+                                                    src={product.product_image ? `${process.env.REACT_APP_BASE_URL_PRIMARY}${product.product_image}` : 'https://placehold.co/100x100'}
                                                     alt={product.name}
                                                     className="w-auto max-w-unset"
                                                 />
@@ -188,12 +188,15 @@ const CategoryShopSection = () => {
                                                 </div>
 
                                                 <Button
-
                                                     className='btn btn-success btn-block w-100'
-
                                                     onClick={() => {
-                                                        dispatch(setSelectedProduct(product)); // ✅ Redux me product set karo
-                                                        setShowModal(true); // ✅ Modal open karo
+                                                        const user = JSON.parse(localStorage.getItem("user"));
+                                                        if (user && user.id) {
+                                                            dispatch(setSelectedProduct(product)); // ✅ Redux me product set karo
+                                                            setShowModal(true); // ✅ Modal open karo
+                                                        } else {
+                                                            window.location.href = "/login"; // 🔁 Redirect to login
+                                                        }
                                                     }}
                                                 >
                                                     Request Order

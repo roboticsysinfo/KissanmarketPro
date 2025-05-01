@@ -47,6 +47,7 @@ const Register = () => {
 
 
     return (
+
         <section className="account py-80">
             <div className="container container-lg">
                 <form onSubmit={handleSubmit}>
@@ -54,7 +55,11 @@ const Register = () => {
                         {/* Register Card Start */}
                         <div className="col-xl-6">
                             <div className="border border-gray-100 hover-border-main-600 transition-1 rounded-16 px-24 py-40">
-                                <h6 className="text-xl mb-32">Register</h6>
+
+                                <h6 className="text-xl ">Register as a Customer</h6>
+                                <p className="text-muted mb-32">
+                                    Register now to join Kissan Growth and start shopping fresh, locally-sourced produce directly from farmers.
+                                </p>
 
                                 <div className="mb-24">
                                     <label htmlFor="name" className="text-neutral-900 text-lg mb-8 fw-medium">
@@ -161,7 +166,7 @@ const Register = () => {
 
 
                                 <div className="mt-48">
-                                    <button type="submit" className="btn btn-main py-18 px-40" disabled={loading}>
+                                    <button type="submit" className="btn btn-success py-18 px-40" disabled={loading}>
                                         {loading ? (
                                             <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                         ) : (

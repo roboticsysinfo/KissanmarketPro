@@ -18,7 +18,7 @@ const PromotionalOne = () => {
                                     Daily Fresh Vegetables
                                 </h6>
                                 <Link
-                                    to="/category/67821454645d0bc6a6bf5224"
+                                    to="/category/68105aa462837600f93b9c66"
                                     className="btn btn-main d-inline-flex align-items-center rounded-pill gap-8 mt-24"
                                 >
                                     Shop Now
@@ -41,7 +41,7 @@ const PromotionalOne = () => {
                                     Everyday Fresh Milk
                                 </h6>
                                 <Link
-                                    to="/category/67821470645d0bc6a6bf5228"
+                                    to="/category/68131fd0b61968263cce58c1"
                                     className="btn btn-main d-inline-flex align-items-center rounded-pill gap-8 mt-24"
                                 >
                                     Shop Now
@@ -64,7 +64,7 @@ const PromotionalOne = () => {
                                     Everyday Fresh Fruits
                                 </h6>
                                 <Link
-                                    to="/category/6784e9a547399228a71a89a4"
+                                    to="/category/68105ab062837600f93b9c6b"
                                     className="btn btn-main d-inline-flex align-items-center rounded-pill gap-8 mt-24"
                                 >
                                     Shop Now

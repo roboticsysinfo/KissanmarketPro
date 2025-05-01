@@ -15,17 +15,17 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-    
+
         try {
             const response = await api.post("/auth/customer_login", formData);
-            
+
             // Save token, userRole, and full user details in localStorage
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("userRole", response.data.userRole);
             localStorage.setItem("user", JSON.stringify(response.data.user)); // 👈 Storing full user object
-    
+
             toast.success("Login successful");
-    
+
             // Redirect based on role
             if (response.data.userRole === "customer") {
                 navigate("/account");
@@ -38,7 +38,7 @@ const Login = () => {
             setLoading(false);
         }
     };
-    
+
 
     return (
         <section className="account py-80">
@@ -47,7 +47,11 @@ const Login = () => {
                     <div className="row justify-content-center gy-4">
                         <div className="col-xl-6 pe-xl-5">
                             <div className="border border-gray-100 hover-border-main-600 transition-1 rounded-16 px-24 py-40 h-100">
-                                <h6 className="text-xl mb-32">Login</h6>
+                                <h6 className="text-xl">Customer Login</h6>
+                                <p className="text-muted mb-32">
+                                    Login to Kissan Growth and order fresh produce directly from local farmers for a quicker and easier shopping experience.
+                                </p>
+
                                 <div className="mb-24">
                                     <label htmlFor="email" className="text-neutral-900 text-lg mb-8 fw-medium">
                                         Email Address <span className="text-danger">*</span>
@@ -79,7 +83,7 @@ const Login = () => {
                                     />
                                 </div>
                                 <div className="mb-24 mt-48">
-                                    <button type="submit" className="btn btn-main py-18 px-40" disabled={loading}>
+                                    <button type="submit" className="btn btn-success py-18 px-40" disabled={loading}>
                                         {loading ? (
                                             <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                         ) : (
