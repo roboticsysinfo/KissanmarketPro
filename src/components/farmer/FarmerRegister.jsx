@@ -258,6 +258,7 @@ const FarmerRegister = () => {
               </Form>
             </div>
           </div>
+          
         </div>
       </div>
 

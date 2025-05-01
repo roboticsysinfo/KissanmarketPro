@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Button, Row, Col } from 'react-bootstrap';
+import {  Form, Button, } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import api from '../../utils/api'; // Make sure to adjust the import path of API.js
@@ -59,9 +59,14 @@ const FarmerLogin = () => {
             </Helmet>
 
 
-            <Container className="mt-5">
-                <Row className="justify-content-center">
-                    <Col md={6}>
+            <div className='container-fluid ps-0'>
+                <div className='row'>
+                    <div className='col-lg-7 col-xs-12 col-sm-12'>
+                        <img src='/assets/images/bg/bg-banner-kg.jpg' style={styles.register_img} alt='Kisaan Growth' />
+                    </div>
+
+                    <div className='col-lg-5 col-xs-12 col-sm-12'>
+
 
                         <div className='form_container'>
 
@@ -105,13 +110,22 @@ const FarmerLogin = () => {
 
                         </div>
 
-                    </Col>
-                </Row>
-            </Container>
+                    </div>
+
+                </div>
+            </div>
+
 
         </>
 
     );
+};
+
+const styles = {
+  register_img: {
+    width: "100%",
+    height: "100vh",
+  },
 };
 
 export default FarmerLogin;

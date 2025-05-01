@@ -9,19 +9,20 @@ import slugify from 'slugify';
 
 const VendorSection = () => {
 
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+
     const [districtOptions, setDistrictOptions] = useState([]); // Store formatted districts
     const [selectedDistrict, setSelectedDistrict] = useState(null); // Selected district
+
 
     // Categories state
     const { categories, status: categoryStatus, error: categoryError } = useSelector((state) => state.categories);
     // Access shops from Redux store
     const { shops = [], status, error } = useSelector((state) => state.shop);
     const { reviews } = useSelector((state) => state.reviews);
-
-    console.log("shops", shops)
 
 
     const fetchDistricts = async () => {
@@ -46,14 +47,17 @@ const VendorSection = () => {
         }
     }, [dispatch, categoryStatus]);
 
+
     useEffect(() => {
         // Dispatch the fetchShops action with the params for limiting results to 6
         dispatch(fetchShops({ page: 1, limit: 10 }));
     }, [dispatch]);
 
+
     useEffect(() => {
         fetchDistricts();
     }, []);
+
 
     // Handle loading and error states for categories
     if (categoryStatus === 'loading') {
@@ -171,8 +175,10 @@ const VendorSection = () => {
                                     const shopSlug = slugify(shop.shop_name || "", { lower: true, strict: true });
 
                                     return (
+
                                         <div className='col-lg-4 col-xs-12 col-sm-12' key={shop._id}>
                                             <div className="vendors-two-item rounded-12  overflow-hidden bg-color-three border border-neutral-50 hover-border-main-two-600 transition-2">
+                                                
                                                 <div className="vendors-two-item__top bg-overlay style-two position-relative">
                                                     <div className="vendors-two-item__thumbs h-210">
                                                         <img
@@ -181,12 +187,15 @@ const VendorSection = () => {
                                                             className="cover-img"
                                                         />
                                                     </div>
+
                                                     <div className="position-absolute top-0 inset-inline-start-0 w-100 h-100 p-24 z-1 d-flex flex-column justify-content-between">
+                                                        
                                                         <div className="d-flex align-items-center justify-content-between">
                                                             <span className="w-80 h-80 flex-center bg-white rounded-circle flex-shrink-0">
                                                                 <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${shop.shop_profile_image}`} alt="Icon" />
                                                             </span>
                                                         </div>
+
                                                         <div className="mt-16">
                                                             <h6 className="text-white fw-semibold mb-12">
                                                                 <Link to={`/shop/${shopSlug}-${shop._id}`}>
