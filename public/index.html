@@ -20,10 +20,10 @@
   <meta name="robots" content="index, follow">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="language" content="English">
-  <link rel="stylesheet" href="%PUBLIC_URL%/assets/css/slick.css" />
-  <link rel="stylesheet" href="%PUBLIC_URL%/assets/css/select2.min.css" />
-  <link rel="stylesheet" href="%PUBLIC_URL%/assets/css/jquery-ui.css" />
-  <link rel="stylesheet" href="%PUBLIC_URL%/assets/css/bootstrap.min.css" />
+  <link rel="preload" href="%PUBLIC_URL%/assets/css/bootstrap.min.css" as="style">
+  <link rel="preload" href="%PUBLIC_URL%/assets/css/slick.css" as="style">
+  <link rel="preload" href="%PUBLIC_URL%/assets/css/select2.min.css" as="style">
+  <link rel="preload" href="%PUBLIC_URL%/assets/css/jquery-ui.css" as="style">
   <link rel="canonical" href="https://kissangrowth.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -55,7 +55,7 @@
   </script>
 
 
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script defer src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 
 </head>
