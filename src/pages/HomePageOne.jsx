@@ -5,7 +5,7 @@ import ColorInit from "../helper/ColorInit";
 
 const HeaderOne = React.lazy(() => import("../components/HeaderOne"));
 const BannerOne = React.lazy(() => import("../components/BannerOne"));
-const StaticBanner = React.lazy(() => import("../components/StaticBanner"));
+// const StaticBanner = React.lazy(() => import("../components/StaticBanner"));
 const FeatureOne = React.lazy(() => import("../components/FeatureOne"));
 const PromotionalOne = React.lazy(() => import("../components/PromotionalOne"));
 const ProductListOne = React.lazy(() => import("../components/ProductListOne"));
@@ -27,7 +27,7 @@ const HomePageOne = () => {
 
       <Suspense fallback={<Preloader />}>
         <HeaderOne />
-        <StaticBanner />
+        {/* <StaticBanner /> */}
         {/* <BannerOne /> */}
         <FeatureOne />
         <PromotionalOne />
