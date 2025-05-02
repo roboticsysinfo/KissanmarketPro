@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
-import { fetchSiteDetails, updateTermsAndConditions } from '../../redux/slices/siteDetailsSlice'; // Corrected path
+import { fetchSiteDetails, updateTermsAndConditions } from '../../redux/slices/siteDeatilsSlice'; // Corrected path
 import toast from 'react-hot-toast';
 
 // Lazy load ReactQuill
