@@ -28,7 +28,7 @@ const HomePageOne = () => {
       <Suspense fallback={<Preloader />}>
         <HeaderOne />
         {/* <StaticBanner /> */}
-        {/* <BannerOne /> */}
+        <BannerOne />
         <FeatureOne />
         <PromotionalOne />
         <HomeContent />
