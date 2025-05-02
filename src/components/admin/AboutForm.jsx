@@ -3,10 +3,10 @@ import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSiteDetails, updateSiteAbout } from "../../redux/slices/siteDeatilsSlice"; // Import actions
 import toast from "react-hot-toast";
-
+import "react-quill/dist/quill.snow.css"; // Import Quill styles
 // Lazy load ReactQuill
 const ReactQuill = React.lazy(() => import("react-quill"));
-import "react-quill/dist/quill.snow.css"; // Import Quill styles
+
 
 const AboutForm = () => {
     const dispatch = useDispatch();

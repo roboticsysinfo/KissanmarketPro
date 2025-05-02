@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { createBlog } from "../../redux/slices/blogSlice";
 import { fetchBlogCategories } from "../../redux/slices/blogCategorySlice";
 import { useNavigate } from "react-router-dom";
+import "react-quill/dist/quill.snow.css"; // Importing styles separately
 
 // Lazy load ReactQuill
 const ReactQuill = React.lazy(() => import("react-quill"));
-import "react-quill/dist/quill.snow.css"; // Importing styles separately
+
 
 const AddBlog = ({ initialData = {} }) => {
   const dispatch = useDispatch();

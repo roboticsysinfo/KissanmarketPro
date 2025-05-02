@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import { fetchSiteDetails, updatePrivacyPolicy } from '../../redux/slices/siteDeatilsSlice'; // Correct path
 import toast from 'react-hot-toast';
+import 'react-quill/dist/quill.snow.css'; // Importing styles separately
 
 // Lazy load ReactQuill
 const ReactQuill = React.lazy(() => import('react-quill'));
-import 'react-quill/dist/quill.snow.css'; // Importing styles separately
+
 
 const AddPrivacyPolicy = () => {
     const dispatch = useDispatch();

@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import { fetchSiteDetails, updateTermsAndConditions } from '../../redux/slices/siteDeatilsSlice'; // Corrected path
 import toast from 'react-hot-toast';
+import 'react-quill/dist/quill.snow.css'; 
 
 // Lazy load ReactQuill
 const ReactQuill = React.lazy(() => import('react-quill'));
-import 'react-quill/dist/quill.snow.css'; // Importing styles separately
+// Importing styles separately
 
 const AddTermsCondition = () => {
     const dispatch = useDispatch();
