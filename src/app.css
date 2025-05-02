@@ -17,7 +17,8 @@
     color: #353535;
 }
 
-.kissan-growth-customer-info strong, .kissan-growth-farmer-info strong {
+.kissan-growth-customer-info strong,
+.kissan-growth-farmer-info strong {
     color: #333;
 }
 
@@ -25,7 +26,7 @@
     border: 2px solid #efefef;
 }
 
-.search-form__input{
+.search-form__input {
     border-radius: 100px !important;
 }
 
@@ -329,7 +330,7 @@ ul.ProductPagination {
         display: none !important;
     }
 
-    .dflexinpugroup{
+    .dflexinpugroup {
         display: flex;
         width: 100%;
     }
@@ -358,7 +359,7 @@ ul.ProductPagination {
         width: 100%;
     }
 
-    .dflexinpugroup{
+    .dflexinpugroup {
         display: none;
         width: 100%;
     }
@@ -384,3 +385,22 @@ ul.ProductPagination {
     margin-right: 10px;
 }
 
+
+@media screen and (max-width: 575px) {
+    .banner-item__thumb img {
+        max-width: 160px !important;
+        width: 100%;
+    }
+
+    .flex-between {
+        align-items: center;
+        display: flex;
+        justify-content: center !important;
+    }
+
+    .banner-item__content {
+        max-width: 750px;
+        text-align: center;
+    }
+
+}
