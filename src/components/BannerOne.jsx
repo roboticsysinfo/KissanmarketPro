@@ -52,6 +52,7 @@ const BannerOne = () => {
     };
 
     return (
+
         <div className="banner">
             <div className="container container-lg">
                 <div className="banner-item rounded-24 overflow-hidden position-relative arrow-center">
@@ -92,9 +93,13 @@ const BannerOne = () => {
                             </Slider>
                         )}
                     </div>
+                    
                 </div>
+
             </div>
+
         </div>
+
     );
 };
 

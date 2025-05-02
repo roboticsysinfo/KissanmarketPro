@@ -100,9 +100,8 @@ const FeatureOne = () => {
                                     <div className="feature-item__thumb rounded-circle">
                                         <Link to={`/category/${category._id}`} className="w-100 h-100 flex-center">
                                             <img src={category.category_image ? `${process.env.REACT_APP_BASE_URL_SECONDARY}${category.category_image}` : 'https://placehold.co/100x100'} alt={category.name}
-                                                width={100}
-                                                height={100}
-                                                loading='lazy'
+                                                width={80}
+                                                height={80}
                                             />
                                         </Link>
                                     </div>
