@@ -25,7 +25,8 @@ const HomePageOne = () => {
       <ScrollToTop smooth color="#299E60" />
       <ColorInit color={false} />
 
-      <Suspense fallback={<Preloader />}>
+      <Suspense fallback={<HeaderOne />}>
+
         <HeaderOne />
         {/* <StaticBanner /> */}
         <BannerOne />

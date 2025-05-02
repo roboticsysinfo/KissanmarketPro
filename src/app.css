@@ -367,7 +367,6 @@ ul.ProductPagination {
 
 }
 
-
 .header_app p {
     color: #fff;
     font-size: 12px;
@@ -383,6 +382,20 @@ ul.ProductPagination {
     /* width: 100%; */
     height: 38px;
     margin-right: 10px;
+}
+
+.banner-item{
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+.header-middle {
+    padding: 5px 0 !important;
+}
+
+.banner-item__title {
+    font-size: 48px;
+    margin-bottom: 20px;
 }
 
 
