@@ -102,6 +102,7 @@ const FeatureOne = () => {
                                             <img src={category.category_image ? `${process.env.REACT_APP_BASE_URL_SECONDARY}${category.category_image}` : 'https://placehold.co/100x100'} alt={category.name}
                                                 width={100}
                                                 height={100}
+                                                loading='lazy'
                                             />
                                         </Link>
                                     </div>

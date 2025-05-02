@@ -9,9 +9,12 @@ const PromotionalOne = () => {
                     <div className="col-xl-4 col-sm-6 col-xs-6">
                         <div className="promotional-banner-item position-relative rounded-24 overflow-hidden z-1">
                             <img
-                                src="assets/images/thumbs/promotional-banner-img2.png"
+                                src="assets/images/thumbs/promotional-banner-img2.webp"
                                 alt="Kisaan Growth"
-                                className="position-absolute inset-block-start-0 inset-inline-start-0 w-100 h-100 object-fit-cover z-n1"
+                                className="position-absolute inset-block-start-0 inset-inline-start- object-fit-cover z-n1"
+                                loading='lazy'
+                                width={"100%"}
+                                height={302}
                             />
                             <div className="promotional-banner-item__content">
                                 <h6 className="promotional-banner-item__title text-32">
@@ -32,9 +35,12 @@ const PromotionalOne = () => {
                     <div className="col-xl-4 col-sm-6 col-xs-6">
                         <div className="promotional-banner-item position-relative rounded-24 overflow-hidden z-1">
                             <img
-                                src="assets/images/thumbs/promotional-banner-img3.png"
+                                src="assets/images/thumbs/promotional-banner-img3.webp"
                                 alt=""
-                                className="position-absolute inset-block-start-0 inset-inline-start-0 w-100 h-100 object-fit-cover z-n1"
+                                className="position-absolute inset-block-start-0 inset-inline-start-0 object-fit-cover z-n1"
+                                loading='lazy'
+                                width={"100%"}
+                                height={302}
                             />
                             <div className="promotional-banner-item__content">
                                 <h6 className="promotional-banner-item__title text-32">
@@ -55,9 +61,12 @@ const PromotionalOne = () => {
                     <div className="col-xl-4 col-sm-6 col-xs-6">
                         <div className="promotional-banner-item position-relative rounded-24 overflow-hidden z-1">
                             <img
-                                src="assets/images/thumbs/promotional-banner-img4.png"
+                                src="assets/images/thumbs/promotional-banner-img4.webp"
                                 alt=""
-                                className="position-absolute inset-block-start-0 inset-inline-start-0 w-100 h-100 object-fit-cover z-n1"
+                                className="position-absolute inset-block-start-0 inset-inline-start-0 object-fit-cover z-n1"
+                                loading='lazy'
+                                width={"100%"}
+                                height={302}
                             />
                             <div className="promotional-banner-item__content">
                                 <h6 className="promotional-banner-item__title text-32">

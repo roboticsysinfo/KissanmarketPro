@@ -1,75 +1,46 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Preloader from "../helper/Preloader";
-import HeaderOne from "../components/HeaderOne";
-import BannerOne from "../components/BannerOne";
-import FeatureOne from "../components/FeatureOne";
-import PromotionalOne from "../components/PromotionalOne";
-import ProductListOne from "../components/ProductListOne";
-import TopVendorsOne from "../components/TopVendorsOne";
-import NewsletterOne from "../components/NewsletterOne";
-import FooterOne from "../components/FooterOne";
-import BottomFooter from "../components/BottomFooter";
 import ScrollToTop from "react-scroll-to-top";
 import ColorInit from "../helper/ColorInit";
-import HomeContent from "../components/HomeContent";
-import ShippingOne from "../components/ShippingOne";
-import WhyKissanGrowthCards from "../components/WhyKissanGrowthCards";
-import HowItWorksCards from "./HowItWorksCards";
 
+const HeaderOne = React.lazy(() => import("../components/HeaderOne"));
+const BannerOne = React.lazy(() => import("../components/BannerOne"));
+const FeatureOne = React.lazy(() => import("../components/FeatureOne"));
+const PromotionalOne = React.lazy(() => import("../components/PromotionalOne"));
+const ProductListOne = React.lazy(() => import("../components/ProductListOne"));
+const TopVendorsOne = React.lazy(() => import("../components/TopVendorsOne"));
+const NewsletterOne = React.lazy(() => import("../components/NewsletterOne"));
+const FooterOne = React.lazy(() => import("../components/FooterOne"));
+const BottomFooter = React.lazy(() => import("../components/BottomFooter"));
+const HomeContent = React.lazy(() => import("../components/HomeContent"));
+const ShippingOne = React.lazy(() => import("../components/ShippingOne"));
+const WhyKissanGrowthCards = React.lazy(() => import("../components/WhyKissanGrowthCards"));
+const HowItWorksCards = React.lazy(() => import("./HowItWorksCards"));
 
 const HomePageOne = () => {
 
   return (
-
     <>
-
-      {/* Preloader */}
-      {/* <Preloader /> */}
-
-      {/* ScrollToTop */}
       <ScrollToTop smooth color="#299E60" />
-
-      {/* ColorInit */}
       <ColorInit color={false} />
 
-      {/* HeaderOne */}
-      <HeaderOne />
-
-      {/* BannerOne */}
-      <BannerOne />
-
-      {/* FeatureOne */}
-      <FeatureOne />
-
-      {/* PromotionalOne */}
-      <PromotionalOne />
-
-      {/* Home Content Static*/}
-      <HomeContent />
-
-      <WhyKissanGrowthCards />
-
-      <HowItWorksCards />
-
-      {/* ProductListOne */}
-      <ProductListOne />
-
-      {/* TopVendorsOne */}
-      <TopVendorsOne />
-
-      {/*Feature*/}
-      <ShippingOne />
-
-      {/* FooterOne */}
-      <FooterOne />
-
-      {/* BottomFooter */}
-      <BottomFooter />
-
-
+      <Suspense fallback={<Preloader />}>
+        <HeaderOne />
+        <BannerOne />
+        <FeatureOne />
+        <PromotionalOne />
+        <HomeContent />
+        <WhyKissanGrowthCards />
+        <HowItWorksCards />
+        <ProductListOne />
+        <TopVendorsOne />
+        <ShippingOne />
+        <FooterOne />
+        <BottomFooter />
+      </Suspense>
     </>
-
   );
+  
 };
 
 export default HomePageOne;

@@ -84,7 +84,7 @@ const BannerOne = () => {
                                                 </Link>
                                             </div>
                                             <div className="banner-item__thumb">
-                                                <img src={`${process.env.REACT_APP_BASE_URL_SECONDARY}${banner.banner_image}`} alt={banner.title} />
+                                                <img src={`${process.env.REACT_APP_BASE_URL_SECONDARY}${banner.banner_image}`} alt={banner.title} width={400} height={400} />
                                             </div>
                                         </div>
                                     </div>

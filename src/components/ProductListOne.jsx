@@ -57,6 +57,9 @@ const ProductListOne = () => {
                                                     : 'https://placehold.co/100x100'
                                             }
                                             alt={product.name || 'Product'}
+                                            loading='lazy'
+                                            width={300}
+                                            height={200}
                                         />
                                     </Link>
                                     <div className="product-card__content mt-12">

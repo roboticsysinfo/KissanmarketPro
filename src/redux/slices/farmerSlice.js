@@ -48,6 +48,7 @@ export const getFarmerDetailsById = createAsyncThunk(
 
 
 export const getFarmerReferralDetail = createAsyncThunk(
+
   "farmer/getFarmerReferralDetail",
   async (farmerId, { rejectWithValue }) => {
     try {
@@ -57,6 +58,7 @@ export const getFarmerReferralDetail = createAsyncThunk(
       return rejectWithValue(err.response.data.message || "Failed to fetch");
     }
   }
+
 );
 
 
@@ -78,6 +80,7 @@ export const fetchPointTransactions = createAsyncThunk(
 
 
 const farmersSlice = createSlice({
+  
   name: 'farmers',
   initialState: {
     farmers: [],

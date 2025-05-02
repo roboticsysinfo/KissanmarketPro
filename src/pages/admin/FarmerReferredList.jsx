@@ -15,7 +15,6 @@ const FarmerReferralDetail = () => {
 
     const ReferralFarmerName = localStorage.getItem("farmerName");
 
-
     useEffect(() => {
         dispatch(getFarmerReferralDetail(id));
     }, [dispatch, id]);
