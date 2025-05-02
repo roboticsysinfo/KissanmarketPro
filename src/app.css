@@ -403,4 +403,9 @@ ul.ProductPagination {
         text-align: center;
     }
 
+    .staticbannerimg{
+        width: 100%;
+        height: 200px !important;
+    }
+
 }
