@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-
-import { fetchSiteDetails, updateTermsAndConditions } from '../../redux/slices/siteDeatilsSlice'; // correct path lagana
+import { fetchSiteDetails, updateTermsAndConditions } from '../../redux/slices/siteDetailsSlice'; // Corrected path
 import toast from 'react-hot-toast';
+
+// Lazy load ReactQuill
+const ReactQuill = React.lazy(() => import('react-quill'));
+import 'react-quill/dist/quill.snow.css'; // Importing styles separately
 
 const AddTermsCondition = () => {
     const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const AddTermsCondition = () => {
 
     const [termsContent, setTermsContent] = useState('');
 
-    // Site details fetch karne ke liye
+    // Fetch site details
     useEffect(() => {
         if (!siteDetails) {
             dispatch(fetchSiteDetails());
@@ -47,12 +48,14 @@ const AddTermsCondition = () => {
             <Form onSubmit={handleTermsSubmit}>
                 <Form.Group controlId="termsContent" className="mb-4">
                     <Form.Label>Content</Form.Label>
-                    <ReactQuill
-                        value={termsContent}
-                        onChange={handleContentChange}
-                        theme="snow"
-                        style={{ height: '400px', marginBottom: '50px' }}
-                    />
+                    <Suspense fallback={<div>Loading Editor...</div>}>
+                        <ReactQuill
+                            value={termsContent}
+                            onChange={handleContentChange}
+                            theme="snow"
+                            style={{ height: '400px', marginBottom: '50px' }}
+                        />
+                    </Suspense>
                 </Form.Group>
 
                 <Form.Group>

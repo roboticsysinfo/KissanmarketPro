@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createBlog } from "../../redux/slices/blogSlice";
 import { fetchBlogCategories } from "../../redux/slices/blogCategorySlice";
 import { useNavigate } from "react-router-dom";
-import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css';
+
+// Lazy load ReactQuill
+const ReactQuill = React.lazy(() => import("react-quill"));
+import "react-quill/dist/quill.snow.css"; // Importing styles separately
 
 const AddBlog = ({ initialData = {} }) => {
   const dispatch = useDispatch();
@@ -14,7 +16,6 @@ const AddBlog = ({ initialData = {} }) => {
   // Fetch categories from Redux store
   const { blogcategories, loading: categoryLoading } = useSelector((state) => state.blogCategory);
   const { loading, error } = useSelector((state) => state.blogs);
-
 
   const [formData, setFormData] = useState({
     blog_title: initialData.blog_title || "",
@@ -118,26 +119,25 @@ const AddBlog = ({ initialData = {} }) => {
         <Form.Control type="text" name="metaKeywords" value={formData.metaKeywords} onChange={handleChange} />
       </Form.Group>
 
+      {/* Lazy-loaded ReactQuill */}
       <Form.Group controlId="blogContent" className="mt-20">
         <Form.Label>Content</Form.Label>
-        <ReactQuill
-          value={formData.blog_content}
-          onChange={handleQuillChange}  // Store HTML content
-          theme="snow"
-          style={{ height: "300px" }}
-          modules={{
-            toolbar: [["bold", "italic", "underline"], [{ list: "ordered" }, { list: "bullet" }]],
-          }}
-        />
-
+        <Suspense fallback={<div>Loading editor...</div>}>
+          <ReactQuill
+            value={formData.blog_content}
+            onChange={handleQuillChange}  // Store HTML content
+            theme="snow"
+            style={{ height: "300px" }}
+            modules={{
+              toolbar: [["bold", "italic", "underline"], [{ list: "ordered" }, { list: "bullet" }]],
+            }}
+          />
+        </Suspense>
       </Form.Group>
-
 
       <hr />
 
       {error && <p className="text-danger mt-2">{error}</p>}
-
-
 
       <Button variant="success" type="submit" className="mt-20" disabled={loading}>
         {loading ? "Adding..." : "Add Blog"}

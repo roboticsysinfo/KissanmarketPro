@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { Form, Button } from "react-bootstrap";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSiteDetails, updateSiteAbout } from "../../redux/slices/siteDeatilsSlice"; // Import actions
 import toast from "react-hot-toast";
+
+// Lazy load ReactQuill
+const ReactQuill = React.lazy(() => import("react-quill"));
+import "react-quill/dist/quill.snow.css"; // Import Quill styles
 
 const AboutForm = () => {
     const dispatch = useDispatch();
@@ -20,7 +22,6 @@ const AboutForm = () => {
         dispatch(fetchSiteDetails());
     }, [dispatch]);
 
-
     useEffect(() => {
         if (siteDetails?.about.title || siteDetails?.about.content || siteDetails?.about.footer_text) {
             setFormsiteDetails({
@@ -31,7 +32,6 @@ const AboutForm = () => {
         }
     }, [siteDetails]);
 
-
     // Handle input changes
     const handleChange = (e) => {
         setFormsiteDetails({
@@ -40,12 +40,10 @@ const AboutForm = () => {
         });
     };
 
-
     // Handle Quill editor change
     const handleContentChange = (value) => {
         setFormsiteDetails({ ...formsiteDetails, aboutContent: value });
     };
-
 
     // ✅ Handle About Submit
     const handleAboutSubmit = async (e) => {
@@ -66,13 +64,10 @@ const AboutForm = () => {
 
     return (
         <div className="p-40 border rounded">
-
             <h2 className="text-xl">About</h2>
-
             <hr />
 
             <Form onSubmit={handleAboutSubmit}>
-
                 {/* Title Field */}
                 <Form.Group controlId="aboutTitle" className="mb-30">
                     <Form.Label>Title</Form.Label>
@@ -82,18 +77,19 @@ const AboutForm = () => {
                         value={formsiteDetails.aboutTitle}
                         onChange={handleChange}
                     />
-
                 </Form.Group>
 
-                {/* Content Field (React Quill Editor) */}
+                {/* Content Field (React Quill Editor with lazy loading) */}
                 <Form.Group controlId="aboutContent" className="mb-30">
                     <Form.Label>Content</Form.Label>
-                    <ReactQuill
-                        value={formsiteDetails.aboutContent}
-                        onChange={handleContentChange}
-                        theme="snow"
-                        style={{ height: "400px" }}
-                    />
+                    <Suspense fallback={<div>Loading Editor...</div>}>
+                        <ReactQuill
+                            value={formsiteDetails.aboutContent}
+                            onChange={handleContentChange}
+                            theme="snow"
+                            style={{ height: "400px" }}
+                        />
+                    </Suspense>
                 </Form.Group>
 
                 <hr />
@@ -107,7 +103,6 @@ const AboutForm = () => {
                         value={formsiteDetails.footerContent}
                         onChange={handleChange}
                     />
-
                 </Form.Group>
 
                 <hr />
@@ -118,7 +113,6 @@ const AboutForm = () => {
                         {siteDetailsLoading ? "Updating..." : "Submit"}
                     </Button>
                 </Form.Group>
-
             </Form>
         </div>
     );

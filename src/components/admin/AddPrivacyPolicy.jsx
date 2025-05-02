@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-
-import { fetchSiteDetails, updatePrivacyPolicy } from '../../redux/slices/siteDeatilsSlice'; // path dhyan se lagana
+import { fetchSiteDetails, updatePrivacyPolicy } from '../../redux/slices/siteDetailsSlice'; // Correct path
 import toast from 'react-hot-toast';
+
+// Lazy load ReactQuill
+const ReactQuill = React.lazy(() => import('react-quill'));
+import 'react-quill/dist/quill.snow.css'; // Importing styles separately
 
 const AddPrivacyPolicy = () => {
     const dispatch = useDispatch();
@@ -47,12 +48,14 @@ const AddPrivacyPolicy = () => {
             <Form onSubmit={handlePrivacySubmit}>
                 <Form.Group controlId="privacyContent" className="mb-4">
                     <Form.Label>Content</Form.Label>
-                    <ReactQuill
-                        value={privacyContent}
-                        onChange={handleContentChange}
-                        theme="snow"
-                        style={{ height: '400px', marginBottom: '50px' }}
-                    />
+                    <Suspense fallback={<div>Loading Editor...</div>}>
+                        <ReactQuill
+                            value={privacyContent}
+                            onChange={handleContentChange}
+                            theme="snow"
+                            style={{ height: '400px', marginBottom: '50px' }}
+                        />
+                    </Suspense>
                 </Form.Group>
 
                 <Form.Group>
