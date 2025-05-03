@@ -1,14 +1,12 @@
 import React, { Suspense } from "react";
-import Preloader from "../helper/Preloader";
 import ScrollToTop from "react-scroll-to-top";
 import ColorInit from "../helper/ColorInit";
 
-//  Remove Lazy Load for these
+// No lazy loading for these (critical content for FCP)
 import HeaderOne from "../components/HeaderOne";
-// import BannerOne from "../components/BannerOne";
-import StaticBanner from "../components/StaticBanner"; 
+import StaticBanner from "../components/StaticBanner";
 
-//  Keep Lazy Load for these (for performance)
+// Lazy load for non-critical components
 const FeatureOne = React.lazy(() => import("../components/FeatureOne"));
 const PromotionalOne = React.lazy(() => import("../components/PromotionalOne"));
 const ProductListOne = React.lazy(() => import("../components/ProductListOne"));
@@ -21,31 +19,58 @@ const ShippingOne = React.lazy(() => import("../components/ShippingOne"));
 const WhyKissanGrowthCards = require("../components/WhyKissanGrowthCards").default;
 const HowItWorksCards = require("./HowItWorksCards").default;
 
-
 const HomePageOne = () => {
   return (
     <>
       <ScrollToTop smooth color="#299E60" />
       <ColorInit color={false} />
 
+      {/* Critical for initial paint */}
       <HeaderOne />
+      <StaticBanner />
 
-      <StaticBanner /> 
-
-      {/* <BannerOne /> */}
-
-      <Suspense fallback={<HeaderOne />}>
-      
+      {/* Lazy components rendered individually to avoid full page blocking */}
+      <Suspense fallback={<div>Loading Why Kissan Growth...</div>}>
         <WhyKissanGrowthCards />
-        <HowItWorksCards />
-        <FeatureOne />
-        <PromotionalOne />
-        <HomeContent />
+      </Suspense>
 
+      <Suspense fallback={<div>Loading How it Works...</div>}>
+        <HowItWorksCards />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Features...</div>}>
+        <FeatureOne />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Promotions...</div>}>
+        <PromotionalOne />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Home Content...</div>}>
+        <HomeContent />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Products...</div>}>
         <ProductListOne />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Top Vendors...</div>}>
         <TopVendorsOne />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Shipping Info...</div>}>
         <ShippingOne />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Newsletter...</div>}>
+        <NewsletterOne />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Footer...</div>}>
         <FooterOne />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Bottom Footer...</div>}>
         <BottomFooter />
       </Suspense>
     </>
