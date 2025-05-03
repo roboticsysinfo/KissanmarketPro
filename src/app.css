@@ -405,7 +405,8 @@ ul.ProductPagination {
         width: 100%;
     }
 
-    .flex-between {
+    .banner-slider__item .flex-between {
+        flex-direction: column-reverse;
         align-items: center;
         display: flex;
         justify-content: center !important;
@@ -419,6 +420,10 @@ ul.ProductPagination {
     .staticbannerimg{
         width: 100%;
         height: 200px !important;
+    }
+
+    .logo img{
+        max-width: 110px !important;
     }
 
 }

@@ -15,7 +15,6 @@ const HeaderOne = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-
     const [districtOptions, setDistrictOptions] = useState([]); // Store formatted districts
     const [selectedDistrict, setSelectedDistrict] = useState(null); // Selected district
 
@@ -121,6 +120,7 @@ const HeaderOne = () => {
                 </div>
             </form>
             {/* ==================== Search Box End Here ==================== */}
+
             {/* ==================== Mobile Menu Start Here ==================== */}
             <div className={`mobile-menu scroll-sm d-lg-none d-block ${menuActive && "active"}`}>
                 <button onClick={() => { handleMenuToggle(); setActiveIndex(null) }} type="button" className="close-button">
@@ -128,10 +128,13 @@ const HeaderOne = () => {
                     <i className="ph ph-x" />{" "}
                 </button>
                 <div className="mobile-menu__inner">
+
                     <Link to="/" className="mobile-menu__logo">
                         <img src="/assets/images/kg-logo.jpg" alt="Logo" />
                     </Link>
+
                     <div className="mobile-menu__menu">
+
                         {/* Nav Menu Start */}
                         <ul className="nav-menu flex-align nav-menu--mobile">
                             {/* Home Menu */}
@@ -177,13 +180,31 @@ const HeaderOne = () => {
                                 </Link>
                             </li>
 
+
+                            {/* Farmer Menu */}
+                            <li onClick={() => handleMenuClick(1)}
+                                className={`on-hover-item nav-menu__item has-submenu ${activeIndex === 1 ? "d-block" : ""
+                                    }`}
+                            >
+
+                                <Link
+                                    to="/farmers"
+                                    className="nav-menu__link"
+
+                                >
+                                    Farmers
+                                </Link>
+
+                            </li>
+
+
                             {/* Shop Menu */}
                             <li onClick={() => handleMenuClick(1)}
                                 className={`on-hover-item nav-menu__item has-submenu ${activeIndex === 1 ? "d-block" : ""
                                     }`}
                             >
                                 <Link
-                                    to="/farmers"
+                                    to="/shop"
                                     className="nav-menu__link"
 
                                 >
@@ -216,6 +237,7 @@ const HeaderOne = () => {
                                     Contact Us
                                 </Link>
                             </li>
+
                         </ul>
                         {/* Nav Menu End */}
                     </div>
@@ -497,6 +519,7 @@ const HeaderOne = () => {
                         <div className="header-right flex-align">
 
                             <div className="me-16 d-lg-none d-block">
+                                
                                 {/* <div className="flex-align flex-wrap gap-12">
                                     <button onClick={handleSearchToggle}
                                         type="button"
@@ -518,7 +541,9 @@ const HeaderOne = () => {
                                         </span>
                                     </Link>
                                 </div> */}
+
                             </div>
+
                             <button
                                 onClick={handleMenuToggle}
                                 type="button"
@@ -527,6 +552,7 @@ const HeaderOne = () => {
                                 {" "}
                                 <i className="ph ph-list" />{" "}
                             </button>
+
                         </div>
                         {/* Header Right End  */}
                     </nav>
