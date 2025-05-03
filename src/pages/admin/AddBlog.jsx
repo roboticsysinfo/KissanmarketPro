@@ -73,6 +73,23 @@ const AddBlog = ({ initialData = {} }) => {
     }
   };
 
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3,  4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub'}, { script: 'super' }],
+      [{ indent: '-1' }, { indent: '+1' }],
+      [{ direction: 'rtl' }],
+      [{ size: ['small', false, 'large', 'huge'] }],
+      [{ color: [] }, { background: [] }],
+      [{ font: [] }],
+      [{ align: [] }],
+      ['link', 'image', 'video'],
+      ['clean']
+    ]
+  };
+
   return (
     <Form onSubmit={handleSubmit} className="p-40 border rounded">
       <Form.Group controlId="blog_title">
@@ -128,8 +145,8 @@ const AddBlog = ({ initialData = {} }) => {
             value={formData.blog_content}
             onChange={handleQuillChange}  // Store HTML content
             theme="snow"
-            style={{ height: "600px" }}
-
+            style={{ height: "500px" }}
+            modules={modules}
           />
         </Suspense>
       </Form.Group>
