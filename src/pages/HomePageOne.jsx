@@ -56,14 +56,6 @@ const HomePageOne = () => {
         <TopVendorsOne />
       </Suspense>
 
-      <Suspense fallback={<div>Loading Shipping Info...</div>}>
-        <ShippingOne />
-      </Suspense>
-
-      <Suspense fallback={<div>Loading Newsletter...</div>}>
-        <NewsletterOne />
-      </Suspense>
-
       <Suspense fallback={<div>Loading Footer...</div>}>
         <FooterOne />
       </Suspense>
