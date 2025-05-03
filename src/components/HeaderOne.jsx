@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react'
 import query from 'jquery';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../redux/slices/categorySlice';
 import toast from 'react-hot-toast';
 import axiosInstance from '../utils/axiosInstance';
 import Select from "react-select";
 import { FiLogOut } from "react-icons/fi";
-import { fetchSiteDetails } from '../redux/slices/siteDeatilsSlice';
 import HeaderSearch from './HeaderSearch';
 import googlePlayStoreImg from "../assets/images/google-play-store.svg"
 
@@ -21,43 +19,23 @@ const HeaderOne = () => {
     const [districtOptions, setDistrictOptions] = useState([]); // Store formatted districts
     const [selectedDistrict, setSelectedDistrict] = useState(null); // Selected district
 
+    // useEffect(() => {
+    //     fetchDistricts();
+    // }, []);
 
-    // Categories state
-    const { categories, status: categoryStatus, error: categoryError } = useSelector((state) => state.categories);
-    const { data: siteDetails, siteDetailsLoading, siteDetailsError } = useSelector((state) => state.siteDetails);
+    // const fetchDistricts = async () => {
+    //     try {
+    //         const response = await axiosInstance.get("/states-cities");
 
+    //         // Extract and format districts properly
+    //         const allDistricts = response.data.flatMap(state => state.districts); // Extract districts
+    //         const formattedOptions = allDistricts.map(district => ({ value: district, label: district })); // Convert to object
 
-    useEffect(() => {
-        fetchDistricts();
-    }, []);
-
-    useEffect(() => {
-        dispatch(fetchSiteDetails());
-    }, [dispatch]);
-
-
-    const fetchDistricts = async () => {
-        try {
-            const response = await axiosInstance.get("/states-cities");
-
-            // Extract and format districts properly
-            const allDistricts = response.data.flatMap(state => state.districts); // Extract districts
-            const formattedOptions = allDistricts.map(district => ({ value: district, label: district })); // Convert to object
-
-            setDistrictOptions(formattedOptions);
-        } catch (error) {
-            console.error("Error fetching districts:", error);
-        }
-    };
-
-
-    // Fetch categories when the component mounts
-    useEffect(() => {
-        if (categoryStatus === 'idle') {
-            dispatch(fetchCategories());
-        }
-    }, [dispatch, categoryStatus]);
-
+    //         setDistrictOptions(formattedOptions);
+    //     } catch (error) {
+    //         console.error("Error fetching districts:", error);
+    //     }
+    // };
 
     const [scroll, setScroll] = useState(false)
     useEffect(() => {
@@ -113,18 +91,6 @@ const HeaderOne = () => {
     const handleSearchToggle = () => {
         setActiveSearch(!activeSearch);
     };
-
-    // Handle loading and error states for categories
-    if (categoryStatus === 'loading') {
-        return <p>Loading categories...</p>;
-    }
-    if (categoryStatus === 'failed') {
-        return <p>Error: {categoryError}</p>;
-    }
-
-    if (siteDetailsLoading) return <p>Loading site details...</p>;
-    if (siteDetailsError) return <p>siteDetailsError: {siteDetailsError}</p>;
-
 
     return (
         <>
@@ -470,27 +436,11 @@ const HeaderOne = () => {
 
                                     <div className="logo px-16 d-lg-none d-block">
                                         <Link to="/" className="link">
-                                            <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${siteDetails?.siteLogo}`} alt="Logo" />
+                                            <img src="/assets/images/kg-logo.jpg" alt="Logo" />
                                         </Link>
                                     </div>
 
                                     {/* Logo End */}
-
-                                    <ul className="scroll-sm p-0 py-8 w-300 max-h-400 overflow-y-auto">
-
-                                        {categories.map((category) => (
-
-                                            <li key={category._id}>
-                                                <Link
-                                                    to={`/category/${category._id}`}
-                                                    className="text-gray-500 text-15 py-12 px-16 flex-align gap-8 rounded-0"
-                                                >
-                                                    <span>{category.name} ( {category.productCount || 0} ) </span>
-                                                </Link>
-                                            </li>
-                                        ))}
-
-                                    </ul>
 
                                 </div>
                             </div>
