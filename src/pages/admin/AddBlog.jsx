@@ -128,10 +128,8 @@ const AddBlog = ({ initialData = {} }) => {
             value={formData.blog_content}
             onChange={handleQuillChange}  // Store HTML content
             theme="snow"
-            style={{ height: "300px" }}
-            modules={{
-              toolbar: [["bold", "italic", "underline"], [{ list: "ordered" }, { list: "bullet" }]],
-            }}
+            style={{ height: "600px" }}
+
           />
         </Suspense>
       </Form.Group>
