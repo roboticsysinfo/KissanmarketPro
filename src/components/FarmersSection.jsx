@@ -76,7 +76,7 @@ const FarmersSection = () => {
                     style={{ width: '100px', height: '100px', objectFit: 'cover' }}
                   />
                   <Link to={`/farmer/${farmerSlug}-${farmer._id}`}>
-                    <h1 className="mt-4 text-center text-uppercase fw-bold" style={{ color: '#5a6a3f', fontSize: '1.5rem' }}>
+                    <h1 className="mt-4 text-center text-uppercase fw-bold" style={{ color: '#5a6a3f', fontSize: '20px' }}>
                       {farmer.name}
                     </h1>
                   </Link>
