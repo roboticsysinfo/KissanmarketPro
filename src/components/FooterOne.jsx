@@ -181,7 +181,6 @@ const FooterOne = () => {
                         </div> */}
 
 
-
                         <ul className="flex-align gap-16">
                             {siteDetails?.socialMedia?.map((item, index) => {
                                 const platform = item.platform?.toLowerCase();

@@ -3,9 +3,12 @@ import Preloader from "../helper/Preloader";
 import ScrollToTop from "react-scroll-to-top";
 import ColorInit from "../helper/ColorInit";
 
-const HeaderOne = React.lazy(() => import("../components/HeaderOne"));
-const BannerOne = React.lazy(() => import("../components/BannerOne"));
-// const StaticBanner = React.lazy(() => import("../components/StaticBanner"));
+//  Remove Lazy Load for these
+import HeaderOne from "../components/HeaderOne";
+// import BannerOne from "../components/BannerOne";
+import StaticBanner from "../components/StaticBanner"; 
+
+//  Keep Lazy Load for these (for performance)
 const FeatureOne = React.lazy(() => import("../components/FeatureOne"));
 const PromotionalOne = React.lazy(() => import("../components/PromotionalOne"));
 const ProductListOne = React.lazy(() => import("../components/ProductListOne"));
@@ -15,26 +18,30 @@ const FooterOne = React.lazy(() => import("../components/FooterOne"));
 const BottomFooter = React.lazy(() => import("../components/BottomFooter"));
 const HomeContent = React.lazy(() => import("../components/HomeContent"));
 const ShippingOne = React.lazy(() => import("../components/ShippingOne"));
-const WhyKissanGrowthCards = React.lazy(() => import("../components/WhyKissanGrowthCards"));
-const HowItWorksCards = React.lazy(() => import("./HowItWorksCards"));
+const WhyKissanGrowthCards = require("../components/WhyKissanGrowthCards").default;
+const HowItWorksCards = require("./HowItWorksCards").default;
+
 
 const HomePageOne = () => {
-
   return (
     <>
       <ScrollToTop smooth color="#299E60" />
       <ColorInit color={false} />
 
-      <Suspense fallback={<HeaderOne />}>
+      <HeaderOne />
 
-        <HeaderOne />
-        {/* <StaticBanner /> */}
-        <BannerOne />
+      <StaticBanner /> 
+
+      {/* <BannerOne /> */}
+
+      <Suspense fallback={<HeaderOne />}>
+      
+        <WhyKissanGrowthCards />
+        <HowItWorksCards />
         <FeatureOne />
         <PromotionalOne />
         <HomeContent />
-        <WhyKissanGrowthCards />
-        <HowItWorksCards />
+
         <ProductListOne />
         <TopVendorsOne />
         <ShippingOne />
@@ -43,7 +50,6 @@ const HomePageOne = () => {
       </Suspense>
     </>
   );
-  
 };
 
 export default HomePageOne;

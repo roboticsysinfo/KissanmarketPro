@@ -24,7 +24,7 @@ const TopVendorsOne = () => {
 
         <div className='row justify-content-center'>
           <div className='col-lg-3 col-xs-12 text-center'>
-            <h3 className='sectionheading'>Farmer's Shops</h3>
+            <h2 className='sectionheading'>Farmer's Shops</h2>
           </div>
         </div>
 

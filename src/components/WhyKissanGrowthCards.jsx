@@ -27,8 +27,8 @@ const cardData = [
 
 const WhyKissanGrowthCards = () => {
   return (
-    <Container className="my-50">
-      <h3 className="text-center text-dark fw-bold mb-4">Why Kissan Growth?</h3>
+    <Container className="my-50 mt-60">
+      <h2 className="text-center text-4xl text-dark fw-bold mb-4">Why Kissan Growth?</h2>
       <Row className="g-4 mt-30">
         {cardData.map((card, index) => (
           <Col key={index} md={6} lg={3}>

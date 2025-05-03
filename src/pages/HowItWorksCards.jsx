@@ -7,7 +7,7 @@ const HowItWorksCards = () => {
 
   return (
     <Container className="my-60">
-      <h3 className="text-center text-dark fw-bold mb-4">How Does It Work?</h3>
+      <h2 className="text-center text-4xl text-dark fw-bold mb-4">How Does It Work?</h2>
 
       <Row className="g-4 mt-30">
         {/* For Farmers */}

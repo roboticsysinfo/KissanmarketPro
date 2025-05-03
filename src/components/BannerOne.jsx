@@ -6,6 +6,7 @@ import { fetchBanners } from '../redux/slices/bannersSlice';
 import { Spinner } from 'react-bootstrap';
 
 const BannerOne = () => {
+    
     const dispatch = useDispatch();
     const { banners, status } = useSelector((state) => state.banners);
 
@@ -73,7 +74,7 @@ const BannerOne = () => {
                                     <div key={banner.id || index} className="banner-slider__item">
                                         <div className="banner-slider__inner flex-between position-relative">
                                             <div className="banner-item__content">
-                                                <h1 className="banner-item__title bounce">{banner.title}</h1>
+                                                <h1 className="banner-item__title bounce mb-10">{banner.title}</h1>
                                                 <Link
                                                     to={`/category/${banner.category}` || "/shop"}
                                                     className="btn btn-main d-inline-flex align-items-center rounded-pill gap-8"
@@ -93,7 +94,7 @@ const BannerOne = () => {
                             </Slider>
                         )}
                     </div>
-                    
+
                 </div>
 
             </div>

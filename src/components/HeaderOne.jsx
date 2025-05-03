@@ -11,13 +11,16 @@ import { fetchSiteDetails } from '../redux/slices/siteDeatilsSlice';
 import HeaderSearch from './HeaderSearch';
 import googlePlayStoreImg from "../assets/images/google-play-store.svg"
 
+
 const HeaderOne = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+
     const [districtOptions, setDistrictOptions] = useState([]); // Store formatted districts
     const [selectedDistrict, setSelectedDistrict] = useState(null); // Selected district
+
 
     // Categories state
     const { categories, status: categoryStatus, error: categoryError } = useSelector((state) => state.categories);
@@ -31,6 +34,7 @@ const HeaderOne = () => {
     useEffect(() => {
         dispatch(fetchSiteDetails());
     }, [dispatch]);
+
 
     const fetchDistricts = async () => {
         try {
@@ -46,12 +50,14 @@ const HeaderOne = () => {
         }
     };
 
+
     // Fetch categories when the component mounts
     useEffect(() => {
         if (categoryStatus === 'idle') {
             dispatch(fetchCategories());
         }
     }, [dispatch, categoryStatus]);
+
 
     const [scroll, setScroll] = useState(false)
     useEffect(() => {
@@ -157,7 +163,7 @@ const HeaderOne = () => {
                 </button>
                 <div className="mobile-menu__inner">
                     <Link to="/" className="mobile-menu__logo">
-                        <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${siteDetails?.siteLogo}`} alt="Logo" />
+                        <img src="/assets/images/kg-logo.jpg" alt="Logo" />
                     </Link>
                     <div className="mobile-menu__menu">
                         {/* Nav Menu Start */}
@@ -340,43 +346,13 @@ const HeaderOne = () => {
                         {/* Logo Start */}
                         <div className="logo">
                             <Link to="/" className="link">
-                                <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}/${siteDetails?.siteLogo}`} alt="Logo" />
+                                <img src="/assets/images/kg-logo.jpg" alt="Logo" />
                             </Link>
                         </div>
                         {/* Logo End  */}
 
                         <HeaderSearch />
 
-                        <form action="#" className="flex-align flex-wrap form-location-wrapper">
-                            <div className="location-box bg-white flex-align gap-8 py-6 px-16 rounded-pill border border-gray-100">
-                                <span className="text-gray-900 text-xl d-xs-flex d-none">
-                                    <i className="ph ph-map-pin" />
-                                </span>
-
-                                <div className="line-height-1 w-60">
-                                    <span className="text-gray-600 text-xs">Your Location</span>
-                                </div>
-
-                                <Select
-                                    options={districtOptions}
-                                    value={selectedDistrict}
-                                    onChange={setSelectedDistrict}
-                                    placeholder="Select District/City"
-                                    isSearchable
-                                />
-
-                                {/* Search Button with Icon */}
-
-                                <button
-                                    type="button"
-                                    onClick={handleLocation}
-                                    className="bg-success text-white w-32 h-32 bg-main-600 rounded-circle"
-
-                                >
-                                    <i className="ph ph-magnifying-glass" /> {/* Search Icon */}
-                                </button>
-                            </div>
-                        </form>
 
                         <div className='dflexinpugroup '>
 
