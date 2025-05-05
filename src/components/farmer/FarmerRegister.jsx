@@ -223,18 +223,15 @@ const FarmerRegister = () => {
                 </div>
 
 
-
-
-
-
                 <Form.Group className="my-3">
                   <Form.Label>Village (Optional)</Form.Label>
                   <Form.Control
                     type="text"
                     value={village}
-                    onChange={(e) => setAddress(e.target.value)}
+                    onChange={(e) => setVillage(e.target.value)}
                   />
                 </Form.Group>
+
 
                 <div className='row'>
                   <div className='col-lg-6 col-xs-12 col-sm-12'>
