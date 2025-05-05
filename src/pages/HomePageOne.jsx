@@ -6,6 +6,7 @@ import ColorInit from "../helper/ColorInit";
 import HeaderOne from "../components/HeaderOne";
 import StaticBanner from "../components/StaticBanner";
 
+
 // Lazy load for non-critical components
 const FeatureOne = React.lazy(() => import("../components/FeatureOne"));
 const PromotionalOne = React.lazy(() => import("../components/PromotionalOne"));
@@ -13,9 +14,10 @@ const ProductListOne = React.lazy(() => import("../components/ProductListOne"));
 const TopVendorsOne = React.lazy(() => import("../components/TopVendorsOne"));
 const FooterOne = React.lazy(() => import("../components/FooterOne"));
 const BottomFooter = React.lazy(() => import("../components/BottomFooter"));
-const HomeContent = React.lazy(() => import("../components/HomeContent"));
+const HomeContent = require("../components/HomeContent").default;
 const WhyKissanGrowthCards = require("../components/WhyKissanGrowthCards").default;
 const HowItWorksCards = require("./HowItWorksCards").default;
+
 
 const HomePageOne = () => {
   return (
@@ -28,6 +30,11 @@ const HomePageOne = () => {
       <StaticBanner />
 
       {/* Lazy components rendered individually to avoid full page blocking */}
+
+      <Suspense fallback={<div>Loading Home Content...</div>}>
+        <HomeContent />
+      </Suspense>
+
       <Suspense fallback={<div>Loading Why Kissan Growth...</div>}>
         <WhyKissanGrowthCards />
       </Suspense>
@@ -44,9 +51,6 @@ const HomePageOne = () => {
         <PromotionalOne />
       </Suspense>
 
-      <Suspense fallback={<div>Loading Home Content...</div>}>
-        <HomeContent />
-      </Suspense>
 
       <Suspense fallback={<div>Loading Products...</div>}>
         <ProductListOne />

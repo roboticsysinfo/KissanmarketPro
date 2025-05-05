@@ -12,6 +12,7 @@ import ShopDetailsScreen from '../components/ShopDetailsSection';
 const ShopDetailsPage = () => {
 
     return (
+      
         <>
     
           {/* Preloader */}

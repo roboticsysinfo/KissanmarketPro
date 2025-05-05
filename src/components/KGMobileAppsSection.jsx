@@ -14,6 +14,7 @@ import customerproducts from "../assets/app_screenshots/customer/customerproduct
 import customerfamilyfarmer from "../assets/app_screenshots/customer/customerfamilyfarmer.jpg"
 import customerpoints from "../assets/app_screenshots/customer/customerpoints.jpg"
 
+
 import { Link } from 'react-router-dom';
 
 const KGMobileAppsSection = () => {
@@ -32,7 +33,7 @@ const KGMobileAppsSection = () => {
 
                             <h1 className='text-5xl'>Kissan Growth Mobile App: Connecting Farmers and Consumers</h1>
 
-                            <h5 className='mb-20'>How does Kissan Growth Farmer and Kissan Growth Customer App Works?</h5>
+                            <h2 className='mb-20 text-3xl'>How does Kissan Growth Farmer and Kissan Growth Customer App Works?</h2>
 
                             <p>
                                 The Kissan Growth Mobile App is a game-changer in Indian agriculture, designed to eliminate middlemen and build a direct <strong>bridge between farmers and consumers.</strong>
@@ -50,7 +51,7 @@ const KGMobileAppsSection = () => {
                     <div class="row">
                         <div className='kissan-growth-farmer-info'>
 
-                            <h2 className='text-4xl'>Kissan Growth Farmer App: Empowering India’s Farmers</h2>
+                            <h3 className='text-4xl'>Kissan Growth Farmer App: Empowering India’s Farmers</h3>
 
                             <p className='mb-10'>
                                 The <strong>Kissan Growth Farmer App is India’s #1 online farm marketplace</strong>, built specifically for farmers to take control of their sales.
@@ -90,7 +91,7 @@ const KGMobileAppsSection = () => {
 
                     <div class="kissan-growth-farmer-info">
 
-                        <h2 className='text-4xl'>For Farmers – Kissan Growth Farmer App</h2>
+                        <h3 className='text-4xl'>For Farmers – Kissan Growth Farmer App</h3>
 
                         <h4 className='text-2xl'>Grow Your Network. Grow Your Sales. Earn More!</h4>
 
@@ -148,7 +149,7 @@ const KGMobileAppsSection = () => {
                     <div className='row'>
                         <div className='kissan-growth-customer-info'>
 
-                            <h2 className='text-5xl'>Kissan Growth Customer App: Shop Fresh, Support Local</h2>
+                            <h3 className='text-5xl'>Kissan Growth Customer App: Shop Fresh, Support Local</h3>
 
                             <p className='mb-10'>
                                 The <strong>Kissan Growth Customer App</strong> is designed for consumers who care about where their food comes from.
@@ -185,7 +186,7 @@ const KGMobileAppsSection = () => {
 
                         <div className="kissan-growth-customer-info">
 
-                            <h2 className='text-4xl'>Kissan Growth Refer & Earn Policy</h2>
+                            <h3 className='text-4xl'>Kissan Growth Refer & Earn Policy</h3>
 
                             <p className='mb-10'>Empower Farmers. Enjoy Freshness. Earn Rewards.</p>
 

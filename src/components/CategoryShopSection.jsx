@@ -7,17 +7,20 @@ import { toast } from "react-hot-toast"
 import { Button } from 'react-bootstrap';
 import RequestOrderModal from './RequestOrderModal';
 import { fetchProductsByCategory, setSelectedProduct } from "../redux/slices/productSlice";
+import slugify from 'slugify';
+import { FaRupeeSign } from 'react-icons/fa';
 
 
 const CategoryShopSection = () => {
 
     const [showModal, setShowModal] = useState(false);
-    const { categoryId } = useParams();
-
     const dispatch = useDispatch();
 
-    const handleSubmit = (data) => {
+    const { slug } = useParams(); // Get categoryId Id From URL
+    const slugParts = slug.split('-');
+    const categoryId = slugParts[slugParts.length - 1]; // last part categoryId 
 
+    const handleSubmit = (data) => {
         // Here, you can send the form data to the backend
     };
 
@@ -62,16 +65,12 @@ const CategoryShopSection = () => {
     }
 
     const handleAddToCart = (productId) => {
-
         if (!productId) {
             console.error("❌ Error: Product ID is undefined!");
             return;
         }
-
         dispatch(addToCart({ productId, quantity: 1 }));
-
         toast.success("Product Added Successfully")
-
     };
 
 
@@ -94,17 +93,22 @@ const CategoryShopSection = () => {
                                     <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">
                                         Product Category
                                     </h6>
+
                                     <ul className="max-h-540 overflow-y-auto scroll-sm">
-                                        {categories.map((category) => (
-                                            <li key={category._id} className="mb-24">
-                                                <Link
-                                                    to={`/category/${category._id}`} // Assuming a route structure like /shop/categoryId
-                                                    className="text-gray-900 hover-text-main-600"
-                                                >
-                                                    {category.name} ({category.productCount || 0}) {/* Adjust if you have product counts */}
-                                                </Link>
-                                            </li>
-                                        ))}
+                                        {categories.map((category) => {
+                                            const categorySlug = slugify(category.name || "", { lower: true, strict: true });
+
+                                            return (
+                                                <li key={category._id} className="mb-24">
+                                                    <Link
+                                                        to={`/category/${categorySlug}-${category._id}`}
+                                                        className="text-gray-900 hover-text-main-600"
+                                                    >
+                                                        {category.name} ({category.productCount || 0})
+                                                    </Link>
+                                                </li>
+                                            );
+                                        })}
                                     </ul>
 
                                 </div>
@@ -116,12 +120,12 @@ const CategoryShopSection = () => {
                             </div>
                         </div>
                         {/* Sidebar End */}
+
                         {/* Content Start */}
                         <div className="col-lg-9">
 
                             {/* Top Start */}
                             <div className="flex-between gap-16 flex-wrap mb-40 ">
-                                <span className="text-gray-900">Showing 1-20 of 85 result</span>
                                 <div className="position-relative flex-align gap-16 flex-wrap">
                                     <div className="list-grid-btns flex-align gap-16">
                                         <button onClick={() => setGrid(true)}
@@ -137,22 +141,7 @@ const CategoryShopSection = () => {
                                             <i className="ph ph-squares-four" />
                                         </button>
                                     </div>
-                                    <div className="position-relative text-gray-500 flex-align gap-4 text-14">
-                                        <label htmlFor="sorting" className="text-inherit flex-shrink-0">
-                                            Sort by:{" "}
-                                        </label>
-                                        <select defaultValue={1}
-                                            className="form-control common-input px-14 py-14 text-inherit rounded-6 w-auto"
-                                            id="sorting"
-                                        >
-                                            <option value={1} >
-                                                Popular
-                                            </option>
-                                            <option value={1}>Latest</option>
-                                            <option value={1}>Trending</option>
-                                            <option value={1}>Matches</option>
-                                        </select>
-                                    </div>
+
                                     <button onClick={sidebarController}
                                         type="button"
                                         className="w-44 h-44 d-lg-none d-flex flex-center border border-gray-100 rounded-6 text-2xl sidebar-btn"
@@ -181,10 +170,10 @@ const CategoryShopSection = () => {
                                                     </Link>
                                                 </h6>
                                                 <div className="product-card__price my-20">
-                                                    <span className="text-gray-400 text-md fw-semibold text-decoration-line-through">
-                                                        Rs.{product.price_per_unit}
+                                                    <span className="text-heading text-md fw-semibold">
+                                                        <FaRupeeSign /> {product.price_per_unit}
                                                     </span>
-                                                    <span className="text-heading text-md fw-semibold">${product.quantity} /Qty</span>
+                                                    <span className="text-heading text-md fw-semibold"> per {product.unit} / {product.quantity} /Qty</span>
                                                 </div>
 
                                                 <Button

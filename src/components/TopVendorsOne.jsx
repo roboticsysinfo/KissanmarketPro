@@ -42,7 +42,7 @@ const TopVendorsOne = () => {
                     />
                     <h6 className="title mt-32">{shop.shop_name}</h6>
                     <span className="text-heading text-sm d-block">
-                      {shop.shop_description?.split(" ").slice(0, 20).join(" ")}{shop.shop_description?.split(" ").length > 20 ? "..." : ""}
+                      {shop.shop_description?.split(" ").slice(0, 10).join(" ")}{shop.shop_description?.split(" ").length > 20 ? "..." : ""}
                     </span>
 
                     <Link to={`/shop/${slugify(shop.shop_name, { lower: true })}-${shop._id}`} className="btn btn-main-two rounded-pill py-6 px-16 text-12 mt-8">

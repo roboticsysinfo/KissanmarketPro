@@ -94,7 +94,7 @@ function App() {
         <Route path="blog/:slug" element={<BlogDetailsPage />} />
         <Route path="farmer/:slug" element={<FarmerDetailPage />} />
         <Route path="shop/:slug" element={<ShopDetailsPage />} />
-        <Route path="category/:categoryId" element={<CategoryShopPage />} />
+        <Route path="category/:slug" element={<CategoryShopPage />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="shops/:locationvalue" element={<ShopLocation />} />
 

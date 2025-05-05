@@ -9,14 +9,12 @@ import slugify from 'slugify';
 
 const VendorSection = () => {
 
-    
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-
     const [districtOptions, setDistrictOptions] = useState([]); // Store formatted districts
     const [selectedDistrict, setSelectedDistrict] = useState(null); // Selected district
-
 
     // Categories state
     const { categories, status: categoryStatus, error: categoryError } = useSelector((state) => state.categories);
@@ -134,18 +132,24 @@ const VendorSection = () => {
                                         <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">
                                             Product Category
                                         </h6>
+
                                         <ul className="max-h-540 overflow-y-auto scroll-sm">
-                                            {categories.map((category) => (
-                                                <li key={category._id} className="mb-24">
-                                                    <Link
-                                                        to={`/category/${category._id}`} // Assuming a route structure like /shop/categoryId
-                                                        className="text-gray-900 hover-text-main-600"
-                                                    >
-                                                        {category.name} ({category.productCount || 0}) {/* Adjust if you have product counts */}
-                                                    </Link>
-                                                </li>
-                                            ))}
+                                            {categories.map((category) => {
+                                                const categorySlug = slugify(category.name || "", { lower: true, strict: true });
+
+                                                return (
+                                                    <li key={category._id} className="mb-24">
+                                                        <Link
+                                                            to={`/category/${categorySlug}-${category._id}`}
+                                                            className="text-gray-900 hover-text-main-600"
+                                                        >
+                                                            {category.name} ({category.productCount || 0})
+                                                        </Link>
+                                                    </li>
+                                                );
+                                            })}
                                         </ul>
+
                                     </div>
 
                                 </div>
@@ -178,7 +182,7 @@ const VendorSection = () => {
 
                                         <div className='col-lg-4 col-xs-12 col-sm-12' key={shop._id}>
                                             <div className="vendors-two-item rounded-12  overflow-hidden bg-color-three border border-neutral-50 hover-border-main-two-600 transition-2">
-                                                
+
                                                 <div className="vendors-two-item__top bg-overlay style-two position-relative">
                                                     <div className="vendors-two-item__thumbs h-210">
                                                         <img
@@ -189,7 +193,7 @@ const VendorSection = () => {
                                                     </div>
 
                                                     <div className="position-absolute top-0 inset-inline-start-0 w-100 h-100 p-24 z-1 d-flex flex-column justify-content-between">
-                                                        
+
                                                         <div className="d-flex align-items-center justify-content-between">
                                                             <span className="w-80 h-80 flex-center bg-white rounded-circle flex-shrink-0">
                                                                 <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${shop.shop_profile_image}`} alt="Icon" />
@@ -198,7 +202,7 @@ const VendorSection = () => {
 
                                                         <div className="mt-16">
                                                             <h6 className="text-white fw-semibold mb-12">
-                                                                <Link to={`/shop/${shopSlug}-${shop._id}`}>
+                                                                <Link to={`/shop/${shopSlug}-${shop._id}`} style={{fontSize: "18px"}}>
                                                                     {shop.shop_name}
                                                                 </Link>
                                                             </h6>
@@ -235,7 +239,7 @@ const VendorSection = () => {
                                                             {(typeof shop.shop_description === 'string'
                                                                 ? shop.shop_description
                                                                 : shop.shop_description?.en || "No description available"
-                                                            ).slice(0, 72)}...
+                                                            ).slice(0, 50)}...
                                                         </p>
 
                                                     </div>

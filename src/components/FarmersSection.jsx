@@ -66,7 +66,7 @@ const FarmersSection = () => {
           const farmerSlug = slugify(farmer.name || "", { lower: true, strict: true });
 
           return (
-            <div className="col-lg-3 col-md-6 col-sm-12 mb-4" key={farmer._id}>
+            <div className="col-lg-3 col-md-6 col-sm-12 mb-30" key={farmer._id}>
               <div className="card shadow rounded-4 p-20 mx-auto" style={{ maxWidth: '22rem', backgroundColor: '#fff' }}>
                 <div className="d-flex flex-column align-items-center">
                   <img

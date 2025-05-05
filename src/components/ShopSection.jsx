@@ -24,7 +24,6 @@ const ShopSection = () => {
         // Here, you can send the form data to the backend
     };
 
-
     // Products state
     const { data: products, status: productStatus } = useSelector(state => state.products);
     const [searchParams] = useSearchParams();
@@ -81,8 +80,6 @@ const ShopSection = () => {
         toast.success("Product Added Successfully")
     };
 
-
-
     return (
 
         <>
@@ -104,18 +101,25 @@ const ShopSection = () => {
                                     <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">
                                         Product Category
                                     </h6>
+
                                     <ul className="max-h-540 overflow-y-auto scroll-sm">
-                                        {categories.map((category) => (
-                                            <li key={category._id} className="mb-24">
-                                                <Link
-                                                    to={`/category/${category._id}`} // Assuming a route structure like /shop/categoryId
-                                                    className="text-gray-900 hover-text-main-600"
-                                                >
-                                                    {category.name} ({category.productCount || 0}) {/* Adjust if you have product counts */}
-                                                </Link>
-                                            </li>
-                                        ))}
+                                        {categories.map((category) => {
+                                            const categorySlug = slugify(category.name || "", { lower: true, strict: true });
+
+                                            return (
+                                                <li key={category._id} className="mb-24">
+                                                    <Link
+                                                        to={`/category/${categorySlug}-${category._id}`}
+                                                        className="text-gray-900 hover-text-main-600"
+                                                    >
+                                                        {category.name} ({category.productCount || 0})
+                                                    </Link>
+                                                </li>
+                                            );
+                                        })}
                                     </ul>
+
+
 
                                 </div>
 
@@ -157,11 +161,12 @@ const ShopSection = () => {
 
                                 {products?.length > 0 ? (
                                     products.map((product) => {
+
                                         // ✅ Slugify product name
                                         const productSlug = slugify(product.name || "", { lower: true, strict: true });
 
                                         return (
-                                            <div className='col-lg-4 col-xs-12 col-sm-12' key={product._id}>
+                                            <div className='col-lg-4 col-xs-12 col-sm-12 mb-30' key={product._id}>
 
                                                 <div className="product-card h-100 p-16 border border-gray-100 hover-border-main-600 rounded-16 position-relative transition-2">
                                                     <Link to={`/product/${productSlug}-${product._id}`} className="product-card__thumb flex-center rounded-8 bg-gray-50 position-relative">
@@ -178,10 +183,10 @@ const ShopSection = () => {
                                                             </Link>
                                                         </h6>
                                                         <div className="product-card__price my-20">
-                                                            <span className="text-gray-400 text-md fw-semibold">
-                                                                <FaRupeeSign /> {product.price_per_unit}
+                                                            <span className="text-heading text-md fw-semibold">
+                                                                <FaRupeeSign /> {product.price_per_unit} 
                                                             </span>
-                                                            <span className="text-heading text-md fw-semibold">{product.quantity}/ {product.unit} /Qty</span>
+                                                            <span className="text-heading text-md fw-semibold"> per {product.unit} / {product.quantity} /Qty</span>
                                                         </div>
 
                                                         <Button
