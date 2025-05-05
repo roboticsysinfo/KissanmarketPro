@@ -29,6 +29,7 @@ const FarmerRegister = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
     const fetchStatesCities = async () => {
       try {
         const response = await api.get('/states-cities');
@@ -39,6 +40,7 @@ const FarmerRegister = () => {
     };
 
     fetchStatesCities();
+    
   }, []);
 
   const handleStateChange = (e) => {

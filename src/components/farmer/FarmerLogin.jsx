@@ -1,22 +1,33 @@
 import React, { useState } from 'react';
-import {  Form, Button, } from 'react-bootstrap';
+import { Form, Button, } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import api from '../../utils/api'; // Make sure to adjust the import path of API.js
 import { Helmet } from 'react-helmet-async';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const FarmerLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false); // To handle loading state
+    const [captchaValue, setCaptchaValue] = useState(null); // ✅ Captcha state
     const navigate = useNavigate();
+
+    const handleCaptchaChange = (value) => {
+        setCaptchaValue(value); // ✅ Set captcha response
+    };
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setLoading(true);
 
+        if (!captchaValue) {
+            toast.error("Please Complete CAPTCHA");
+            return;
+        }
+
         try {
-            const response = await api.post('/farmer/login', { email, password });
+            const response = await api.post('/farmer/login', { email, password, captchaValue });
 
             // Check if the response contains farmer data
             if (!response.data.farmer || !response.data.farmer.id) {
@@ -99,6 +110,14 @@ const FarmerLogin = () => {
                                     />
                                 </Form.Group>
 
+                                {/* ✅ reCAPTCHA Box */}
+                                <div className="mb-30">
+                                    <ReCAPTCHA
+                                        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY} // ✅ Correct way
+                                        onChange={handleCaptchaChange}
+                                    />
+                                </div>
+
                                 <Button variant="success" className='btn btn-block w-100 mt-20' type="submit" block disabled={loading}>
                                     {loading ? 'Logging in...' : 'Login'}
                                 </Button>
@@ -122,10 +141,10 @@ const FarmerLogin = () => {
 };
 
 const styles = {
-  register_img: {
-    width: "100%",
-    height: "100vh",
-  },
+    register_img: {
+        width: "100%",
+        height: "100vh",
+    },
 };
 
 export default FarmerLogin;
