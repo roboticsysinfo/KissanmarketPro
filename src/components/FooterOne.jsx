@@ -162,8 +162,8 @@ const FooterOne = () => {
                     <div className="col-lg-3 col-xs-12 col-sm-12">
 
                         <div className="footer-item">
-                            <h6 className="">Shop on The Go</h6>
-                            <p className="mb-16">Kissan Growth App is available. Get it now</p>
+                            <h6 className="">Download Kissan Growth Apps</h6>
+                            <p className="mb-16">Get it on Play Store Now</p>
                             <div className="flex-align gap-8 my-32">
                                 <Link to="/https://www.apple.com/store" className="appcontent">
                                     <img src="/assets/images/google-play-store.svg" alt="Farmer App" />
