@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import api from '../utils/api'; // Ensure this path is correct
+import api from '../utils/api';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -15,6 +16,11 @@ const Register = () => {
     });
     const [loading, setLoading] = useState(false); // Loading state
     const navigate = useNavigate();
+    const [captchaValue, setCaptchaValue] = useState(null); // ✅ Captcha state
+
+    const handleCaptchaChange = (value) => {
+        setCaptchaValue(value); // ✅ Set captcha response
+    };
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -29,10 +35,17 @@ const Register = () => {
         e.preventDefault();
         setLoading(true);
 
+        if (!captchaValue) {
+            toast.error("Please Complete CAPTCHA");
+            return;
+        }
+
         try {
             const payload = {
                 ...formData,
+                captchaValue, // ✅ Send to backend
                 agreementTimestamp: new Date().toISOString(), // Set current time
+
             };
 
             const response = await api.post('/auth/customer_register', payload);
@@ -142,6 +155,14 @@ const Register = () => {
                                     />
                                 </div>
 
+                                {/* ✅ reCAPTCHA Box */}
+                                <div className="mb-24">
+                                    <ReCAPTCHA
+                                        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY} // ✅ Correct way
+                                        onChange={handleCaptchaChange}
+                                    />
+                                </div>
+
                                 <div className="mb-24 form-check">
                                     <input
                                         className="form-check-input"
@@ -174,6 +195,7 @@ const Register = () => {
                                         )}
                                     </button>
                                 </div>
+
                             </div>
                         </div>
                         {/* Register Card End */}
