@@ -7,12 +7,13 @@ import { toast } from 'react-hot-toast';
 import farmernotfound from "../assets/emptystate/farmernotfound.png";
 import { Link } from 'react-router-dom';
 import slugify from 'slugify';
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaShieldAlt } from "react-icons/fa";
+
 
 
 const FarmersSection = () => {
+
   const dispatch = useDispatch();
-  const navigate = useDispatch()
   const { farmers, loading, error } = useSelector((state) => state.farmers);
   const { customerRequests, loading: requestLoading } = useSelector((state) => state.familyfarmer);
   const user = JSON.parse(localStorage.getItem("user"));
@@ -34,7 +35,7 @@ const FarmersSection = () => {
           dispatch(getRequestsForCustomer(userId));
         })
         .catch((err) => {
-          toast.error(err?.message || "Failed to send request ");
+          toast.error(err?.message || "Failed to send request");
         });
     }
   };
@@ -45,6 +46,11 @@ const FarmersSection = () => {
     );
     return request ? request.status : null;
   };
+
+  // ✅ Sort farmers: isUpgraded true wale pehle aayenge
+  const sortedFarmers = [...farmers].sort((a, b) => {
+    return (b.isUpgraded === true) - (a.isUpgraded === true);
+  });
 
   return (
     <div className="container py-60 my-60">
@@ -60,9 +66,8 @@ const FarmersSection = () => {
           </div>
         )}
 
-        {!loading && farmers.length > 0 && farmers.map((farmer) => {
+        {!loading && sortedFarmers.length > 0 && sortedFarmers.map((farmer) => {
           const status = getRequestStatus(farmer._id);
-
           const farmerSlug = slugify(farmer.name || "", { lower: true, strict: true });
 
           return (
@@ -76,11 +81,13 @@ const FarmersSection = () => {
                     style={{ width: '100px', height: '100px', objectFit: 'cover' }}
                   />
                   <Link to={`/farmer/${farmerSlug}-${farmer._id}`}>
-                    <h1 className="mt-4 text-center text-uppercase fw-bold" style={{ color: '#5a6a3f', fontSize: '20px' }}>
+                    <h1 className="mt-4 text-center text-uppercase fw-bold d-flex align-items-center justify-content-center gap-2" style={{ color: '#5a6a3f', fontSize: '20px' }}>
                       {farmer.name}
+                      {farmer.isUpgraded && <FaShieldAlt color="green" title="Upgraded Farmer" />}
                     </h1>
                   </Link>
-                  <h2 className="text-center fw-semibold mt-1 mb-0" style={{ color: '#305CDE', fontSize: '16px' }}>
+
+                  <h2 className="text-center fw-semibold mt-1 mb-0" style={{ color: "green", fontSize: '14px' }}>
                     <FaCheckCircle /> {farmer.isKYCVerified ? "Verified" : "UnVerified"}
                   </h2>
                   <p className="text-center mt-3 text-dark" style={{ maxWidth: '280px' }}>
@@ -118,3 +125,4 @@ const FarmersSection = () => {
 };
 
 export default FarmersSection;
+

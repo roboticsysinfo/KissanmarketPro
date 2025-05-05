@@ -6,6 +6,8 @@ import { fetchShops } from '../redux/slices/shopSlice';
 import Select from "react-select";
 import axiosInstance from '../utils/axiosInstance';
 import slugify from 'slugify';
+import { FaShieldAlt } from "react-icons/fa";
+
 
 const VendorSection = () => {
 
@@ -72,14 +74,17 @@ const VendorSection = () => {
     }
 
 
-
-
-
     const handleLocation = () => {
         if (selectedDistrict) {
             navigate(`/shops/${selectedDistrict.value}`); // Redirect to URL with selected location
         }
     };
+
+    const sortedShops = [...shops].sort((a, b) => {
+        if (a.isFarmerUpgraded === b.isFarmerUpgraded) return 0;
+        return a.isFarmerUpgraded ? -1 : 1;
+    });
+
 
     return (
         <>
@@ -174,7 +179,7 @@ const VendorSection = () => {
                             </div>
 
                             <div className="vendors-two-item-wrapper row false">
-                                {shops.map((shop) => {
+                                {sortedShops.map((shop) => {
 
                                     const shopSlug = slugify(shop.shop_name || "", { lower: true, strict: true });
 
@@ -202,10 +207,14 @@ const VendorSection = () => {
 
                                                         <div className="mt-16">
                                                             <h6 className="text-white fw-semibold mb-12">
-                                                                <Link to={`/shop/${shopSlug}-${shop._id}`} style={{fontSize: "18px"}}>
+                                                                <Link to={`/shop/${shopSlug}-${shop._id}`} style={{ fontSize: "18px" }} className="d-flex align-items-center gap-1">
                                                                     {shop.shop_name}
+                                                                    {shop.isFarmerUpgraded && (
+                                                                        <FaShieldAlt color="green" size={14} title="Upgraded Farmer" />
+                                                                    )}
                                                                 </Link>
                                                             </h6>
+
                                                             <div className="flex-align gap-6">
 
                                                                 {/* Add Star Rating */}

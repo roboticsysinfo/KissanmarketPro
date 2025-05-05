@@ -18,9 +18,7 @@ const UpgradePlansScreen = () => {
     if (farmerId) {
       dispatch(getFarmerDetailsById(farmerId));
     }
-
   }, [dispatch, farmerId]);
-
 
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -41,17 +39,20 @@ const UpgradePlansScreen = () => {
     }
 
     try {
-      // Call your backend to create an order
+      // Plan Amount with 18% GST = ₹118
+      const planAmount = 118;
+
+      // Call backend to create order with updated GST-included amount
       const orderResponse = await axiosInstance.post("/farmer/create-order-plan", {
-        planName: "Farmer Friendly Plan" ,
-        planAmount: 100  // Amount in paise
+        planName: "Farmer Friendly Plan",
+        planAmount: planAmount // In rupees
       });
 
       console.log("orderResponse", orderResponse)
 
       const options = {
-        key: "rzp_test_3DSEzlHPip5mQr",
-        amount: orderResponse.data.amount,
+        key: "rzp_live_1jUvx71iDA4Zts",
+        amount: orderResponse.data.amount, // in paise
         currency: orderResponse.data.currency,
         name: "Farmer Friendly Plan",
         description: "Upgrade to Farmer Plan",
@@ -62,15 +63,14 @@ const UpgradePlansScreen = () => {
           contact: farmerDetailsforCustomer.phoneNumber,
         },
         theme: {
-          color: "#4caf50", // Replace COLORS.primaryColor
+          color: "#4caf50",
         },
         handler: async function (response) {
-          // Verify the payment and apply the plan
           try {
             const verifyRes = await axios.post("/farmer/applyUpgradePlan", {
               farmerId,
               planName: "Farmer Friendly Plan",
-              planAmount: 100,
+              planAmount: planAmount,
               planValidityDays: 360,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_order_id: response.razorpay_order_id,
@@ -106,7 +106,9 @@ const UpgradePlansScreen = () => {
               <Row className="d-flex justify-content-between">
                 <Col>
                   <Card.Title className="h5 font-weight-bold">Farmer Friendly Plan</Card.Title>
-                  <Card.Subtitle className="text-success font-weight-bold">₹100 only</Card.Subtitle>
+                  <Card.Subtitle className="text-success font-weight-bold">
+                    ₹100 + 18% GST = ₹118
+                  </Card.Subtitle>
                 </Col>
               </Row>
               <hr />
