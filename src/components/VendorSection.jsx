@@ -186,9 +186,11 @@ const VendorSection = () => {
                                     return (
 
                                         <div className='col-lg-4 col-xs-12 col-sm-12' key={shop._id}>
+
                                             <div className="vendors-two-item rounded-12  overflow-hidden bg-color-three border border-neutral-50 hover-border-main-two-600 transition-2">
 
                                                 <div className="vendors-two-item__top bg-overlay style-two position-relative">
+                                                    
                                                     <div className="vendors-two-item__thumbs h-210">
                                                         <img
                                                             src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${shop.shop_cover_image}`} // Adjust to your image URL
@@ -235,6 +237,7 @@ const VendorSection = () => {
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div className="vendors-two-item__content p-24 flex-grow-1">
                                                     <div className="d-flex flex-column gap-14">
                                                         <div className="flex-align gap-8">

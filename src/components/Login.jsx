@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import api from "../utils/api"; // Ensure this path is correct
+import api from "../utils/api";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: "", password: "" });
+    const [captchaValue, setCaptchaValue] = useState(null); // ✅ Captcha state
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -12,25 +14,35 @@ const Login = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleCaptchaChange = (value) => {
+        setCaptchaValue(value); // ✅ Set captcha response
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!captchaValue) {
+            toast.error("Please Complete CAPTCHA");
+            return;
+        }
+
         setLoading(true);
-
         try {
-            const response = await api.post("/auth/customer_login", formData);
+            const response = await api.post("/auth/customer_login", {
+                ...formData,
+                captchaValue, // ✅ Send to backend
+            });
 
-            // Save token, userRole, and full user details in localStorage
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("userRole", response.data.userRole);
-            localStorage.setItem("user", JSON.stringify(response.data.user)); // 👈 Storing full user object
+            localStorage.setItem("user", JSON.stringify(response.data.user));
 
             toast.success("Login successful");
 
-            // Redirect based on role
             if (response.data.userRole === "customer") {
                 navigate("/account");
             } else {
-                navigate("/login"); // Change this if needed for other roles
+                navigate("/login");
             }
         } catch (error) {
             toast.error(error.response?.data?.message || "Login failed");
@@ -38,7 +50,6 @@ const Login = () => {
             setLoading(false);
         }
     };
-
 
     return (
         <section className="account py-80">
@@ -67,6 +78,7 @@ const Login = () => {
                                         required
                                     />
                                 </div>
+
                                 <div className="mb-24">
                                     <label htmlFor="password" className="text-neutral-900 text-lg mb-8 fw-medium">
                                         Password <span className="text-danger">*</span>
@@ -82,6 +94,15 @@ const Login = () => {
                                         required
                                     />
                                 </div>
+
+                                {/* ✅ reCAPTCHA Box */}
+                                <div className="mb-24">
+                                    <ReCAPTCHA
+                                        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY} // ✅ Correct way
+                                        onChange={handleCaptchaChange}
+                                    />
+                                </div>
+
                                 <div className="mb-24 mt-48">
                                     <button type="submit" className="btn btn-success py-18 px-40" disabled={loading}>
                                         {loading ? (
@@ -91,6 +112,8 @@ const Login = () => {
                                         )}
                                     </button>
                                 </div>
+
+                                {/* Uncomment if needed */}
                                 {/* <div className="mt-48">
                                     <Link to="/forgot-password" className="text-danger-600 text-sm fw-semibold hover-text-decoration-underline">
                                         Forgot your password?

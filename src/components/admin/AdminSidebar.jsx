@@ -26,6 +26,26 @@ const AdminSidebar = () => {
         <Link className="admin-accordion-button  nav-link" to="order-requests">Order Requests</Link>
 
         <div className="accordion" id="blogAccordion">
+
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingOne">
+              <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                Plans & Points Transactions
+              </button>
+            </h2>
+            <div id="collapse4" className="accordion-collapse collapse" data-bs-parent="#blogAccordion">
+              <div className="accordion-body">
+                <Link className="btn-link text-info nav-link" to="farmer-plans-history">Farmer Plans</Link>
+                <Link className="btn-link text-dark nav-link" to="farmer-points-history">Farmer Points</Link>
+                <Link className="btn-link text-dark nav-link" to="customer-points-history">Customer Points</Link>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div className="accordion" id="blogAccordion">
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
               <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
@@ -56,10 +76,10 @@ const AdminSidebar = () => {
                 <Link className="btn-link text-dark nav-link" to="add-redeem-products">Add Farmer Products</Link>
                 <Link className="btn-link text-dark nav-link" to="redeem-products-list">Farmer Products List</Link>
 
-                  <hr />
-                  <Link className="btn-link text-dark nav-link" to="customers-redeem-history">Customers Redeem History</Link>
-                  <Link className="btn-link text-dark nav-link" to="add-customer-products">Add Customer Products</Link>
-                  <Link className="btn-link text-dark nav-link" to="customer-products-list">Customer Products List</Link>
+                <hr />
+                <Link className="btn-link text-dark nav-link" to="customers-redeem-history">Customers Redeem History</Link>
+                <Link className="btn-link text-dark nav-link" to="add-customer-products">Add Customer Products</Link>
+                <Link className="btn-link text-dark nav-link" to="customer-products-list">Customer Products List</Link>
 
               </div>
             </div>

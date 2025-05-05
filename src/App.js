@@ -72,6 +72,7 @@ import SitePrivacyPolicyPage from "./pages/SitePrivacyPolicyPage";
 import SiteTermsConditionsPage from "./pages/SiteTermsConditionsPage";
 import KGMobileAppsPage from "./pages/KGMobileAppsPage";
 import UpgradePlans from "./pages/farmer/UpgradePlans";
+import FarmerPlansHistory from "./pages/admin/FarmerPlansHistory";
 
 
 function App() {
@@ -198,6 +199,8 @@ function App() {
           <Route path="customer-points-table" element={<CustomerPointsTable />} />
 
           <Route path="customer-points/:customerId" element={<CustomerPointsTransactions />} />
+
+          <Route path="farmer-plans-history" element={<FarmerPlansHistory />} />
 
         </Route>
 
