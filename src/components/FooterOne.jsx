@@ -29,7 +29,7 @@ const FooterOne = () => {
             <div className="container container-lg">
                 <div className="row">
 
-                    <div className="col-lg-4 col-xs-12 col-sm-12">
+                    <div className="col-lg-3 col-xs-12 col-sm-12">
 
                         <div className="footer-item">
                             <div className="footer-item__logo">
@@ -96,7 +96,7 @@ const FooterOne = () => {
 
                     </div>
 
-                    <div className="col-lg-3 col-xs-12 col-sm-12">
+                    <div className="col-lg-2 col-xs-12 col-sm-12">
 
                         <div className="footer-item">
                             <h6 className="footer-item__title">Customer Support</h6>
@@ -136,7 +136,7 @@ const FooterOne = () => {
 
                     </div>
 
-                    <div className="col-lg-3 col-xs-12 col-sm-12">
+                    <div className="col-lg-2 col-xs-12 col-sm-12">
 
                         <div className="footer-item">
                             <h6 className="footer-item__title">Information</h6>
@@ -155,6 +155,26 @@ const FooterOne = () => {
                                 </li>
 
                             </ul>
+                        </div>
+
+                    </div>
+
+                    <div className="col-lg-3 col-xs-12 col-sm-12">
+
+                        <div className="footer-item">
+                            <h6 className="">Shop on The Go</h6>
+                            <p className="mb-16">Kissan Growth App is available. Get it now</p>
+                            <div className="flex-align gap-8 my-32">
+                                <Link to="/https://www.apple.com/store" className="appcontent">
+                                    <img src="/assets/images/google-play-store.svg" alt="Farmer App" />
+                                    <p>Download App for Farmer</p>
+                                </Link>
+                                <Link to="/https://play.google.com/store/apps?hl=en" className="appcontent">
+                                    <img src="/assets/images/google-play-store.svg" alt="Customer App" />
+                                    <p>Download App for Customer</p>
+                                </Link>
+                            </div>
+
                         </div>
 
                     </div>
