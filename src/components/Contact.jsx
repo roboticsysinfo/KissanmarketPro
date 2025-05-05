@@ -38,25 +38,41 @@ const Contact = () => {
         setCaptchaValue(value); // ✅ Update captcha value
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!captchaValue) {
-            toast.error("Please Complete CAPTCHA");
+            toast.error("Please complete the CAPTCHA");
             return;
         }
 
         const fullData = {
             ...formData,
-            captchaValue, // ✅ Add to payload
+            captchaValue,
         };
 
-        dispatch(createHelpSupport(fullData));
+        try {
+            await dispatch(createHelpSupport(fullData)).unwrap();
+            toast.success("Your message has been sent successfully!");
 
-        // Optional: Reset CAPTCHA
-        captchaRef.current.reset();
-        setCaptchaValue(null);
+            // Optional: Clear form
+            setFormData({
+                name: "",
+                email: "",
+                phone: "",
+                subject: "",
+                message: ""
+            });
+
+            captchaRef.current.reset();
+            setCaptchaValue(null);
+        } catch (err) {
+            toast.error(err?.message || "Something went wrong while submitting.");
+            captchaRef.current.reset();
+            setCaptchaValue(null);
+        }
     };
+
 
     return (
         <section className="contact py-80">
