@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import toast from "react-hot-toast";
 import { Card, CardBody } from "react-bootstrap";
 import api from '../../utils/api';
@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from "react-google-recaptcha";
 
 const AdminLogin = () => {
-  
   const navigate = useNavigate();
+  const recaptchaRef = useRef(); // ✅ Ref for reCAPTCHA
 
   const [formData, setFormData] = useState({
     email: "",
@@ -23,6 +23,13 @@ const AdminLogin = () => {
     setCaptchaValue(value);
   };
 
+  const resetCaptcha = () => {
+    if (recaptchaRef.current) {
+      recaptchaRef.current.reset(); // ✅ Reset the captcha
+      setCaptchaValue(null); // Clear the stored value
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -34,7 +41,7 @@ const AdminLogin = () => {
     try {
       const response = await api.post("/admin/login", {
         ...formData,
-        captcha: captchaValue, // ✅ Add captcha value to request body
+        captcha: captchaValue,
       });
 
       localStorage.setItem('token', response.data.token);
@@ -44,6 +51,7 @@ const AdminLogin = () => {
       navigate('/admin/dashboard');
     } catch (error) {
       toast.error(error.response?.data?.message || "Admin Login failed");
+      resetCaptcha(); // ✅ Reset captcha on failure
     }
   };
 
@@ -84,6 +92,7 @@ const AdminLogin = () => {
 
                 <div className="mb-24">
                   <ReCAPTCHA
+                    ref={recaptchaRef} // ✅ Set ref
                     sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
                     onChange={handleCaptchaChange}
                   />
