@@ -41,7 +41,7 @@ const AdminLogin = () => {
     try {
       const response = await api.post("/admin/login", {
         ...formData,
-        captcha: captchaValue,
+        captchaValue: captchaValue,
       });
 
       localStorage.setItem('token', response.data.token);
