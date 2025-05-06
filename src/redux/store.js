@@ -19,7 +19,8 @@ import farmingTipsReducer from './slices/farmingTipsSlice';
 import customerRedeemProductReducer from './slices/customerRedeemProductSlice';
 import customerHelpSupportReducer from './slices/customerHelpSupportSlice';
 import familyFarmerReducer from './slices/farmerFamilySlice';
-import planPointsHistoryReducer from "./slices/planPointsHistorySlice"
+import planPointsHistoryReducer from "./slices/planPointsHistorySlice";
+import notificationsReducer from "./slices/notificationsSlice";
 
 
 const store = configureStore({
@@ -46,7 +47,8 @@ const store = configureStore({
     customerRedeemProducts: customerRedeemProductReducer,
     customerHelpSupport: customerHelpSupportReducer,
     familyfarmer: familyFarmerReducer,
-    planPointsData: planPointsHistoryReducer
+    planPointsData: planPointsHistoryReducer,
+    notifications: notificationsReducer,
   },
 
 });

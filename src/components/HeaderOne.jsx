@@ -10,20 +10,25 @@ import HeaderSearch from './HeaderSearch';
 import googlePlayStoreImg from "../assets/images/google-play-store.svg"
 import { FaRegBell } from "react-icons/fa";
 import { Badge } from 'react-bootstrap';
+import { fetchNotifications } from '../redux/slices/notificationsSlice';
 
 
 const HeaderOne = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const unreadCount = useSelector((state) => state.notifications.unreadCount);
     const [districtOptions, setDistrictOptions] = useState([]); // Store formatted districts
     const [selectedDistrict, setSelectedDistrict] = useState(null); // Selected district
 
 
-    // useEffect(() => {
-    //     fetchDistricts();
-    // }, []);
+    useEffect(() => {
+        const userId = localStorage.getItem('userId');
+        if (userId) {
+            dispatch(fetchNotifications());
+        }
+    }, [dispatch]);
+
 
     // const fetchDistricts = async () => {
     //     try {
@@ -38,6 +43,8 @@ const HeaderOne = () => {
     //         console.error("Error fetching districts:", error);
     //     }
     // };
+
+
 
     const [scroll, setScroll] = useState(false)
     useEffect(() => {
@@ -428,9 +435,11 @@ const HeaderOne = () => {
                                         <Link to="/notifications">
                                             <div className='notification_bell'>
                                                 <FaRegBell />
-                                                <Badge pill bg="danger" className="notificatin_badge">
-                                                    0
-                                                </Badge>
+                                                {unreadCount > 0 && (
+                                                    <Badge pill bg="danger" className="notificatin_badge">
+                                                        {unreadCount}
+                                                    </Badge>
+                                                )}
                                             </div>
                                         </Link>
 

@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNotifications, markNotificationAsRead } from '../redux/slices/notificationsSlice';
 import moment from "moment";
-// import noNotification from "../../assets/no_notification.png";
-
+import "../notification.css";
 
 const NotificationSection = () => {
-
     const dispatch = useDispatch();
     const notifications = useSelector((state) => state.notifications.items);
     const [refreshing, setRefreshing] = useState(false);
+    const [visibleCount, setVisibleCount] = useState(20);
 
     const loadNotifications = async () => {
         setRefreshing(true);
@@ -26,14 +25,13 @@ const NotificationSection = () => {
             dispatch(markNotificationAsRead(item._id));
         }
 
-        // Route to different pages
-        if (item.type === "order") {
-            window.location.href = `/orders/${item.orderId}`;
-        } else if (item.type === "review") {
-            window.location.href = `/shop-reviews/${item.reviewId}`;
-        } else if (item.type === "familyRequest") {
-            window.location.href = `/family-farmer-requests/${item.requestId}`;
+        if (item.type === "order" || item.type === "review" || item.type === "familyRequest") {
+            window.location.href = "/account";
         }
+    };
+
+    const handleLoadMore = () => {
+        setVisibleCount(prev => prev + 20);
     };
 
     return (
@@ -45,7 +43,7 @@ const NotificationSection = () => {
                 </div>
             ) : (
                 <div className="notification-list">
-                    {notifications.map((item) => (
+                    {notifications.slice(0, visibleCount).map((item) => (
                         <div
                             key={item._id || Math.random().toString()}
                             className={`notification-item ${item.read ? "read" : "unread"}`}
@@ -63,11 +61,16 @@ const NotificationSection = () => {
                             <span className="notification-time">{moment(item.createdAt).fromNow()}</span>
                         </div>
                     ))}
+
+                    {visibleCount < notifications.length && (
+                        <div className="load-more-container">
+                            <button className="load-more-button" onClick={handleLoadMore}>Load More</button>
+                        </div>
+                    )}
                 </div>
             )}
         </div>
     );
 };
 
-
-export default NotificationSection
+export default NotificationSection;

@@ -34,7 +34,7 @@ const Login = () => {
         try {
             const response = await api.post("/auth/customer_login", {
                 ...formData,
-                // captchaValue, // ✅ Send to backend
+                captchaValue, // ✅ Send to backend
             });
 
             localStorage.setItem("token", response.data.token);
@@ -100,12 +100,12 @@ const Login = () => {
                                 </div>
 
                                 {/* ✅ reCAPTCHA Box */}
-                                {/* <div className="mb-24">
+                                <div className="mb-24">
                                     <ReCAPTCHA
                                         sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY} // ✅ Correct way
                                         onChange={handleCaptchaChange}
                                     />
-                                </div> */}
+                                </div>
 
                                 <div className="mb-24 mt-48">
                                     <button type="submit" className="btn btn-success py-18 px-40" disabled={loading}>
