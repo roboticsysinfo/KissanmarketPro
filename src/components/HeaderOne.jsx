@@ -8,6 +8,8 @@ import Select from "react-select";
 import { FiLogOut } from "react-icons/fi";
 import HeaderSearch from './HeaderSearch';
 import googlePlayStoreImg from "../assets/images/google-play-store.svg"
+import { FaRegBell } from "react-icons/fa";
+import { Badge } from 'react-bootstrap';
 
 
 const HeaderOne = () => {
@@ -17,6 +19,7 @@ const HeaderOne = () => {
 
     const [districtOptions, setDistrictOptions] = useState([]); // Store formatted districts
     const [selectedDistrict, setSelectedDistrict] = useState(null); // Selected district
+
 
     // useEffect(() => {
     //     fetchDistricts();
@@ -61,6 +64,7 @@ const HeaderOne = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const userId = user?.id;
 
+
     const handleLogout = () => {
         localStorage.removeItem('token');  // Remove token
         localStorage.removeItem('userRole');
@@ -69,11 +73,13 @@ const HeaderOne = () => {
         navigate('/login');
     };
 
+
     const handleLocation = () => {
         if (selectedDistrict) {
             navigate(`/shops/${selectedDistrict.value}`); // Redirect to URL with selected location
         }
     };
+
 
     // Mobile menu support
     const [menuActive, setMenuActive] = useState(false)
@@ -84,6 +90,7 @@ const HeaderOne = () => {
     const handleMenuToggle = () => {
         setMenuActive(!menuActive);
     };
+
 
     // Search control support
     const [activeSearch, setActiveSearch] = useState(false)
@@ -270,7 +277,7 @@ const HeaderOne = () => {
                             <li className="border-right-item">
                                 <Link>
                                     <div className='header_app'>
-                                        <img src={googlePlayStoreImg} alt='Download Farmer App'  />
+                                        <img src={googlePlayStoreImg} alt='Download Farmer App' />
                                         <p>Download Android App for Farmer</p>
                                     </div>
                                 </Link>
@@ -279,7 +286,7 @@ const HeaderOne = () => {
                             <li>
                                 <Link>
                                     <div className='header_app'>
-                                        <img src={googlePlayStoreImg} alt='Download Customer App'  />
+                                        <img src={googlePlayStoreImg} alt='Download Customer App' />
                                         <p>Download Android App for Customer</p>
                                     </div>
                                 </Link>
@@ -346,6 +353,13 @@ const HeaderOne = () => {
 
                             {userId ? (
                                 <>
+
+                                    <div className='notification_bell'>
+                                        <FaRegBell />
+                                        <Badge pill bg="danger" className="notificatin_badge">
+                                            0
+                                        </Badge>
+                                    </div>
 
                                     <div className='mob_view_user_info'>
                                         <Link to="/account" className="flex-align gap-4 item-hover">
@@ -519,7 +533,7 @@ const HeaderOne = () => {
                         <div className="header-right flex-align">
 
                             <div className="me-16 d-lg-none d-block">
-                                
+
                                 {/* <div className="flex-align flex-wrap gap-12">
                                     <button onClick={handleSearchToggle}
                                         type="button"

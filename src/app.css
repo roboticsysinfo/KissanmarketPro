@@ -414,6 +414,26 @@ ul.ProductPagination {
     margin-bottom: 20px;
 }
 
+.notification_bell {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 24px; /* Adjust icon size */
+    color: #333; /* Icon color */
+  }
+  
+  .notificatin_badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    font-size: 10px;
+    padding: 4px 6px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    line-height: 1;
+  }
+
 
 @media screen and (max-width: 575px) {
     .banner-item__thumb img {
