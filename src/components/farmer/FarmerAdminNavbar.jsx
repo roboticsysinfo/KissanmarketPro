@@ -1,7 +1,7 @@
 // FarmerAdminNavbar.jsx
 import React, { useEffect } from "react";
 import { Navbar, Nav, Button, Badge } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchNotifications } from "../../redux/slices/notificationsSlice";
 import { FaRegBell } from "react-icons/fa";
