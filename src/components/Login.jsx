@@ -16,13 +16,13 @@ const Login = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-
     const handleCaptchaChange = (value) => {
         setCaptchaValue(value); // ✅ Set captcha response
     };
 
-    
+
     const handleSubmit = async (e) => {
+        
         e.preventDefault();
 
         if (!captchaValue) {
