@@ -364,9 +364,11 @@ const HeaderOne = () => {
                                     <Link to="/notifications">
                                         <div className='notification_bell'>
                                             <FaRegBell />
-                                            <Badge pill bg="danger" className="notificatin_badge">
-                                                0
-                                            </Badge>
+                                            {unreadCount > 0 && (
+                                                <Badge pill bg="danger" className="notificatin_badge">
+                                                    {unreadCount}
+                                                </Badge>
+                                            )}
                                         </div>
                                     </Link>
 

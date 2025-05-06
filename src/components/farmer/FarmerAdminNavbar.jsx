@@ -10,6 +10,7 @@ const FarmerAdminNavbar = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const unreadCount = useSelector((state) => state.notifications.unreadCount);
 
 
   useEffect(() => {
@@ -40,9 +41,11 @@ const FarmerAdminNavbar = () => {
         <Link to="/farmer/notifications" className="notification_link">
           <div className='notification_bell'>
             <FaRegBell />
-            <Badge pill bg="danger" className="notificatin_badge">
-              0
-            </Badge>
+            {unreadCount > 0 && (
+              <Badge pill bg="danger" className="notificatin_badge">
+                {unreadCount}
+              </Badge>
+            )}
           </div>
         </Link>
 
