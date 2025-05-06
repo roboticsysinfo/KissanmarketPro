@@ -423,6 +423,13 @@ const HeaderOne = () => {
                                 {userId ? (
                                     <>
 
+                                        <div className='notification_bell'>
+                                            <FaRegBell />
+                                            <Badge pill bg="danger" className="notificatin_badge">
+                                                0
+                                            </Badge>
+                                        </div>
+
                                         <Link to="/account" className="flex-align gap-4 item-hover">
                                             <div class="profile_dropdown">
                                                 <img src="https://avatar.iran.liara.run/public/boy" alt="Username" width={38} height={38} />
