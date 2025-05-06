@@ -424,9 +424,9 @@ ul.ProductPagination {
   
   .notificatin_badge {
     position: absolute;
-    top: -6px;
-    right: -6px;
-    font-size: 10px;
+    top: -8px;
+    right: -5px;
+    font-size: 10px !important;
     padding: 4px 6px;
     border-radius: 50%;
     background-color: red;

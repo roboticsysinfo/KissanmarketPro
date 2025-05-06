@@ -73,6 +73,7 @@ import SiteTermsConditionsPage from "./pages/SiteTermsConditionsPage";
 import KGMobileAppsPage from "./pages/KGMobileAppsPage";
 import UpgradePlans from "./pages/farmer/UpgradePlans";
 import FarmerPlansHistory from "./pages/admin/FarmerPlansHistory";
+import NotificationPage from "./pages/NotificationPage"
 
 
 function App() {
@@ -86,6 +87,7 @@ function App() {
         {/* Public Routes */}
         <Route path="/" element={<HomePageOne />} />
         <Route path="products" element={<ShopPage />} />
+        <Route path="notifications" element={<NotificationPage />} />
         <Route path="farmers" element={<Farmers />} />
         <Route path="about-us" element={<AboutPage />} />
         <Route path="shops" element={<VendorPage />} />
