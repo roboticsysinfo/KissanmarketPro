@@ -354,12 +354,14 @@ const HeaderOne = () => {
                             {userId ? (
                                 <>
 
-                                    <div className='notification_bell'>
-                                        <FaRegBell />
-                                        <Badge pill bg="danger" className="notificatin_badge">
-                                            0
-                                        </Badge>
-                                    </div>
+                                    <Link to="/notifications">
+                                        <div className='notification_bell'>
+                                            <FaRegBell />
+                                            <Badge pill bg="danger" className="notificatin_badge">
+                                                0
+                                            </Badge>
+                                        </div>
+                                    </Link>
 
                                     <div className='mob_view_user_info'>
                                         <Link to="/account" className="flex-align gap-4 item-hover">
