@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../utils/axiosInstance"; // Axios instance import karein
 import { Link } from "react-router-dom";
+import slugify from "slugify";
 
 const HeaderSearch = () => {
 
@@ -21,6 +22,7 @@ const HeaderSearch = () => {
         }, 500); // 500ms delay for debounce
 
         return () => clearTimeout(delayDebounceFn);
+
     }, [searchQuery]);
 
     const fetchSearchResults = async () => {
@@ -61,34 +63,61 @@ const HeaderSearch = () => {
                             <p>No results found</p>
                         ) : (
                             <>
-
-                                {searchResults.products.map((product) => (
+                                {searchResults.products.length > 0 && (
                                     <>
                                         <h4>Products</h4>
                                         <hr />
-                                        <Link to={`/product/${product._id}`} className="search_item" key={product._id}>
-                                            <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${product.product_image}`} width={32} height={32} alt={product.name} />
-                                            <Link >{product.name}</Link>
-                                        </Link>
+                                        {searchResults.products.map((product) => {
+                                            const productSlug = slugify(product.name || "", { lower: true, strict: true });
+                                            return (
+                                                <Link
+                                                    to={`/product/${productSlug}-${product._id}`}
+                                                    className="search_item"
+                                                    key={product._id}
+                                                >
+                                                    <img
+                                                        src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${product.product_image}`}
+                                                        width={32}
+                                                        height={32}
+                                                        alt={product.name}
+                                                    />
+                                                    <span>{product.name}</span>
+                                                </Link>
+                                            );
+                                        })}
                                     </>
-                                ))}
+                                )}
 
-                                {searchResults.shops.map((shop) => (
+                                {searchResults.shops.length > 0 && (
                                     <>
-
                                         <h4>Shops</h4>
                                         <hr />
-                                        <Link to={`/shop/${shop._id}`} className="search_item" key={shop._id}>
-                                            <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${shop.shop_profile_image}`} width={32} height={32} alt={shop.shop_name} />
-                                            <Link >{shop.shop_name}</Link>
-                                        </Link>
-
+                                        {searchResults.shops.map((shop) => {
+                                            const shopSlug = slugify(shop.shop_name || "", { lower: true, strict: true });
+                                            return (
+                                                <Link
+                                                    to={`/shop/${shopSlug}-${shop._id}`}
+                                                    className="search_item"
+                                                    key={shop._id}
+                                                >
+                                                    <img
+                                                        src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${shop.shop_profile_image}`}
+                                                        width={32}
+                                                        height={32}
+                                                        alt={shop.shop_name}
+                                                    />
+                                                    <span>{shop.shop_name}</span>
+                                                </Link>
+                                            );
+                                        })}
                                     </>
-                                ))}
+                                )}
                             </>
                         )}
                     </div>
                 )}
+
+
             </div>
         </>
     );
