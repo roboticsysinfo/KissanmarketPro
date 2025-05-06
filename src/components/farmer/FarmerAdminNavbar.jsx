@@ -1,11 +1,23 @@
 // FarmerAdminNavbar.jsx
-import React from "react";
-import { Navbar, Nav, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Navbar, Nav, Button, Badge } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { fetchNotifications } from "../../redux/slices/notificationsSlice";
+import { FaRegBell } from "react-icons/fa";
 
 const FarmerAdminNavbar = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    const farmerId = localStorage.getItem('farmerId');
+    if (farmerId) {
+      dispatch(fetchNotifications());
+    }
+  }, [dispatch]);
 
   const onLogout = () => {
     // Clear the token and user role from localStorage
@@ -21,10 +33,20 @@ const FarmerAdminNavbar = () => {
   const username = localStorage.getItem("farmerName");
 
   return (
-    <Navbar bg="success" variant="dark" className="px-3">
+    <Navbar bg="success" variant="dark" className="px-20 py-20">
       <Navbar.Brand href="/">Farmer Dashboard</Navbar.Brand>
       <Nav className="ms-auto">
-        <Navbar.Text className="me-3">Hello, {username}</Navbar.Text>
+
+        <Link to="/farmer/notifications" className="notification_link">
+          <div className='notification_bell'>
+            <FaRegBell />
+            <Badge pill bg="danger" className="notificatin_badge">
+              0
+            </Badge>
+          </div>
+        </Link>
+
+        <Navbar.Text className="me-3 text-white">Hello, {username}</Navbar.Text>
         <Button variant="outline-light" onClick={onLogout}>
           Logout
         </Button>

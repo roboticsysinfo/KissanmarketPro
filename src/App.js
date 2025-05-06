@@ -74,6 +74,7 @@ import KGMobileAppsPage from "./pages/KGMobileAppsPage";
 import UpgradePlans from "./pages/farmer/UpgradePlans";
 import FarmerPlansHistory from "./pages/admin/FarmerPlansHistory";
 import NotificationPage from "./pages/NotificationPage"
+import FarmerNotifications from "./pages/farmer/FarmerNotifications";
 
 
 function App() {
@@ -232,6 +233,7 @@ function App() {
           <Route path="crops-detail" element={<CropsDetail />} />
           <Route path="orders" element={<FarmerOrder />} />
           <Route path="upgrade-plans" element={<UpgradePlans />} />
+          <Route path="notifications" element={<FarmerNotifications />} />
 
         </Route>
 
