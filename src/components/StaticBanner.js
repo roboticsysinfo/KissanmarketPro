@@ -26,7 +26,7 @@ const StaticBanner = () => {
 
                                         <h1 className="banner-item__title bounce mb-10">Fresh & Flavorful Fruits, Every Day!</h1>
                                         <Link
-                                            to="/category/vegetables-68105ab062837600f93b9c6b"
+                                            to="/category/fruits-68105ab062837600f93b9c6b"
                                             className="btn btn-main d-inline-flex align-items-center mb-30 rounded-pill gap-8"
                                         >
                                             Explore Shop
