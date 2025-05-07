@@ -132,6 +132,11 @@ const FarmerLogin = () => {
                     </div>
 
                 </div>
+
+                <Link to="/" className="go-back-btn" >
+                    ← Go Back to Website
+                </Link>
+
             </div>
 
 

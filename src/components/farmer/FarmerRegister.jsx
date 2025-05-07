@@ -304,6 +304,12 @@ const FarmerRegister = () => {
           </div>
 
         </div>
+
+        <Link to="/" className="go-back-btn" >
+          ← Go Back to Website
+        </Link>
+
+
       </div>
 
     </>
@@ -317,6 +323,7 @@ const styles = {
     width: "100%",
     height: "100%",
   },
+
 };
 
 export default FarmerRegister;
