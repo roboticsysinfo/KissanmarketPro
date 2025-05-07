@@ -154,6 +154,12 @@ const FooterOne = () => {
                                     </Link>
                                 </li>
 
+                                <li className="mb-16">
+                                    <Link to="#" className="text-gray-600 hover-text-main-600">
+                                        Sitemap
+                                    </Link>
+                                </li>
+
                             </ul>
                         </div>
 
