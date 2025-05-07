@@ -20,7 +20,7 @@ const FooterOne = () => {
 
     return (
 
-        <footer className="footer py-120">
+        <footer className="footer py-120 pb-60">
             <img
                 src="assets/images/bg/body-bottom-bg.png"
                 alt="BG"
