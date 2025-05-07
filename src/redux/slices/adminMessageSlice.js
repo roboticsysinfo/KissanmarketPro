@@ -17,9 +17,9 @@ export const fetchAdminMessages = createAsyncThunk(
 // ✅ Create a new message
 export const createAdminMessage = createAsyncThunk(
   "adminMessages/create",
-  async ({ title, message }, { rejectWithValue }) => {
+  async ({ title, message, type }, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post("/admin/message", { title, message });
+      const response = await axiosInstance.post("/admin/message", { title, message, type });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Failed to create message");
