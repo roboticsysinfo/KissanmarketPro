@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../redux/slices/categorySlice'; // Import the fetchCategories action
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
+import slugify from 'slugify';
 
 const FeatureOne = () => {
     const dispatch = useDispatch();
@@ -95,26 +96,38 @@ const FeatureOne = () => {
 
                     <div className="feature-item-wrapper">
                         <Slider {...settings}>
-                            {categories.map((category) => (
-                                <div key={category._id} className="feature-item text-center">
-                                    <div className="feature-item__thumb rounded-circle">
-                                        <Link to={`/category/${category._id}`} className="w-100 h-100 flex-center">
-                                            <img src={category.category_image ? `${process.env.REACT_APP_BASE_URL_SECONDARY}${category.category_image}` : 'https://placehold.co/100x100'} alt={category.name}
-                                                width={80}
-                                                height={80}
-                                            />
-                                        </Link>
-                                    </div>
-                                    <div className="feature-item__content mt-16">
-                                        <h6 className="text-lg mb-8">
-                                            <Link to={`/category/${category._id}`} className="text-inherit">
-                                                {category.name}
+
+                            {categories.map((category) => {
+                                const slug = slugify(category.name, { lower: true }); // lowercase aur hyphenated
+                                const categoryUrl = `/category/${slug}-${category._id}`;
+
+                                return (
+                                    <div key={category._id} className="feature-item text-center">
+                                        <div className="feature-item__thumb rounded-circle">
+                                            <Link to={categoryUrl} className="w-100 h-100 flex-center">
+                                                <img
+                                                    src={category.category_image
+                                                        ? `${process.env.REACT_APP_BASE_URL_SECONDARY}${category.category_image}`
+                                                        : 'https://placehold.co/100x100'}
+                                                    alt={category.name}
+                                                    width={80}
+                                                    height={80}
+                                                />
                                             </Link>
-                                        </h6>
-                                        <span className="text-sm text-gray-400">{category.productCount || 0} Products</span>
+                                        </div>
+                                        <div className="feature-item__content mt-16">
+                                            <h6 className="text-lg mb-8">
+                                                <Link to={categoryUrl} className="text-inherit">
+                                                    {category.name}
+                                                </Link>
+                                            </h6>
+                                            <span className="text-sm text-gray-400">{category.productCount || 0} Products</span>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                );
+                            })}
+
+
                         </Slider>
                     </div>
                 </div>
