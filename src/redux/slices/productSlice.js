@@ -13,13 +13,25 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+
+// Fetch product by ID
+export const getProductById = createAsyncThunk('products/getById', async (id, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.get(`/product/${id}`);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
+
 // Fetch product by farmer ID
 export const getProductByFarmerId = createAsyncThunk(
   "products/getProductByFarmerId",
   async (farmerId, { rejectWithValue }) => {
     try {
 
-      const productId =  localStorage.getItem("farmerId")
+      const productId = localStorage.getItem("farmerId")
 
       const response = await axiosInstance.get(`/farmer-products/${farmerId}`);
       return response.data.data; // Assuming API returns { success: true, data: product }
@@ -113,7 +125,7 @@ const productSlice = createSlice({
         state.data = action.payload.products;  // ✅ Fix: Correctly update state
         state.totalPages = action.payload.totalPages;
         state.currentPage = action.payload.currentPage;
-    })    
+      })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
@@ -158,7 +170,7 @@ const productSlice = createSlice({
         state.deleteProductStatus = "failed";
         state.error = action.payload;
       })
-  
+
       // Fetch Products by Category
       .addCase(fetchProductsByCategory.pending, (state) => {
         state.productcategoryStatus = "loading";
@@ -170,11 +182,20 @@ const productSlice = createSlice({
       .addCase(fetchProductsByCategory.rejected, (state, action) => {
         state.productcategoryStatus = "failed";
         state.error = action.payload;
-      });
-      
+      })
+
+      // Fetch product by ID
+      .addCase(getProductById.fulfilled, (state, action) => {
+        state.product = action.payload;  // Update selected product
+        state.status = 'succeeded';
+      })
+
+
+
+
   },
 });
 
-export const { resetAddProductState, setSelectedProduct  } = productSlice.actions;
+export const { resetAddProductState, setSelectedProduct } = productSlice.actions;
 
 export default productSlice.reducer;

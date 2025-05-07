@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaIndianRupeeSign } from 'react-icons/fa6';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import RequestOrderModal from './RequestOrderModal';
 import { Button } from 'react-bootstrap';
-import { setSelectedProduct } from '../redux/slices/productSlice';
+import { getProductById, setSelectedProduct } from '../redux/slices/productSlice';
 
 
 const ProductDetailsOne = () => {
@@ -15,13 +15,22 @@ const ProductDetailsOne = () => {
 
     const slugParts = slug.split('-');
     const productId = slugParts[slugParts.length - 1]; // last part productId 
-
+    const { product, status } = useSelector((state) => state.products);
+    const { loading } = useSelector((state) => state.requestOrder);
+    const selectedProduct = useSelector((state) => state.products.selectedProduct);
 
     const { data: products } = useSelector(
         (state) => state.products
     );
 
-    const product = products.find((item) => item._id.toString() === productId);
+    // const product = products.find((item) => item._id.toString() === productId);
+
+
+    useEffect(() => {
+        if (productId) {
+            dispatch(getProductById(productId));
+        }
+    }, [dispatch, productId]);
 
 
     const handleSubmit = (data) => {
@@ -56,47 +65,61 @@ const ProductDetailsOne = () => {
 
                                     </div>
                                 </div>
+
                                 <div className="col-xl-8">
                                     <div className="product-details__content">
                                         <h5 className="mb-12">{product?.name}</h5>
-                                        <span className="mt-32 pt-32 text-gray-700 border-top border-gray-100 d-block" />
-                                        <p className="text-gray-700">
-                                            {product?.description}
-                                        </p>
-                                        <div className="mt-32 flex-align flex-wrap gap-32">
-                                            <div className="flex-align gap-8">
-                                                <h4 className="mb-0"><FaIndianRupeeSign />{product?.price_per_unit}</h4>
-                                            </div>
+
+                                        <p className="text-gray-700">{product?.description}</p>
+
+                                        <div className="mt-16">
+                                            <strong>Category:</strong> {product?.category_id?.name || 'N/A'}
                                         </div>
+                                        <div className="mt-8">
+                                            <strong>Farmer:</strong> {product?.farmer_id?.name || 'N/A'}
+                                        </div>
+                                        <div className="mt-8">
+                                            <strong>Shop Name:</strong> {product?.shop_id?.shop_name || 'N/A'}
+                                        </div>
+                                        <div className="mt-8">
+                                            <strong>Price:</strong> ₹{product?.price_per_unit} / {product?.unit}
+                                        </div>
+                                        <div className="mt-8">
+                                            <strong>Available Quantity:</strong> {product?.quantity} {product?.unit}
+                                        </div>
+                                        <div className="mt-8">
+                                            <strong>Season:</strong> {product?.season || 'N/A'}
+                                        </div>
+                                        <div className="mt-8">
+                                            <strong>Harvest Date:</strong> {product?.harvest_date ? new Date(product?.harvest_date).toLocaleDateString() : 'N/A'}
+                                        </div>
+
                                         <span className="mt-32 pt-32 text-gray-700 border-top border-gray-100 d-block" />
 
-                                        <span className="text-gray-900 d-block mb-8">Quantity:</span>
                                         <div className="flex-between gap-16 flex-wrap">
                                             <div className="flex-align flex-wrap gap-16">
-
                                                 <Button
-                                                    className='btn btn-success btn-block w-100'
+                                                    className="btn btn-success btn-block w-100"
                                                     onClick={() => {
-                                                        const user = JSON.parse(localStorage.getItem("user"));
+                                                        const user = JSON.parse(localStorage.getItem('user'));
                                                         if (user && user.id) {
-                                                            dispatch(setSelectedProduct(product)); // ✅ Redux me product set karo
-                                                            setShowModal(true); // ✅ Modal open karo
+                                                            dispatch(setSelectedProduct(product));
+                                                            setShowModal(true);
                                                         } else {
-                                                            window.location.href = "/login"; // 🔁 Redirect to login
+                                                            window.location.href = '/login';
                                                         }
                                                     }}
                                                 >
                                                     Request Order
                                                 </Button>
-
                                             </div>
-
                                         </div>
 
                                         <span className="mt-32 pt-32 text-gray-700 border-top border-gray-100 d-block" />
-
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
 
