@@ -27,7 +27,7 @@ const FarmerNotifications = () => {
         }
 
         if (item.type === "order" || item.type === "review" || item.type === "familyRequest") {
-            window.location.href = "/account";
+            window.location.href = "/orders";
         }
     };
 

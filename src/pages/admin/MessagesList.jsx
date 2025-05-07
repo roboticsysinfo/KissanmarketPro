@@ -16,28 +16,28 @@ const MessagesList = () => {
   const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState("add"); // 'add' or 'edit'
-  const [formData, setFormData] = useState({ title: "", message: "" });
+  const [formData, setFormData] = useState({ title: "", message: "", type: "farmer" });
   const [editId, setEditId] = useState(null);
 
   useEffect(() => {
     dispatch(fetchAdminMessages());
   }, [dispatch]);
 
-  const filteredMessages = messages.filter((ticket) =>
-    (ticket.title?.toLowerCase().includes(searchText.toLowerCase()) ||
-     ticket.message?.toLowerCase().includes(searchText.toLowerCase()))
+  const filteredMessages = messages.filter((msg) =>
+    (msg.title?.toLowerCase().includes(searchText.toLowerCase()) ||
+     msg.message?.toLowerCase().includes(searchText.toLowerCase()))
   );
 
   const handleOpenAdd = () => {
     setModalMode("add");
-    setFormData({ title: "", message: "" });
+    setFormData({ title: "", message: "", type: "farmer" });
     setShowModal(true);
   };
 
   const handleOpenEdit = (row) => {
     setModalMode("edit");
     setEditId(row._id);
-    setFormData({ title: row.title, message: row.message });
+    setFormData({ title: row.title, message: row.message, type: row.type || "farmer" });
     setShowModal(true);
   };
 
@@ -69,6 +69,11 @@ const MessagesList = () => {
       wrap: true,
     },
     {
+      name: "Type",
+      selector: (row) => row.type,
+      sortable: true,
+    },
+    {
       name: "Date",
       selector: (row) => new Date(row.createdAt).toLocaleString(),
       sortable: true,
@@ -88,11 +93,9 @@ const MessagesList = () => {
     },
   ];
 
-  
   return (
-
     <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">Admin Messages for Farmer</h2>
+      <h2 className="text-xl font-semibold mb-4">Admin Messages</h2>
 
       <div className="d-flex justify-content-between mb-3">
         <input
@@ -136,7 +139,7 @@ const MessagesList = () => {
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               />
             </Form.Group>
-            <Form.Group>
+            <Form.Group className="mb-3">
               <Form.Label>Message</Form.Label>
               <Form.Control
                 as="textarea"
@@ -145,6 +148,17 @@ const MessagesList = () => {
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Type</Form.Label>
+              <Form.Select
+                value={formData.type}
+                required
+                onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+              >
+                <option value="farmer">Farmer</option>
+                <option value="customer">Customer</option>
+              </Form.Select>
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
