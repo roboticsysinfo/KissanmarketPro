@@ -422,6 +422,17 @@ ul.ProductPagination {
     color: #333; /* Icon color */
   }
   
+  .product-details__thumb-slider {
+    display: flex;
+    height: 400px !important;
+    min-width: 400px;
+    padding: 20px !important;
+}
+
+.product-details__thumb-slider img{
+    object-fit: cover;
+}
+
   .notificatin_badge {
     position: absolute;
     top: -8px;
