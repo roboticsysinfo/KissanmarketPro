@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { FaIndianRupeeSign } from 'react-icons/fa6';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import RequestOrderModal from './RequestOrderModal';
 import { Button } from 'react-bootstrap';
+import { setSelectedProduct } from '../redux/slices/productSlice';
 
 
 const ProductDetailsOne = () => {
 
-
+    const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
     const { slug } = useParams(); // Get Product Id From URL
 
-    const slugParts = slug.split('-'); 
+    const slugParts = slug.split('-');
     const productId = slugParts[slugParts.length - 1]; // last part productId 
 
 
@@ -21,7 +22,7 @@ const ProductDetailsOne = () => {
     );
 
     const product = products.find((item) => item._id.toString() === productId);
-    
+
 
     const handleSubmit = (data) => {
 
@@ -44,6 +45,7 @@ const ProductDetailsOne = () => {
                             <div className="row gy-4">
                                 <div className="col-xl-4">
                                     <div className="product-details__left">
+
                                         <div className="product-details__thumb-slider border border-gray-100 rounded-16">
                                             <div className="">
                                                 <div className="product-details__thumb flex-center h-100">
@@ -72,8 +74,19 @@ const ProductDetailsOne = () => {
                                         <div className="flex-between gap-16 flex-wrap">
                                             <div className="flex-align flex-wrap gap-16">
 
-                                                <Button variant="success" onClick={() => setShowModal(true)}>
-                                                    Request Product
+                                                <Button
+                                                    className='btn btn-success btn-block w-100'
+                                                    onClick={() => {
+                                                        const user = JSON.parse(localStorage.getItem("user"));
+                                                        if (user && user.id) {
+                                                            dispatch(setSelectedProduct(product)); // ✅ Redux me product set karo
+                                                            setShowModal(true); // ✅ Modal open karo
+                                                        } else {
+                                                            window.location.href = "/login"; // 🔁 Redirect to login
+                                                        }
+                                                    }}
+                                                >
+                                                    Request Order
                                                 </Button>
 
                                             </div>
