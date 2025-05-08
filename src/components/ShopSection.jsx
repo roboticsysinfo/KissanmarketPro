@@ -171,7 +171,7 @@ const ShopSection = () => {
                                                 <div className="product-card h-100 p-16 border border-gray-100 hover-border-main-600 rounded-16 position-relative transition-2">
                                                     <Link to={`/product/${productSlug}-${product._id}`} className="product-card__thumb flex-center rounded-8 bg-gray-50 position-relative">
                                                         <img
-                                                            src={product.product_image ? `${process.env.REACT_APP_BASE_URL_PRIMARY}${product.product_image}` : 'https://placehold.co/100x100'}
+                                                            src={product.product_image ? `${product.product_image}?tr=w-300,h-300,q-80,f-webp` : 'https://placehold.co/100x100'}
                                                             alt={product.name}
                                                             className="w-auto max-w-unset"
                                                         />

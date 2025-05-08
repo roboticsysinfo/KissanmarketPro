@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { fetchProducts } from '../redux/slices/productSlice';
 import slugify from 'slugify';
 import { FaRupeeSign } from "react-icons/fa";
+import OptimizedImage from './OptimizedImage';
 
 // Helper to safely slugify strings
 const slugifySafe = (text) => {
@@ -50,7 +51,17 @@ const ProductListOne = () => {
                                         to={`/product/${productSlug}-${product._id}`}
                                         className="product-card__thumb flex-center"
                                     >
-                                        <img
+
+                                        <OptimizedImage
+                                            imageUrl={product.product_image}
+                                            alt={product.name}
+                                            width={300}
+                                            height={200}
+                                            quality={80}
+                                            format="webp" // Can be 'auto', 'webp', or 'avif'
+                                        />
+
+                                        {/* <img
                                             src={
                                                 product.product_image
                                                     ? `${process.env.REACT_APP_BASE_URL_PRIMARY}${product.product_image}`
@@ -60,7 +71,7 @@ const ProductListOne = () => {
                                             loading='lazy'
                                             width={300}
                                             height={200}
-                                        />
+                                        /> */}
                                     </Link>
                                     <div className="product-card__content mt-12">
                                         <div className="product-card__price mb-16">

@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import RequestOrderModal from './RequestOrderModal';
 import { Button } from 'react-bootstrap';
 import { getProductById, setSelectedProduct } from '../redux/slices/productSlice';
+import OptimizedImage from './OptimizedImage';
 
 
 const ProductDetailsOne = () => {
@@ -58,7 +59,17 @@ const ProductDetailsOne = () => {
                                         <div className="product-details__thumb-slider border border-gray-100 rounded-16">
                                             <div className="">
                                                 <div className="product-details__thumb flex-center h-100">
-                                                    <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${product?.product_image}` || "default-image.png"} alt="Main Product" />
+
+                                                    <OptimizedImage
+                                                        imageUrl={product.product_image}
+                                                        alt={product.name}
+                                                        width={300}
+                                                        height={300}
+                                                        quality={80}
+                                                        format="webp" // Can be 'auto', 'webp', or 'avif'
+                                                    />
+
+                                                    {/* <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${product?.product_image}` || "default-image.png"} alt="Main Product" /> */}
                                                 </div>
                                             </div>
                                         </div>

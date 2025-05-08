@@ -77,7 +77,7 @@ const Blog = () => {
                                         type="text"
                                         className="form-control common-input bg-color-three"
                                         placeholder="Searching..."
-                                        value={search} 
+                                        value={search}
                                         onChange={(e) => setSearch(e.target.value)}
                                     />
                                     <button
@@ -98,9 +98,10 @@ const Blog = () => {
 };
 
 // Blog Item Component
+
 const BlogItem = ({ blog }) => (
     <div className="blog-item">
-        <Link to={`/blog/${slugify(blog.blog_title, { lower: true })}-${blog._id}`} className="w-100 h-100 rounded-16 overflow-hidden">
+        <Link to={`/blog/${blog.blog_title.replace(/\s+/g, '-').toLowerCase()}-${blog._id}`} className="w-100 h-100 rounded-16 overflow-hidden">
             <img
                 src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${blog.blog_image}` || "https://via.placeholder.com/300"}
                 alt={blog.imageAltText || "Blog Image"}
@@ -112,14 +113,12 @@ const BlogItem = ({ blog }) => (
                 {blog.blog_category?.Blog_category_name || "Uncategorized"}
             </span>
             <h6 className="text-2xl mb-24">
-                <Link to={`/blog/${slugify(blog.blog_title, { lower: true })}-${blog._id}`}>
+                <Link to={`/blog/${blog.blog_title.replace(/\s+/g, '-').toLowerCase()}-${blog._id}`}>
                     {blog.blog_title}
                 </Link>
             </h6>
             <p className="text-gray-700 text-line-2">
-
                 <div dangerouslySetInnerHTML={{ __html: blog.blog_content.substring(0, 100) || "No content available" }} />
-
             </p>
             <div className="flex-align flex-wrap gap-24 pt-24 mt-24 border-top border-gray-100">
                 <div className="flex-align flex-wrap gap-8">
@@ -127,7 +126,7 @@ const BlogItem = ({ blog }) => (
                         <i className="ph ph-calendar-dots" />
                     </span>
                     <span className="text-sm text-gray-500">
-                        <Link to={`/blog/${slugify(blog.blog_title, { lower: true })}-${blog._id}`} className="text-gray-500 hover-text-main-600">
+                        <Link to={`/blog/${blog.blog_title.replace(/\s+/g, '-').toLowerCase()}-${blog._id}`} className="text-gray-500 hover-text-main-600">
                             {new Date(blog.createdAt).toDateString()}
                         </Link>
                     </span>
@@ -137,7 +136,7 @@ const BlogItem = ({ blog }) => (
                         <i className="ph ph-eye" />
                     </span>
                     <span className="text-sm text-gray-500">
-                        <Link to={`/blog/${slugify(blog.blog_title, { lower: true })}-${blog._id}`} className="text-gray-500 hover-text-main-600">
+                        <Link to={`/blog/${blog.blog_title.replace(/\s+/g, '-').toLowerCase()}-${blog._id}`} className="text-gray-500 hover-text-main-600">
                             {blog.blog_views || 0} Views
                         </Link>
                     </span>
@@ -146,5 +145,7 @@ const BlogItem = ({ blog }) => (
         </div>
     </div>
 );
+
+
 
 export default Blog;

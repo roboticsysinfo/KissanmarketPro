@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchShops } from '../redux/slices/shopSlice'; // Make sure to import the correct path
 import { Link } from 'react-router-dom';
 import slugify from 'slugify';
+import OptimizedImage from './OptimizedImage';
 
 const TopVendorsOne = () => {
   const dispatch = useDispatch();
@@ -35,9 +36,14 @@ const TopVendorsOne = () => {
               <div key={shop._id} className="col-xxl-3 col-lg-4 col-sm-6">
                 <div className="vendor-card text-center px-16 pb-24">
                   <div>
-                    <img
-                      src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${shop.shop_profile_image || 'default-image-path.png'}`}
+
+                    <OptimizedImage
+                      imageUrl={shop.shop_profile_image}
                       alt={shop.shop_name}
+                      width={80}
+                      height={80}
+                      quality={80}
+                      format="webp" // Can be 'auto', 'webp', or 'avif'
                       className="vendor-card__logo m-12"
                     />
                     <h6 className="title mt-32">{shop.shop_name}</h6>

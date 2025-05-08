@@ -7,6 +7,7 @@ import Select from "react-select";
 import axiosInstance from '../utils/axiosInstance';
 import slugify from 'slugify';
 import { FaShieldAlt } from "react-icons/fa";
+import OptimizedImage from './OptimizedImage';
 
 
 const VendorSection = () => {
@@ -190,20 +191,36 @@ const VendorSection = () => {
                                             <div className="vendors-two-item rounded-12  overflow-hidden bg-color-three border border-neutral-50 hover-border-main-two-600 transition-2">
 
                                                 <div className="vendors-two-item__top bg-overlay style-two position-relative">
-                                                    
+
                                                     <div className="vendors-two-item__thumbs h-210">
-                                                        <img
-                                                            src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${shop.shop_cover_image}`} // Adjust to your image URL
+
+                                                        <OptimizedImage
+                                                            imageUrl={shop.shop_cover_image}
                                                             alt={shop.shop_name}
+                                                            width={310}
+                                                            height={200}
+                                                            quality={80}
+                                                            format="webp" // Can be 'auto', 'webp', or 'avif'
                                                             className="cover-img"
                                                         />
+
                                                     </div>
 
                                                     <div className="position-absolute top-0 inset-inline-start-0 w-100 h-100 p-24 z-1 d-flex flex-column justify-content-between">
 
                                                         <div className="d-flex align-items-center justify-content-between">
-                                                            <span className="w-80 h-80 flex-center bg-white rounded-circle flex-shrink-0">
-                                                                <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${shop.shop_profile_image}`} alt="Icon" />
+                                                            <span className="w-80 h-80 flex-center bg-white rounded-circle flex-shrink-0" style={{ overflow: "hidden" }}>
+
+                                                                <OptimizedImage
+                                                                    imageUrl={shop.shop_profile_image}
+                                                                    alt={shop.shop_name}
+                                                                    width={80}
+                                                                    height={80}
+                                                                    quality={80}
+                                                                    format="webp" // Can be 'auto', 'webp', or 'avif'
+                                                                />
+
+                                                                {/* <img src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${shop.shop_profile_image}`} alt="Icon" /> */}
                                                             </span>
                                                         </div>
 

@@ -6,6 +6,7 @@ import { fetchCategories } from '../redux/slices/categorySlice';
 import { Link, useParams } from 'react-router-dom';
 import { fetchProductsByShopId, fetchShopByShopId } from "../redux/slices/shopSlice";
 import slugify from 'slugify';
+import OptimizedImage from './OptimizedImage';
 
 const ShopDetailsScreen = () => {
 
@@ -69,10 +70,17 @@ const ShopDetailsScreen = () => {
                                 <div className="bg-neutral-600 rounded-8 p-24">
                                     <div className="d-flex align-items-center justify-content-between">
                                         <span className="w-80 h-80 flex-center bg-white rounded-8 flex-shrink-0">
-                                            <img
-                                                alt="{shop?.shop_name}"
-                                                src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${shop?.shop_profile_image || "default-image.jpg"}`}
+
+                                            <OptimizedImage
+                                                imageUrl={shop?.shop_profile_image}
+                                                alt={shop?.shop_name}
+                                                width={100}
+                                                height={100}
+                                                quality={80}
+                                                format="webp" // Can be 'auto', 'webp', or 'avif'
+                                                className="w-auto max-w-unset"
                                             />
+
                                         </span>
                                         {/* <div className="d-flex flex-column gap-24">
                                             <a
@@ -160,7 +168,7 @@ const ShopDetailsScreen = () => {
                             <div
                                 className="inner-banner-two bg-img mb-30 rounded-16 overflow-hidden"
                                 style={{
-                                    backgroundImage: `url(${process.env.REACT_APP_BASE_URL_PRIMARY}${shop?.shop_cover_image?.replace(/\\/g, "/") || "assets/images/thumbs/inner-banner-two-bg.png"})`,
+                                    backgroundImage: `url(${shop?.shop_cover_image ? `${shop?.shop_cover_image}?tr=w-300,h-300,q-80,f-webp` : "assets/images/thumbs/inner-banner-two-bg.png"})`,
                                     backgroundSize: "cover",
                                     backgroundPosition: "center",
                                 }}
@@ -200,9 +208,16 @@ const ShopDetailsScreen = () => {
                                                 >
                                                     <div className="product-card__thumb rounded-8 bg-gray-50 position-relative">
                                                         <Link className="w-100 h-100 flex-center" to={`/product/${slugify(product.name, { lower: true })}-${product._id}`}>
-                                                            <img alt={product.name} className="w-auto max-w-unset"
-                                                                src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${product.product_image}`}
+                                                            <OptimizedImage
+                                                                imageUrl={product.product_image}
+                                                                alt={product.name}
+                                                                width={310}
+                                                                height={200}
+                                                                quality={80}
+                                                                format="webp" // Can be 'auto', 'webp', or 'avif'
+                                                                className="w-auto max-w-unset"
                                                             />
+
                                                         </Link>
 
                                                         <div className="position-absolute inset-block-start-0 inset-inline-start-0 mt-16 ms-16 z-1 d-flex flex-column gap-8">
@@ -250,7 +265,7 @@ const ShopDetailsScreen = () => {
                                     ) : (
 
                                         <p>No products available.</p>
-                                        
+
                                     )}
 
                                 </div>
