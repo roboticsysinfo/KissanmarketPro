@@ -107,7 +107,7 @@ const BlogItem = ({ blog }) => (
         <Link to={`/blog/${blog.blog_title.replace(/\s+/g, '-').toLowerCase()}-${blog._id}`} className="w-100 h-100 rounded-16 overflow-hidden">
 
             <OptimizedImage
-                imageUrl={blog.blog_image ||  "https://via.placeholder.com/600x400"}
+                imageUrl={blog.blog_image || "https://via.placeholder.com/600x400"}
                 alt={blog.blog_title}
                 width={1200}
                 height={620}
@@ -130,9 +130,9 @@ const BlogItem = ({ blog }) => (
             </h6>
 
             <p className="text-gray-700 text-line-2">
-                <div dangerouslySetInnerHTML={{ __html: blog.blog_content.substring(0, 100) || "No content available" }} />
+                <div dangerouslySetInnerHTML={{ __html: blog.blog_content.substring(0, 500) || "No content available" }} />
             </p>
-            
+
             <div className="flex-align flex-wrap gap-24 pt-24 mt-24 border-top border-gray-100">
                 <div className="flex-align flex-wrap gap-8">
                     <span className="text-lg text-main-600">
@@ -151,6 +151,11 @@ const BlogItem = ({ blog }) => (
                     <span className="text-sm text-gray-500">
                         <Link to={`/blog/${blog.blog_title.replace(/\s+/g, '-').toLowerCase()}-${blog._id}`} className="text-gray-500 hover-text-main-600">
                             {blog.blog_views || 0} Views
+                        </Link>
+                    </span>
+                    <span className="text-sm text-gray-500">
+                        <Link to={`/blog/${blog.blog_title.replace(/\s+/g, '-').toLowerCase()}-${blog._id}`} className="text-gray-500 hover-text-main-600">
+                           | Read More
                         </Link>
                     </span>
                 </div>

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchBlogCategories } from '../redux/slices/blogCategorySlice';
 import axiosInstance from '../utils/axiosInstance';
 import { Helmet } from 'react-helmet-async';
+import OptimizedImage from './OptimizedImage';
 
 const BlogDetails = () => {
 
@@ -15,7 +16,7 @@ const BlogDetails = () => {
     const { blogcategories, } = useSelector((state) => state.blogCategory);
     const { blogs, } = useSelector((state) => state.blogs);
 
-    const slugParts = slug.split('-'); 
+    const slugParts = slug.split('-');
     const blogId = slugParts[slugParts.length - 1]; // last part productId 
 
 
@@ -77,11 +78,18 @@ const BlogDetails = () => {
                         <div className="col-lg-8 pe-xl-4">
                             <div className="blog-item-wrapper">
                                 <div className="blog-item">
-                                    <img
-                                        src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${blogDetails.blog_image}`}
+
+                                    <OptimizedImage
+                                        imageUrl={blogDetails.blog_image || "https://via.placeholder.com/600x400"}
                                         alt={blogDetails.imageAltText || "Blog Image"}
+                                        width={1200}
+                                        height={620}
+                                        quality={80}
+                                        format="webp" // Can be 'auto', 'webp', or 'avif'
                                         className="cover-img rounded-16"
                                     />
+
+
                                     <div className="blog-item__content mt-24">
                                         <span className="bg-main-50 text-main-600 py-4 px-24 rounded-8 mb-16">
                                             {blogDetails.blog_category?.Blog_category_name}
@@ -95,7 +103,7 @@ const BlogDetails = () => {
                                                 </span>
                                                 <span className="text-sm text-gray-500">
                                                     <Link
-                                                        
+
                                                         className="text-gray-500 hover-text-main-600"
                                                     >
                                                         {new Date(blogDetails.createdAt).toDateString()}
