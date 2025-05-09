@@ -29,7 +29,7 @@ const BlogsList = ({ onEdit }) => {
             selector: (row) => row.blog_image,
             cell: (row) => (
                 <img
-                    src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${row.blog_image}` || "https://via.placeholder.com/50"}
+                    src={ row.blog_image || "https://via.placeholder.com/50"}
                     alt={row.imageAltText || "Blog Image"}
                     className="w-100 h-100 rounded-md object-cover"
                 />
@@ -57,6 +57,7 @@ const BlogsList = ({ onEdit }) => {
         {
             name: "Actions",
             cell: (row) => (
+
                 <div className="flex gap-2">
                     <Button as={Link} to={`/admin/edit-blog/${row._id}`} variant="warning">
                         Edit

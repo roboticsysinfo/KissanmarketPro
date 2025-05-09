@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { fetchBlogs } from '../redux/slices/blogSlice';
 import axiosInstance from '../utils/axiosInstance';
 import slugify from 'slugify';
+import OptimizedImage from './OptimizedImage';
 
 const Blog = () => {
     const dispatch = useDispatch();
@@ -100,15 +101,24 @@ const Blog = () => {
 // Blog Item Component
 
 const BlogItem = ({ blog }) => (
+
     <div className="blog-item">
+
         <Link to={`/blog/${blog.blog_title.replace(/\s+/g, '-').toLowerCase()}-${blog._id}`} className="w-100 h-100 rounded-16 overflow-hidden">
-            <img
-                src={`${process.env.REACT_APP_BASE_URL_PRIMARY}${blog.blog_image}` || "https://via.placeholder.com/300"}
-                alt={blog.imageAltText || "Blog Image"}
-                className="cover-img"
+
+            <OptimizedImage
+                imageUrl={blog.blog_image ||  "https://via.placeholder.com/600x400"}
+                alt={blog.blog_title}
+                width={1200}
+                height={620}
+                quality={80}
+                format="webp" // Can be 'auto', 'webp', or 'avif'
             />
+
         </Link>
+
         <div className="blog-item__content mt-24">
+            
             <span className="bg-main-50 text-main-600 py-4 px-24 rounded-8 mb-16">
                 {blog.blog_category?.Blog_category_name || "Uncategorized"}
             </span>
