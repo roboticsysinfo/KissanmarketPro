@@ -37,11 +37,11 @@ const BannerForm = () => {
                 file,
                 800, // max width
                 400, // max height
-                "JPEG",
+                "PNG",
                 80, // quality
                 0, // rotation
                 (uri) => {
-                    const resizedFile = new File([uri], file.name, { type: "image/jpeg" });
+                    const resizedFile = new File([uri], file.name, { type: "image/PNG" });
                     setBannerImage(resizedFile);
                 },
                 "blob"
