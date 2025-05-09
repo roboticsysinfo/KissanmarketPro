@@ -75,6 +75,7 @@ import UpgradePlans from "./pages/farmer/UpgradePlans";
 import FarmerPlansHistory from "./pages/admin/FarmerPlansHistory";
 import NotificationPage from "./pages/NotificationPage"
 import FarmerNotifications from "./pages/farmer/FarmerNotifications";
+import EditBlog from "./pages/admin/EditBlog";
 
 
 function App() {
@@ -160,6 +161,8 @@ function App() {
           <Route path="blog-categories" element={<BlogCategory />} />
 
           <Route path="add-blog" element={<AddBlog />} />
+
+          <Route path="edit-blog/:id" element={<EditBlog />} />
 
           <Route path="blogs-list" element={<BlogsList />} />
 

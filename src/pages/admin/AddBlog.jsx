@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Resizer from "react-image-file-resizer"; // ✅ Import Resizer
 import "react-quill/dist/quill.snow.css";
 
+
 const ReactQuill = React.lazy(() => import("react-quill"));
 
 const AddBlog = ({ initialData = {} }) => {

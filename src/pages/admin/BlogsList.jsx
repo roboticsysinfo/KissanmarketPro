@@ -3,10 +3,11 @@ import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBlogs, deleteBlog } from "../../redux/slices/blogSlice";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const BlogsList = ({ onEdit }) => {
     const dispatch = useDispatch();
-    const { blogs, totalPages, currentPage, blogloading , loading, error } = useSelector((state) => state.blogs);
+    const { blogs, totalPages, currentPage, blogloading, loading, error } = useSelector((state) => state.blogs);
     const [page, setPage] = useState(1);
 
 
@@ -57,7 +58,7 @@ const BlogsList = ({ onEdit }) => {
             name: "Actions",
             cell: (row) => (
                 <div className="flex gap-2">
-                    <Button className="btn btn-success" size="sm" variant="outline" onClick={() => onEdit(row)}>
+                    <Button as={Link} to={`/admin/edit-blog/${row._id}`} variant="warning">
                         Edit
                     </Button>
                     <Button className="btn btn-danger" size="sm" variant="destructive" onClick={() => handleDelete(row._id)}>
