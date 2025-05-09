@@ -50,7 +50,7 @@ const AddBlog = ({ initialData = {} }) => {
         file,
         1200, // max width
         620, // max height
-        "JPEG",
+        "jpeg",
         80, // quality
         0,
         (resizedImage) => {
