@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBanners, addBanner, updateBanner, deleteBanner } from "../../redux/slices/bannersSlice";
 import { fetchCategories } from "../../redux/slices/categorySlice";
+import { Modal, Button } from "react-bootstrap";
 
 const BannerForm = () => {
     const dispatch = useDispatch();
@@ -11,57 +12,64 @@ const BannerForm = () => {
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("");
     const [banner_image, setBannerImage] = useState(null);
-    const [editBannerId, setEditBannerId] = useState(null); // Track if editing a banner
+    const [editBannerId, setEditBannerId] = useState(null);
+
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         dispatch(fetchBanners());
         dispatch(fetchCategories());
     }, [dispatch]);
 
-
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (!file) {
-            console.error("❌ No file selected!");
-            return;
-        }
-        setBannerImage(file); // Ensure image is being set
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("category", category);
-
-        // ✅ Only append banner_image if new file is selected
-        if (banner_image) {
-            formData.append("banner_image", banner_image);
-        }
-
-        if (editBannerId) {
-            await dispatch(updateBanner({ bannerId: editBannerId, bannerData: formData }));
-        } else {
-            if (!banner_image) {
-                alert("⚠ Banner image is required!");
-                return;
-            }
-            await dispatch(addBanner(formData));
-        }
-
+    const resetForm = () => {
         setTitle("");
         setCategory("");
         setBannerImage(null);
         setEditBannerId(null);
     };
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        setBannerImage(file);
+    };
 
+    const handleAddSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("category", category);
+
+        if (!banner_image) {
+            alert("⚠ Banner image is required!");
+            return;
+        }
+        formData.append("banner_image", banner_image);
+
+        await dispatch(addBanner(formData));
+        resetForm();
+    };
 
     const handleEdit = (banner) => {
         setTitle(banner.title);
         setCategory(banner.category);
         setEditBannerId(banner._id);
+        setShowModal(true);
+    };
+
+    const handleEditSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("category", category);
+
+        if (banner_image) {
+            formData.append("banner_image", banner_image);
+        }
+
+        await dispatch(updateBanner({ bannerId: editBannerId, bannerData: formData }));
+        setShowModal(false);
+        resetForm();
     };
 
     const handleDelete = (bannerId) => {
@@ -72,65 +80,34 @@ const BannerForm = () => {
 
     return (
         <div className="p-40 border border-rounded">
-            <h2 className="text-xl">{editBannerId ? "Edit Banner" : "Upload Banner"}</h2>
+            <h2 className="text-xl">Upload Banner</h2>
             <hr />
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <form onSubmit={handleAddSubmit} encType="multipart/form-data">
                 <div className="form-group mb-30">
                     <label>Title:</label>
-                    <input
-                        className="form-control"
-                        type="text"
-                        value={title}
-                        name="title"
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
+                    <input className="form-control" type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
                 </div>
-
                 <div className="form-group mb-30">
                     <label>Category:</label>
-                    <select
-                        className="form-control"
-                        value={category}
-                        name="category"
-                        onChange={(e) => setCategory(e.target.value)}
-                        required
-                    >
+                    <select className="form-control" value={category} onChange={(e) => setCategory(e.target.value)} required>
                         <option value="">Select Category</option>
                         {categories.map((cat) => (
-                            <option key={cat._id} value={cat._id}>
-                                {cat.name}
-                            </option>
+                            <option key={cat._id} value={cat._id}>{cat.name}</option>
                         ))}
                     </select>
                 </div>
-
                 <div className="form-group mb-30">
                     <label>Banner Image:</label>
-                    <input
-                        className="form-control"
-                        type="file"
-                        name="banner_image"
-                        onChange={handleFileChange}
-                        key={editBannerId} // ✅ This will force reset input on form reset
-                        required={!editBannerId}
-                    />
-
+                    <input className="form-control" type="file" onChange={handleFileChange} />
                 </div>
-
-                <button className="btn btn-primary" type="submit">
-                    {editBannerId ? "Update Banner" : "Add Banner"}
-                </button>
+                <button className="btn btn-primary" type="submit">Add Banner</button>
             </form>
 
             <hr />
-
             <h3 className="mt-40">Existing Banners</h3>
-
             <hr />
-
-            <div class="table-responsive">
-                <table className="table table-borderd table-striped">
+            <div className="table-responsive">
+                <table className="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Banner Title</th>
@@ -140,7 +117,7 @@ const BannerForm = () => {
                     </thead>
                     <tbody>
                         {status === "loading" ? (
-                            <p>Loading...</p>
+                            <tr><td colSpan="3">Loading...</td></tr>
                         ) : (
                             banners.map((banner) => (
                                 <tr key={banner._id}>
@@ -149,8 +126,8 @@ const BannerForm = () => {
                                         <img src={`${process.env.REACT_APP_BASE_URL_SECONDARY}${banner.banner_image}`} alt={banner.title} width="100" />
                                     </td>
                                     <td>
-                                        <button onClick={() => handleEdit(banner)}>Edit</button>
-                                        <button onClick={() => handleDelete(banner._id)}>Delete</button>
+                                        <button className="btn btn-sm btn-warning me-2" onClick={() => handleEdit(banner)}>Edit</button>
+                                        <button className="btn btn-sm btn-danger" onClick={() => handleDelete(banner._id)}>Delete</button>
                                     </td>
                                 </tr>
                             ))
@@ -159,6 +136,37 @@ const BannerForm = () => {
                 </table>
             </div>
 
+            {/* 🟦 Edit Banner Modal */}
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Banner</Modal.Title>
+                </Modal.Header>
+                <form onSubmit={handleEditSubmit} encType="multipart/form-data">
+                    <Modal.Body>
+                        <div className="form-group mb-3">
+                            <label>Title:</label>
+                            <input className="form-control" type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+                        </div>
+                        <div className="form-group mb-3">
+                            <label>Category:</label>
+                            <select className="form-control" value={category} onChange={(e) => setCategory(e.target.value)} required>
+                                <option value="">Select Category</option>
+                                {categories.map((cat) => (
+                                    <option key={cat._id} value={cat._id}>{cat.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-group mb-3">
+                            <label>Banner Image:</label>
+                            <input className="form-control" type="file" onChange={handleFileChange} />
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => setShowModal(false)}>Cancel</Button>
+                        <Button variant="primary" type="submit">Update Banner</Button>
+                    </Modal.Footer>
+                </form>
+            </Modal>
         </div>
     );
 };
