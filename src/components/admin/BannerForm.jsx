@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBanners, addBanner, updateBanner, deleteBanner } from "../../redux/slices/bannersSlice";
 import { fetchCategories } from "../../redux/slices/categorySlice";
 import { Modal, Button } from "react-bootstrap";
+import Resizer from "react-image-file-resizer";
 
 const BannerForm = () => {
     const dispatch = useDispatch();
@@ -13,7 +14,6 @@ const BannerForm = () => {
     const [category, setCategory] = useState("");
     const [banner_image, setBannerImage] = useState(null);
     const [editBannerId, setEditBannerId] = useState(null);
-
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
@@ -31,7 +31,24 @@ const BannerForm = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (!file) return;
-        setBannerImage(file);
+
+        try {
+            Resizer.imageFileResizer(
+                file,
+                800, // max width
+                400, // max height
+                "JPEG",
+                80, // quality
+                0, // rotation
+                (uri) => {
+                    const resizedFile = new File([uri], file.name, { type: "image/jpeg" });
+                    setBannerImage(resizedFile);
+                },
+                "blob"
+            );
+        } catch (err) {
+            console.error("Image resizing failed:", err);
+        }
     };
 
     const handleAddSubmit = async (e) => {
@@ -136,7 +153,7 @@ const BannerForm = () => {
                 </table>
             </div>
 
-            {/* 🟦 Edit Banner Modal */}
+            {/* Edit Banner Modal */}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Banner</Modal.Title>
