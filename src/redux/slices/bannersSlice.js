@@ -19,6 +19,7 @@ export const addBanner = createAsyncThunk("banners/addBanner", async (formData) 
 
 
 export const updateBanner = createAsyncThunk("banners/updateBanner", async ({ bannerId, formData }) => {
+    
     const response = await axiosInstance.put(`/site-details/update-banner/${bannerId}`, formData, {
         headers: {
             "Content-Type": "multipart/form-data",

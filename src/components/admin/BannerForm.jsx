@@ -18,6 +18,7 @@ const BannerForm = () => {
         dispatch(fetchCategories());
     }, [dispatch]);
 
+
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (!file) {
@@ -27,24 +28,25 @@ const BannerForm = () => {
         setBannerImage(file); // Ensure image is being set
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        if (!title || !category || !banner_image) {
-            alert("⚠ All fields are required!");
-            return;
-        }
 
         const formData = new FormData();
         formData.append("title", title);
         formData.append("category", category);
-        formData.append("banner_image", banner_image); // ✅ Changed field name
 
+        // ✅ Only append banner_image if new file is selected
+        if (banner_image) {
+            formData.append("banner_image", banner_image);
+        }
 
         if (editBannerId) {
             await dispatch(updateBanner({ bannerId: editBannerId, bannerData: formData }));
         } else {
+            if (!banner_image) {
+                alert("⚠ Banner image is required!");
+                return;
+            }
             await dispatch(addBanner(formData));
         }
 
@@ -53,6 +55,8 @@ const BannerForm = () => {
         setBannerImage(null);
         setEditBannerId(null);
     };
+
+
 
     const handleEdit = (banner) => {
         setTitle(banner.title);
@@ -103,7 +107,15 @@ const BannerForm = () => {
 
                 <div className="form-group mb-30">
                     <label>Banner Image:</label>
-                    <input className="form-control" type="file" name="banner_image" onChange={handleFileChange} required={!editBannerId} />
+                    <input
+                        className="form-control"
+                        type="file"
+                        name="banner_image"
+                        onChange={handleFileChange}
+                        key={editBannerId} // ✅ This will force reset input on form reset
+                        required={!editBannerId}
+                    />
+
                 </div>
 
                 <button className="btn btn-primary" type="submit">
