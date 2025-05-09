@@ -4,6 +4,7 @@ import { fetchCategories } from '../redux/slices/categorySlice'; // Import the f
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 import slugify from 'slugify';
+import OptimizedImage from './OptimizedImage';
 
 const FeatureOne = () => {
     const dispatch = useDispatch();
@@ -98,23 +99,33 @@ const FeatureOne = () => {
                         <Slider {...settings}>
 
                             {categories.map((category) => {
+
                                 const slug = slugify(category.name, { lower: true }); // lowercase aur hyphenated
                                 const categoryUrl = `/category/${slug}-${category._id}`;
 
                                 return (
+
                                     <div key={category._id} className="feature-item text-center">
+
                                         <div className="feature-item__thumb rounded-circle">
                                             <Link to={categoryUrl} className="w-100 h-100 flex-center">
-                                                <img
-                                                    src={category.category_image
-                                                        ? `${process.env.REACT_APP_BASE_URL_SECONDARY}${category.category_image}`
+
+                                                <OptimizedImage
+
+                                                    imageUrl={category.category_image
+                                                        ? category.category_image
                                                         : 'https://placehold.co/100x100'}
                                                     alt={category.name}
                                                     width={80}
                                                     height={80}
+                                                    quality={80}
+                                                    format="webp" // Can be 'auto', 'webp', or 'avif'
+
                                                 />
+
                                             </Link>
                                         </div>
+
                                         <div className="feature-item__content mt-16">
                                             <h6 className="text-lg mb-8">
                                                 <Link to={categoryUrl} className="text-inherit">
@@ -123,7 +134,9 @@ const FeatureOne = () => {
                                             </h6>
                                             <span className="text-sm text-gray-400">{category.productCount || 0} Products</span>
                                         </div>
+
                                     </div>
+
                                 );
                             })}
 

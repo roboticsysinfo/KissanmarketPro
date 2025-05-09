@@ -118,18 +118,21 @@ const BlogItem = ({ blog }) => (
         </Link>
 
         <div className="blog-item__content mt-24">
-            
+
             <span className="bg-main-50 text-main-600 py-4 px-24 rounded-8 mb-16">
                 {blog.blog_category?.Blog_category_name || "Uncategorized"}
             </span>
+
             <h6 className="text-2xl mb-24">
                 <Link to={`/blog/${blog.blog_title.replace(/\s+/g, '-').toLowerCase()}-${blog._id}`}>
                     {blog.blog_title}
                 </Link>
             </h6>
+
             <p className="text-gray-700 text-line-2">
                 <div dangerouslySetInnerHTML={{ __html: blog.blog_content.substring(0, 100) || "No content available" }} />
             </p>
+            
             <div className="flex-align flex-wrap gap-24 pt-24 mt-24 border-top border-gray-100">
                 <div className="flex-align flex-wrap gap-8">
                     <span className="text-lg text-main-600">
