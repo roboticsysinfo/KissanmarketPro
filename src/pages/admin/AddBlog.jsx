@@ -4,17 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { createBlog } from "../../redux/slices/blogSlice";
 import { fetchBlogCategories } from "../../redux/slices/blogCategorySlice";
 import { useNavigate } from "react-router-dom";
-import "react-quill/dist/quill.snow.css"; // Importing styles separately
+import Resizer from "react-image-file-resizer"; // ✅ Import Resizer
+import "react-quill/dist/quill.snow.css";
 
-// Lazy load ReactQuill
 const ReactQuill = React.lazy(() => import("react-quill"));
-
 
 const AddBlog = ({ initialData = {} }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Fetch categories from Redux store
   const { blogcategories, loading: categoryLoading } = useSelector((state) => state.blogCategory);
   const { loading, error } = useSelector((state) => state.blogs);
 
@@ -30,9 +28,10 @@ const AddBlog = ({ initialData = {} }) => {
   });
 
   const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null); // ✅ For preview
 
   useEffect(() => {
-    dispatch(fetchBlogCategories()); // Fetch blog categories on mount
+    dispatch(fetchBlogCategories());
   }, [dispatch]);
 
   const handleChange = (e) => {
@@ -40,13 +39,27 @@ const AddBlog = ({ initialData = {} }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle changes for ReactQuill editor
   const handleQuillChange = (value) => {
     setFormData({ ...formData, blog_content: value });
   };
 
   const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      Resizer.imageFileResizer(
+        file,
+        1200, // max width
+        620, // max height
+        "JPEG",
+        80, // quality
+        0,
+        (resizedImage) => {
+          setImage(resizedImage);
+          setPreview(URL.createObjectURL(resizedImage)); // ✅ Set preview
+        },
+        "blob" // output type
+      );
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -69,16 +82,16 @@ const AddBlog = ({ initialData = {} }) => {
 
     if (createBlog.fulfilled.match(resultAction)) {
       alert("Blog added successfully!");
-      navigate("/admin/blogs-list"); // Redirect to blog list page
+      navigate("/admin/blogs-list");
     }
   };
 
   const modules = {
     toolbar: [
-      [{ header: [1, 2, 3,  4, 5, 6, false] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
       ['bold', 'italic', 'underline', 'strike'],
       [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ script: 'sub'}, { script: 'super' }],
+      [{ script: 'sub' }, { script: 'super' }],
       [{ indent: '-1' }, { indent: '+1' }],
       [{ direction: 'rtl' }],
       [{ size: ['small', false, 'large', 'huge'] }],
@@ -97,7 +110,6 @@ const AddBlog = ({ initialData = {} }) => {
         <Form.Control type="text" name="blog_title" value={formData.blog_title} onChange={handleChange} required />
       </Form.Group>
 
-      {/* Blog Category Dropdown */}
       <Form.Group controlId="blog_category" className="mt-20">
         <Form.Label>Category</Form.Label>
         <Form.Control as="select" name="blog_category" value={formData.blog_category} onChange={handleChange} required>
@@ -114,7 +126,8 @@ const AddBlog = ({ initialData = {} }) => {
 
       <Form.Group controlId="blog_image" className="mt-20">
         <Form.Label>Blog Image</Form.Label>
-        <Form.Control type="file" onChange={handleImageChange} />
+        <Form.Control type="file" onChange={handleImageChange} accept="image/*" />
+        {preview && <img src={preview} alt="Preview" height="150" className="mt-2" />}
       </Form.Group>
 
       <Form.Group controlId="imageAltText" className="mt-20">
@@ -137,13 +150,12 @@ const AddBlog = ({ initialData = {} }) => {
         <Form.Control type="text" name="metaKeywords" value={formData.metaKeywords} onChange={handleChange} />
       </Form.Group>
 
-      {/* Lazy-loaded ReactQuill */}
       <Form.Group controlId="blogContent" className="mt-20">
         <Form.Label>Content</Form.Label>
         <Suspense fallback={<div>Loading editor...</div>}>
           <ReactQuill
             value={formData.blog_content}
-            onChange={handleQuillChange}  // Store HTML content
+            onChange={handleQuillChange}
             theme="snow"
             style={{ height: "500px" }}
             modules={modules}

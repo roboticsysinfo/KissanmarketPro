@@ -8,7 +8,6 @@ const OptimizedImage = ({ imageUrl, alt, width = 200, height = 200, quality = 80
     <img
       src={imageUrl ? optimizedUrl : 'https://placehold.co/100x100'}
       alt={alt}
-      className="w-auto max-w-unset"
     />
   );
 };

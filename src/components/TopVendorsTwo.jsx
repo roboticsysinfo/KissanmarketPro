@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 
 const TopVendorsTwo = () => {
+    
     function SampleNextArrow(props) {
         const { className, onClick } = props;
         return (
@@ -14,6 +15,8 @@ const TopVendorsTwo = () => {
             </button>
         );
     }
+
+
     function SamplePrevArrow(props) {
         const { className, onClick } = props;
 
