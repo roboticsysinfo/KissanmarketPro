@@ -57,7 +57,7 @@ const AddBlog = ({ initialData = {} }) => {
           setImage(resizedImage);
           setPreview(URL.createObjectURL(resizedImage)); // ✅ Set preview
         },
-        "blob" // output type
+        "file" // output type
       );
     }
   };
