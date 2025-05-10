@@ -20,6 +20,7 @@ const CustomerProductsList = () => {
   const [formData, setFormData] = useState({
     name: '',
     requiredPoints: '',
+    price_value: '',           // ✅ added
     rc_product_img: null,
   });
 
@@ -39,7 +40,8 @@ const CustomerProductsList = () => {
     setFormData({
       name: product.name,
       requiredPoints: product.requiredPoints,
-      rc_product_img: null, // reset image
+      price_value: product.price_value || "", // ✅ pre-fill price
+      rc_product_img: null,
     });
     setIsModalOpen(true);
   };
@@ -63,6 +65,7 @@ const CustomerProductsList = () => {
     const updateData = new FormData();
     updateData.append('name', formData.name);
     updateData.append('requiredPoints', formData.requiredPoints);
+    updateData.append('price_value', formData.price_value); // ✅ added
     if (formData.rc_product_img) {
       updateData.append('rc_product_img', formData.rc_product_img);
     }
@@ -78,7 +81,7 @@ const CustomerProductsList = () => {
       selector: (row) =>
         row.rc_product_img ? (
           <img
-            src={`${process.env.REACT_APP_BASE_URL_PRIMARY}/${row.rc_product_img}`}
+            src={row.rc_product_img}
             alt={row.name}
             width="50"
           />
@@ -94,6 +97,11 @@ const CustomerProductsList = () => {
     {
       name: 'Required Points',
       selector: (row) => row.requiredPoints,
+      sortable: true,
+    },
+    {
+      name: 'Price Value (₹)', // ✅ new column
+      selector: (row) => row.price_value ? `₹${row.price_value}` : '—',
       sortable: true,
     },
     {
@@ -133,6 +141,7 @@ const CustomerProductsList = () => {
               required
             />
           </div>
+
           <div>
             <label>Required Points:</label>
             <input
@@ -143,6 +152,18 @@ const CustomerProductsList = () => {
               required
             />
           </div>
+
+          <div>
+            <label>Price Value (INR):</label>
+            <input
+              type="number"
+              name="price_value"
+              value={formData.price_value}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
           <div>
             <label>Product Image:</label>
             <input
@@ -152,6 +173,7 @@ const CustomerProductsList = () => {
               onChange={handleInputChange}
             />
           </div>
+
           <button type="submit">Update</button>
           <button onClick={closeModal} type="button" style={{ marginLeft: 10 }}>
             Cancel
