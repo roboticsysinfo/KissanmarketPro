@@ -210,9 +210,9 @@ function App() {
 
           <Route path="farmer-plans-history" element={<FarmerPlansHistory />} />
 
-          <Route path="farmer-invoice-details" element={<FarmerInvoicePage />} />
+          <Route path="farmer-invoice-details/:orderId" element={<FarmerInvoicePage />} />
 
-          <Route path="customer-invoice" element={<CustomerInvoicePage />} />
+          <Route path="customer-invoice/:orderId" element={<CustomerInvoicePage />} />
 
         </Route>
 
