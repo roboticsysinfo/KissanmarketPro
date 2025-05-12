@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'react-bootstrap/Spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchCustomerRedeemProductHistory } from '../../redux/slices/customerRedeemProductSlice';
+import axios from 'axios';
 
 const CustomerRedeemHistory = () => {
     const dispatch = useDispatch();
@@ -27,6 +28,34 @@ const CustomerRedeemHistory = () => {
         );
         setFilteredData(filtered);
     }, [search, c_redemptionHistory]);
+
+    // Generate Bill Api
+
+    const downloadBill = async (orderId) => {
+        try {
+            const response = await axios.get(
+                `/customer/bills/${orderId}`,
+                {
+                    responseType: 'blob', // important for downloading files
+                }
+            );
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `invoice_${orderId}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } catch (err) {
+            console.error("Failed to download bill", err);
+            alert("Failed to download invoice. Try again later.");
+        }
+    };
+
+
+
 
     const columns = [
         {
@@ -55,8 +84,21 @@ const CustomerRedeemHistory = () => {
             name: 'Date',
             selector: row => new Date(row.redeemedAt).toLocaleString(),
             sortable: true,
+        },
+        {
+            name: 'Invoice',
+            cell: row => (
+                <button
+                    className="btn btn-sm btn-success"
+                    onClick={() => downloadBill(row.orderId)}
+                >
+                    Download
+                </button>
+            )
         }
     ];
+
+
 
     return (
         <div className="p-4 space-y-4">
