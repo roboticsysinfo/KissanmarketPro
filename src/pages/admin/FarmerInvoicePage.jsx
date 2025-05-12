@@ -54,7 +54,7 @@ const FarmerInvoicePage = () => {
             imgHeight > usableHeight ? usableHeight : imgHeight
         );
 
-        pdf.save(`invoice_${orderId}.pdf`);
+        pdf.save(`farmer_invoice_${orderId}.pdf`);
     };
 
 

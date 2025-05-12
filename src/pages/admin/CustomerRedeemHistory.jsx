@@ -5,6 +5,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchCustomerRedeemProductHistory } from '../../redux/slices/customerRedeemProductSlice';
 import axiosInstance from '../../utils/axiosInstance';
+import { Link } from 'react-router-dom';
 
 
 const CustomerRedeemHistory = () => {
@@ -32,29 +33,6 @@ const CustomerRedeemHistory = () => {
 
     // Generate Bill Api
 
-    const downloadBill = async (orderId) => {
-        try {
-            
-            const response = await axiosInstance.get(
-                `/redeem-product/customer/bills/${orderId}`,
-                {
-                    responseType: 'blob', // important for downloading files
-                }
-            );
-
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', `invoice_${orderId}.pdf`);
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-        } catch (err) {
-            console.error("Failed to download bill", err);
-            alert("Failed to download invoice. Try again later.");
-        }
-    };
 
     const columns = [
         {
@@ -92,12 +70,9 @@ const CustomerRedeemHistory = () => {
         {
             name: 'Invoice',
             cell: row => (
-                <button
-                    className="btn btn-sm btn-success"
-                    onClick={() => downloadBill(row.orderId)}
-                >
-                    Download
-                </button>
+                <Link to={`/admin/customer-invoice-details/${row.orderId}`}>
+                    View Invoice
+                </Link>
             )
         }
     ];

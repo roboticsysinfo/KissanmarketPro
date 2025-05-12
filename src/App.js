@@ -212,7 +212,7 @@ function App() {
 
           <Route path="farmer-invoice-details/:orderId" element={<FarmerInvoicePage />} />
 
-          <Route path="customer-invoice/:orderId" element={<CustomerInvoicePage />} />
+          <Route path="customer-invoice-details/:orderId" element={<CustomerInvoicePage />} />
 
         </Route>
 
