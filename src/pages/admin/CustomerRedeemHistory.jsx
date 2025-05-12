@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'react-bootstrap/Spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchCustomerRedeemProductHistory } from '../../redux/slices/customerRedeemProductSlice';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
+
 
 const CustomerRedeemHistory = () => {
     const dispatch = useDispatch();
@@ -33,8 +34,9 @@ const CustomerRedeemHistory = () => {
 
     const downloadBill = async (orderId) => {
         try {
-            const response = await axios.get(
-                `/customer/bills/${orderId}`,
+            
+            const response = await axiosInstance.get(
+                `/redeem-product/customer/bills/${orderId}`,
                 {
                     responseType: 'blob', // important for downloading files
                 }
@@ -54,10 +56,12 @@ const CustomerRedeemHistory = () => {
         }
     };
 
-
-
-
     const columns = [
+        {
+            name: 'Order Id',
+            selector: row => row.orderId,
+            sortable: true,
+        },
         {
             name: 'Customer Name',
             selector: row => row.customerName,
@@ -99,8 +103,8 @@ const CustomerRedeemHistory = () => {
     ];
 
 
-
     return (
+
         <div className="p-4 space-y-4">
             <h2 className="text-xl font-semibold">Redemption History</h2>
             <input

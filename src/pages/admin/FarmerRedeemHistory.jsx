@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchRedeemProductHistory } from '../../redux/slices/redeemProductSlice';
 import Spinner from 'react-bootstrap/Spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axiosInstance from '../../utils/axiosInstance';
 
 const FarmerRedeemHistory = () => {
     const dispatch = useDispatch();
@@ -26,7 +27,37 @@ const FarmerRedeemHistory = () => {
         setFilteredData(filtered);
     }, [search, redemptionHistory]);
 
+
+    const downloadBill = async (orderId) => {
+        try {
+
+            const response = await axiosInstance.get(
+                `/redeem-product/farmer/bills/${orderId}`,
+                {
+                    responseType: 'blob', // important for downloading files
+                }
+            );
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `invoice_${orderId}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } catch (err) {
+            console.error("Failed to download bill", err);
+            alert("Failed to download invoice. Try again later.");
+        }
+    };
+
     const columns = [
+        {
+            name: 'Order Id',
+            selector: row => row.orderId,
+            sortable: true,
+        },
         {
             name: 'Farmer Name',
             selector: row => row.farmerName,
@@ -53,6 +84,17 @@ const FarmerRedeemHistory = () => {
             name: 'Date',
             selector: row => new Date(row.redeemedAt).toLocaleString(),
             sortable: true,
+        },
+        {
+            name: 'Invoice',
+            cell: row => (
+                <button
+                    className="btn btn-sm btn-success"
+                    onClick={() => downloadBill(row.orderId)}
+                >
+                    Download
+                </button>
+            )
         }
     ];
 
