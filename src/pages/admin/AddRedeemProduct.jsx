@@ -10,6 +10,7 @@ const AddRedeemProduct = () => {
         name: "",
         description: "",
         requiredPoints: "",
+        price_value: "", 
         r_product_img: null,
     });
 
@@ -30,7 +31,7 @@ const AddRedeemProduct = () => {
         }
 
         dispatch(createRedeemProduct(form));
-        setFormData({ name: "", description: "", requiredPoints: "", r_product_img: null });
+        setFormData({ name: "", description: "", requiredPoints: "", price_value: "",  r_product_img: null });
         toast.success("Redeem Product Add Successfully")
     };
 
@@ -52,6 +53,18 @@ const AddRedeemProduct = () => {
 
                 <div className='form-group mb-3 mb-30'>
                     <input className='form-control' type="number" name="requiredPoints" placeholder="Required Points" onChange={handleChange} value={formData.requiredPoints} required />
+                </div>
+
+                <div className='form-group mb-3 mb-30'>
+                    <input
+                        className='form-control'
+                        type="number"
+                        name="price_value"
+                        placeholder="Price Value (INR)"
+                        onChange={handleChange}
+                        value={formData.price_value}
+                        required
+                    />
                 </div>
 
                 <div className='form-group mb-3 mb-30'>

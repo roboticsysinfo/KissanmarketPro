@@ -76,6 +76,8 @@ import FarmerPlansHistory from "./pages/admin/FarmerPlansHistory";
 import NotificationPage from "./pages/NotificationPage"
 import FarmerNotifications from "./pages/farmer/FarmerNotifications";
 import EditBlog from "./pages/admin/EditBlog";
+import FarmerInvoicePage from "./pages/admin/FarmerInvoicePage";
+import CustomerInvoicePage from "./pages/admin/CustomerInvoicePage";
 
 
 function App() {
@@ -201,12 +203,16 @@ function App() {
           <Route path="customers" element={<Customers />} />
 
           <Route path="customer-referred-list/:id" element={<CustomerReferredList />} />
-          
+
           <Route path="customer-points-table" element={<CustomerPointsTable />} />
 
           <Route path="customer-points/:customerId" element={<CustomerPointsTransactions />} />
 
           <Route path="farmer-plans-history" element={<FarmerPlansHistory />} />
+
+          <Route path="farmer-invoice-details" element={<FarmerInvoicePage />} />
+
+          <Route path="customer-invoice" element={<CustomerInvoicePage />} />
 
         </Route>
 
@@ -225,7 +231,7 @@ function App() {
           }
         >
 
-          <Route path="farmer-dashboard" element={<FarmerDashboard />} /> 
+          <Route path="farmer-dashboard" element={<FarmerDashboard />} />
           <Route path="add-product" element={<AddProduct />} />
           <Route path="products-list" element={<ProductsList />} />
           <Route path="farmer-profile" element={<FarmerProfile />} />

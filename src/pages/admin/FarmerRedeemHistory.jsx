@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchRedeemProductHistory } from '../../redux/slices/redeemProductSlice';
 import Spinner from 'react-bootstrap/Spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axiosInstance from '../../utils/axiosInstance';
+import { Link, useNavigate } from 'react-router-dom';
 
 const FarmerRedeemHistory = () => {
+
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { redemptionHistory, loading } = useSelector(state => state.redeemProducts);
 
     const [search, setSearch] = useState('');
@@ -27,30 +29,6 @@ const FarmerRedeemHistory = () => {
         setFilteredData(filtered);
     }, [search, redemptionHistory]);
 
-
-    const downloadBill = async (orderId) => {
-        try {
-
-            const response = await axiosInstance.get(
-                `/redeem-product/farmer/bills/${orderId}`,
-                {
-                    responseType: 'blob', // important for downloading files
-                }
-            );
-
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', `invoice_${orderId}.pdf`);
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-        } catch (err) {
-            console.error("Failed to download bill", err);
-            alert("Failed to download invoice. Try again later.");
-        }
-    };
 
     const columns = [
         {
@@ -85,17 +63,16 @@ const FarmerRedeemHistory = () => {
             selector: row => new Date(row.redeemedAt).toLocaleString(),
             sortable: true,
         },
+
         {
             name: 'Invoice',
             cell: row => (
-                <button
-                    className="btn btn-sm btn-success"
-                    onClick={() => downloadBill(row.orderId)}
-                >
-                    Download
-                </button>
+                <Link to={`/admin/farmer-invoice-details/${row.orderId}`}>
+                    View Invoice
+                </Link>
             )
         }
+
     ];
 
     return (

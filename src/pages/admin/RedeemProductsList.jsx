@@ -20,6 +20,7 @@ const RedeemProductsList = () => {
   const [formData, setFormData] = useState({
     name: '',
     requiredPoints: '',
+    price_value: '',
     r_product_img: null,
   });
 
@@ -39,6 +40,7 @@ const RedeemProductsList = () => {
     setFormData({
       name: product.name,
       requiredPoints: product.requiredPoints,
+      price_value: product.price_value || "", // ✅ pre-fill price
       r_product_img: null, // new image will be selected
     });
     setIsModalOpen(true);
@@ -63,6 +65,7 @@ const RedeemProductsList = () => {
     const updateData = new FormData();
     updateData.append('name', formData.name);
     updateData.append('requiredPoints', formData.requiredPoints);
+    updateData.append('price_value', formData.price_value); // ✅ added
     if (formData.r_product_img) {
       updateData.append('r_product_img', formData.r_product_img);
     }
@@ -78,7 +81,7 @@ const RedeemProductsList = () => {
       selector: (row) =>
         row.r_product_img ? (
           <img
-            src={`${process.env.REACT_APP_BASE_URL_PRIMARY}/${row.r_product_img}`}
+            src={row.r_product_img}
             alt={row.name}
             width="50"
           />
@@ -94,6 +97,11 @@ const RedeemProductsList = () => {
     {
       name: 'Required Points',
       selector: (row) => row.requiredPoints,
+      sortable: true,
+    },
+    {
+      name: 'Price Value (₹)', // ✅ new column
+      selector: (row) => row.price_value ? `₹${row.price_value}` : '—',
       sortable: true,
     },
     {
@@ -139,6 +147,16 @@ const RedeemProductsList = () => {
               type="number"
               name="requiredPoints"
               value={formData.requiredPoints}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Price Value (INR):</label>
+            <input
+              type="number"
+              name="price_value"
+              value={formData.price_value}
               onChange={handleInputChange}
               required
             />
