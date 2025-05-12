@@ -7,41 +7,41 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
-  // const recaptchaRef = useRef(); // ✅ Ref for reCAPTCHA
+  const recaptchaRef = useRef(); // ✅ Ref for reCAPTCHA
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  // const [captchaValue, setCaptchaValue] = useState(null);
+  const [captchaValue, setCaptchaValue] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // const handleCaptchaChange = (value) => {
-  //   setCaptchaValue(value);
-  // };
+  const handleCaptchaChange = (value) => {
+    setCaptchaValue(value);
+  };
 
-  // const resetCaptcha = () => {
-  //   if (recaptchaRef.current) {
-  //     recaptchaRef.current.reset(); // ✅ Reset the captcha
-  //     setCaptchaValue(null); // Clear the stored value
-  //   }
-  // };
+  const resetCaptcha = () => {
+    if (recaptchaRef.current) {
+      recaptchaRef.current.reset(); // ✅ Reset the captcha
+      setCaptchaValue(null); // Clear the stored value
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // if (!captchaValue) {
-    //   toast.error("Please Complete reCAPTCHA");
-    //   return;
-    // }
+    if (!captchaValue) {
+      toast.error("Please Complete reCAPTCHA");
+      return;
+    }
 
     try {
       const response = await api.post("/admin/login", {
         ...formData,
-        // captchaValue: captchaValue,
+        captchaValue: captchaValue,
       });
 
       localStorage.setItem('token', response.data.token);
@@ -51,7 +51,7 @@ const AdminLogin = () => {
       navigate('/admin/dashboard');
     } catch (error) {
       toast.error(error.response?.data?.message || "Admin Login failed");
-      // resetCaptcha(); // ✅ Reset captcha on failure
+      resetCaptcha(); // ✅ Reset captcha on failure
     }
   };
 
@@ -90,13 +90,13 @@ const AdminLogin = () => {
                   />
                 </div>
 
-                {/* <div className="mb-24">
+                <div className="mb-24">
                   <ReCAPTCHA
                     ref={recaptchaRef} // ✅ Set ref
                     sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
                     onChange={handleCaptchaChange}
                   />
-                </div> */}
+                </div>
 
                 <button type="submit" className="btn mt-20 btn-primary w-100">
                   Login
