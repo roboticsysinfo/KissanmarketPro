@@ -6,7 +6,7 @@ import jsPDF from 'jspdf';
 
 
 const CustomerInvoicePage = () => {
-  
+
     const { orderId } = useParams();
     const [invoiceData, setInvoiceData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -62,36 +62,13 @@ const CustomerInvoicePage = () => {
 
             <div ref={invoiceRef}>
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <h1>Robotic Sys Info</h1>
-                    <h2>Kissan Growth</h2>
+                    <h3>Robotic Sys Info</h3>
+                    <h4>Kissan Growth</h4>
+                    <p >GST: 06CDBPS7489B1ZB</p>
                     <hr style={{ marginTop: '1rem' }} />
                 </div>
 
-                <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '2rem', border: '1px solid #ccc' }}>
-                    <thead>
-                        <tr>
-                            <th style={cellStyle}>GST: 06CDBPS7489B1ZB</th>
-                        </tr>
-                        <tr style={{ backgroundColor: '#f2f2f2' }}>
-                            <th style={cellStyle}>Order ID</th>
-                            <th style={cellStyle}>Product</th>
-                            <th style={cellStyle}>Price</th>
-                            <th style={cellStyle}>GST</th>
-                            <th style={cellStyle}>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style={cellStyle}>{id}</td>
-                            <td style={cellStyle}>{product.name}</td>
-                            <td style={cellStyle}>₹{product.priceValue}</td>
-                            <td style={cellStyle}>₹{gstAmount}</td>
-                            <td style={cellStyle}>₹{totalAmount}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>Customer Details</h3>
+                <h6>Customer Details</h6>
                 <table style={{ width: '100%', borderCollapse: 'collapse', border: '1px solid #ccc' }}>
                     <tbody>
                         <tr>
@@ -112,6 +89,30 @@ const CustomerInvoicePage = () => {
                         </tr>
                     </tbody>
                 </table>
+
+                <h6 style={{ marginTop: '1.5rem' }}>Order Details</h6>
+                <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '2rem', border: '1px solid #ccc' }}>
+                    <thead>
+
+                        <tr style={{ backgroundColor: '#f2f2f2' }}>
+                            <th style={cellStyle}>Order ID</th>
+                            <th style={cellStyle}>Product</th>
+                            <th style={cellStyle}>Price</th>
+                            <th style={cellStyle}>GST</th>
+                            <th style={cellStyle}>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style={cellStyle}>{id}</td>
+                            <td style={cellStyle}>{product.name}</td>
+                            <td style={cellStyle}>₹{product.priceValue}</td>
+                            <td style={cellStyle}>₹{gstAmount}</td>
+                            <td style={cellStyle}>₹{totalAmount}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
         </div>
     );

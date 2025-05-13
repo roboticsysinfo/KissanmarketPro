@@ -77,14 +77,27 @@ const FarmerInvoicePage = () => {
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                     <h3>Robotic Sys Info</h3>
                     <h4>Kissan Growth</h4>
+                    <p>GST: 06CDBPS7489B1ZB</p>
                     <hr style={{ marginTop: '1rem' }} />
                 </div>
 
+                <h6 style={{ marginTop: '2rem' }}> Details</h6>
+                <table style={tableStyle}>
+                    <tbody>
+                        <tr><td style={cellStyle}><strong>Name:</strong></td><td style={cellStyle}>{farmer.name}</td></tr>
+                        <tr><td style={cellStyle}><strong>Phone:</strong></td><td style={cellStyle}>{farmer.phoneNumber}</td></tr>
+                        <tr><td style={cellStyle}><strong>Email:</strong></td><td style={cellStyle}>{farmer.email}</td></tr>
+                        <tr><td style={cellStyle}><strong>State:</strong></td><td style={cellStyle}>{farmer.state}</td></tr>
+                        <tr><td style={cellStyle}><strong>City/District:</strong></td><td style={cellStyle}>{farmer.city_district}</td></tr>
+                        <tr><td style={cellStyle}><strong>Address:</strong></td><td style={cellStyle}>{farmer.address}</td></tr>
+                        <tr><td style={cellStyle}><strong>Registration No #:</strong></td><td style={cellStyle}>{farmer.registrationNumber}</td></tr>
+                    </tbody>
+                </table>
+
+                <h6 style={{ marginTop: '2rem' }}>Order Details</h6>
                 <table style={tableStyle}>
                     <thead>
-                        <tr>
-                            <th style={cellStyle}>GST: 06CDBPS7489B1ZB</th>
-                        </tr>
+
                         <tr style={{ backgroundColor: '#f2f2f2' }}>
                             <th style={cellStyle}>Order ID</th>
                             <th style={cellStyle}>Date</th>
@@ -106,18 +119,6 @@ const FarmerInvoicePage = () => {
                     </tbody>
                 </table>
 
-                <h4 style={{ marginTop: '2rem' }}> Details</h4>
-                <table style={tableStyle}>
-                    <tbody>
-                        <tr><td style={cellStyle}><strong>Name:</strong></td><td style={cellStyle}>{farmer.name}</td></tr>
-                        <tr><td style={cellStyle}><strong>Phone:</strong></td><td style={cellStyle}>{farmer.phoneNumber}</td></tr>
-                        <tr><td style={cellStyle}><strong>Email:</strong></td><td style={cellStyle}>{farmer.email}</td></tr>
-                        <tr><td style={cellStyle}><strong>State:</strong></td><td style={cellStyle}>{farmer.state}</td></tr>
-                        <tr><td style={cellStyle}><strong>City/District:</strong></td><td style={cellStyle}>{farmer.city_district}</td></tr>
-                        <tr><td style={cellStyle}><strong>Address:</strong></td><td style={cellStyle}>{farmer.address}</td></tr>
-                        <tr><td style={cellStyle}><strong>Registration No #:</strong></td><td style={cellStyle}>{farmer.registrationNumber}</td></tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     );
